@@ -1,0 +1,12 @@
+<ivy-module version="2.0">
+    <info organisation="" module="model_interplay_Monitor" revision="latest">
+    </info>
+    <configurations>
+   		<conf name="default" extends="lib" />
+   		<conf name="lib" />
+	</configurations>  
+    <dependencies defaultconf="default">
+       <!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
+       <dependency org="commons-cli" name="commons-cli" rev="1.4"/>
+    </dependencies>
+</ivy-module>
