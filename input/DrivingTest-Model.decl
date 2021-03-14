@@ -7,6 +7,7 @@ lessonsDone: true, false
 grade: integer between 0 and 5
 errorType: a, b, c, d
 Init[DrivingLesson] |A.lessonsDone is false |
+Init[DrivingLesson] | |
 Chain Response[DrivingLesson, DrivingLesson] |A.lessonsDone is false | |
 Chain Response[DrivingLesson, DrivingTest] |A.lessonsDone is true | |
 Chain Response[DrivingTest, GettingLicence] |A.grade>3 | |

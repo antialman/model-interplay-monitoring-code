@@ -17,11 +17,11 @@ public class CmdArgsUtil {
 	public static CommandLine handleArgs(String[] args) {
 		//TODO Review after implementation is done
 		Options options = new Options();
-		Option declareParam = new Option("d", "declareFile", true, "Declare model path");
+		Option declareParam = new Option("d", "declareModel", true, "Declare model path");
 		declareParam.setRequired(true);
 		options.addOption(declareParam);
 		
-		Option petrinetParam = new Option("p", "petrinetFile", true, "Petrinet model path");
+		Option petrinetParam = new Option("p", "petrinetModel", true, "Petrinet model path");
 		petrinetParam.setRequired(true);
 		options.addOption(petrinetParam);
 		
