@@ -35,7 +35,7 @@ public class DeclareModelUtils {
 			} else {
 				Matcher constraintMatcher = constraintPattern.matcher(line);
 				if (constraintMatcher.find()) { //Constraints
-					declareConstraints.add(processConstraintString(line));
+					declareConstraints.add(readConstraintString(line));
 				}
 			}
 		}
@@ -44,7 +44,7 @@ public class DeclareModelUtils {
 	}
 	
 	
-	private static DeclareConstraint processConstraintString(String constraintString) {
+	private static DeclareConstraint readConstraintString(String constraintString) {
 		DeclareTemplate template = null;
 		String activationActivity = "";
 		String activationCondition = "";
@@ -129,7 +129,7 @@ public class DeclareModelUtils {
 		return attributeTypeMap;
 	}
 
-	public static PropositionData updatePropositionData(List<DeclareConstraint> declareConstraints, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
+	public static void updatePropositionData(List<DeclareConstraint> declareConstraints, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
 		for (DeclareConstraint declareConstraint : declareConstraints) {
 			
 			propositionData.addActivity(declareConstraint.getActivationActivity());
@@ -146,8 +146,6 @@ public class DeclareModelUtils {
 				processConstraintCondition(declareConstraint, declareConstraint.getTargetCondition(), attributeTypeMap, propositionData);
 			}
 		}
-		
-		return propositionData;
 	}
 
 	private static void processConstraintCondition(DeclareConstraint declareConstraint, String conditionString, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
@@ -185,6 +183,7 @@ public class DeclareModelUtils {
 	}
 
 
+	
 
 
 }

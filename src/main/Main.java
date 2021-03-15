@@ -43,9 +43,10 @@ public class Main {
 		}
 		
 		
-		propositionData = DeclareModelUtils.updatePropositionData(declareConstraints, attributeTypeMap, propositionData);
+		DeclareModelUtils.updatePropositionData(declareConstraints, attributeTypeMap, propositionData);
 		
 		
+		//Creating constraint automata
 		
 		
 
@@ -54,7 +55,7 @@ public class Main {
 		XLog xlog = LogUtils.convertToXlog(logPath);
 		for (XTrace xtrace : xlog) {
 			for (XEvent xevent : xtrace) {
-				propositionData.eventToProposition(xevent);
+				LogUtils.getEventProposition(xevent, propositionData);
 			}
 		}
 	}
