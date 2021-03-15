@@ -1,9 +1,7 @@
-package data.activity;
+package data.proposition;
 
 import java.util.Map;
 import java.util.TreeMap;
-
-import data.attribute.AbstractAttribute;
 
 public class Activity {
 	private String name;

@@ -1,4 +1,4 @@
-package data.attribute;
+package data.proposition;
 
 import java.util.SortedSet;
 import java.util.TreeSet;

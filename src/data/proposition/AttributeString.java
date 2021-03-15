@@ -1,4 +1,4 @@
-package data.attribute;
+package data.proposition;
 
 public class AttributeString extends AbstractAttribute<String> {
 

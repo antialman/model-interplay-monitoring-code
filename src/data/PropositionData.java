@@ -12,12 +12,12 @@ import org.deckfour.xes.model.impl.XAttributeContinuousImpl;
 import org.deckfour.xes.model.impl.XAttributeDiscreteImpl;
 import org.deckfour.xes.model.impl.XAttributeLiteralImpl;
 
-import data.activity.Activity;
-import data.attribute.AbstractAttribute;
-import data.attribute.AttributeFloat;
-import data.attribute.AttributeInteger;
-import data.attribute.AttributeString;
-import data.attribute.AttributeType;
+import data.proposition.AbstractAttribute;
+import data.proposition.Activity;
+import data.proposition.AttributeFloat;
+import data.proposition.AttributeInteger;
+import data.proposition.AttributeString;
+import data.proposition.AttributeType;
 
 public class PropositionData {
 	private Map<String, Activity> activityMap = new HashMap<String, Activity>();
@@ -144,7 +144,6 @@ public class PropositionData {
 			propositionList.add("att");
 			AbstractAttribute<?> attribute = attributes.get(attributeName);
 			propositionList.add(Integer.toString(attribute.getId()));
-			propositionList.add("p");
 			
 			XAttribute xattribute = xevent.getAttributes().get(attributeName);
 			
