@@ -2,6 +2,7 @@ package data;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import data.proposition.AbstractAttribute;
 import data.proposition.Activity;
@@ -109,7 +110,11 @@ public class PropositionData {
 		attribute.addConditionValue(attributeValue);
 	}
 	
-	public Map<String, Activity> getActivityMap() {
-		return activityMap;
+	public Activity getActivity(String activityName) {
+		return activityMap.get(activityName);
+	}
+	
+	public Set<String> getAllActivityPropositions(String activityName) {
+		return activityMap.get(activityName).getAllPropositions();
 	}
 }

@@ -149,7 +149,7 @@ public class DeclareModelUtils {
 	}
 
 	private static void processConstraintCondition(DeclareConstraint declareConstraint, String conditionString, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
-		String[] individualConditions = conditionString.split(" and | or ");
+		String[] individualConditions = conditionString.split(" and | or "); //TODO: Should add code for handling parenthesis
 		String activityName = "";
 		for (int i = 0; i < individualConditions.length; i++) {
 			//Detecting the related activity
@@ -162,7 +162,7 @@ public class DeclareModelUtils {
 				continue;
 			}
 
-			String[] splitCondition = individualConditions[i].split("<|<=|=|>|>=| is | is not | in | not in ");
+			String[] splitCondition = individualConditions[i].split("<|<=|=|!=|>|>=| is | is not | in | not in "); //TODO: Should add code for handling parenthesis
 			String attributeName = splitCondition[0].substring(2);
 
 			if (attributeTypeMap.get(attributeName) ==  AttributeType.INTEGER) {
@@ -181,9 +181,4 @@ public class DeclareModelUtils {
 			}
 		}
 	}
-
-
-	
-
-
 }

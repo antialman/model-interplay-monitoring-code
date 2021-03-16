@@ -58,16 +58,16 @@ public class LogUtils {
 	
 	public static String getEventProposition(XEvent xevent, PropositionData propositionData) {
 
-		String eventName = XConceptExtension.instance().extractName(xevent);
-		System.out.println("eventToProposition: " + eventName);
+		String activityName = XConceptExtension.instance().extractName(xevent);
+		System.out.println("eventToProposition: " + activityName);
 
-		if (!propositionData.getActivityMap().containsKey(eventName)) {
-			System.out.println("\tActivity not found in proposition data, adding: " + eventName);
-			propositionData.addActivity(eventName);
+		if (propositionData.getActivity(activityName) == null) {
+			System.out.println("\tActivity not found in proposition data, adding: " + activityName);
+			propositionData.addActivity(activityName);
 		}
 
 		List<String> propositionList = new ArrayList<String>();
-		Activity activity = propositionData.getActivityMap().get(eventName);
+		Activity activity = propositionData.getActivity(activityName);
 		propositionList.add("act");
 		propositionList.add(Integer.toString(activity.getId()));
 
@@ -79,14 +79,10 @@ public class LogUtils {
 
 		for (String attributeName : attributes.keySet()) {
 			propositionList.add("_");
-			propositionList.add("att");
 			AbstractAttribute<?> attribute = attributes.get(attributeName);
-			propositionList.add(Integer.toString(attribute.getId()));
-
-			XAttribute xattribute = xevent.getAttributes().get(attributeName);
-
 			System.out.println("\tProposition attribute: " + attribute.toString());
 
+			XAttribute xattribute = xevent.getAttributes().get(attributeName);
 			String proposition = "";
 
 			switch (attribute.getAttributeType()) {
@@ -95,7 +91,7 @@ public class LogUtils {
 					AttributeFloat attributeFloat = (AttributeFloat) attribute;
 					XAttributeContinuousImpl xAttributeContinuousImpl = (XAttributeContinuousImpl) xattribute;
 					System.out.println("\tLog attribute: " + xAttributeContinuousImpl.getKey() + "=" + xAttributeContinuousImpl.getValue());
-					proposition = "p" + Integer.toString(attributeFloat.getPropositionId((float) xAttributeContinuousImpl.getValue()));
+					proposition = attributeFloat.getPropositionName((float) xAttributeContinuousImpl.getValue());
 				}
 				break;
 			case INTEGER:
@@ -103,7 +99,7 @@ public class LogUtils {
 					AttributeInteger attributeInteger = (AttributeInteger) attribute;
 					XAttributeDiscreteImpl xAttributeDiscreteImpl = (XAttributeDiscreteImpl) xattribute;
 					System.out.println("\tLog attribute: " + xAttributeDiscreteImpl.getKey() + "=" + xAttributeDiscreteImpl.getValue());
-					proposition = "p" + Integer.toString(attributeInteger.getPropositionId((int) xAttributeDiscreteImpl.getValue()));
+					proposition = attributeInteger.getPropositionName((int) xAttributeDiscreteImpl.getValue());
 				}
 				break;
 			case STRING:
@@ -111,7 +107,7 @@ public class LogUtils {
 					AttributeString attributeString = (AttributeString) attribute;
 					XAttributeLiteralImpl xAttributeLiteralImpl = (XAttributeLiteralImpl) xattribute;
 					System.out.println("\tLog attribute: " + xAttributeLiteralImpl.getKey() + "=" + xAttributeLiteralImpl.getValue());
-					proposition = "p" + Integer.toString(attributeString.getPropositionId(xAttributeLiteralImpl.getValue()));
+					proposition = attributeString.getPropositionName(xAttributeLiteralImpl.getValue());
 				}
 				break;
 			default:
@@ -121,7 +117,7 @@ public class LogUtils {
 
 			if (proposition.isBlank()) {
 				System.err.println("Possible attribute type mismatch between model and log, using p-1 as the proposition");
-				proposition = "p-1";
+				proposition = "att" + Integer.toString(attribute.getId()) + "p-1";
 			}
 
 			propositionList.add(proposition);

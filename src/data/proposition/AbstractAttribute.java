@@ -1,5 +1,6 @@
 package data.proposition;
 
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -32,7 +33,10 @@ public abstract class AbstractAttribute<T> {
 		conditionValues.add(value);
 	};
 	
-	public abstract int getPropositionId(T value);
+	public abstract String getPropositionName(T value);
+	public abstract Set<String> getAllPropositionNames();
+	public abstract Set<String> getMatchingPropositionNames(String singleEquality);
+	
 
 	@Override
 	public String toString() {

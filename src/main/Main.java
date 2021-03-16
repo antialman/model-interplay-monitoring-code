@@ -12,9 +12,11 @@ import org.deckfour.xes.model.XTrace;
 
 import data.DeclareConstraint;
 import data.PropositionData;
+import data.proposition.AbstractAttribute;
 import data.proposition.AttributeType;
 import utils.DeclareModelUtils;
 import utils.LogUtils;
+import utils.LtlUtils;
 
 public class Main {
 	
@@ -47,7 +49,10 @@ public class Main {
 		
 		
 		//Creating constraint automata
-		
+		for (DeclareConstraint declareConstraint : declareConstraints) {
+			String ltlFormula = LtlUtils.getPropositionalizedLtlFormula(declareConstraint, propositionData);
+			System.out.println(ltlFormula);
+		}
 		
 
 		
@@ -55,8 +60,71 @@ public class Main {
 		XLog xlog = LogUtils.convertToXlog(logPath);
 		for (XTrace xtrace : xlog) {
 			for (XEvent xevent : xtrace) {
-				LogUtils.getEventProposition(xevent, propositionData);
+				//LogUtils.getEventProposition(xevent, propositionData);
 			}
 		}
+		
+		
+		
+		//Tests code based on input/DrivingTest-Model.decl
+		System.out.println("DrivingLesson");
+		System.out.println(propositionData.getActivity("DrivingLesson"));
+		System.out.println(propositionData.getActivity("DrivingLesson").getAllPropositions());
+		System.out.println("");
+		
+		System.out.println("DrivingTest");
+		System.out.println(propositionData.getActivity("DrivingTest"));
+		System.out.println(propositionData.getActivity("DrivingTest").getAllPropositions());
+		System.out.println("");
+		
+		System.out.println("GettingLicence");
+		System.out.println(propositionData.getActivity("GettingLicence"));
+		System.out.println(propositionData.getActivity("GettingLicence").getAllPropositions());
+		System.out.println("");
+		
+		
+		System.out.println("DrivingLesson.lessonsDone");
+		System.out.println(propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone"));
+		String condition = "A.lessonsDone is true";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone").getMatchingPropositionNames(condition));
+		condition = "A.lessonsDone is not true";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone").getMatchingPropositionNames(condition));
+		condition = "A.lessonsDone in (true)";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone").getMatchingPropositionNames(condition));
+		condition = "A.lessonsDone in (true, false)";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone").getMatchingPropositionNames(condition));
+		condition = "A.lessonsDone not in (true)";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone").getMatchingPropositionNames(condition));
+		condition = "A.lessonsDone not in (true,false)";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone").getMatchingPropositionNames(condition));
+		System.out.println(propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone"));
+		System.out.println("");
+		
+		System.out.println("DrivingTest.grade");
+		System.out.println(propositionData.getActivity("DrivingTest").getAttributes().get("grade"));
+		condition = "A.grade=1";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade=3";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade!=3";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade>3";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade>=3";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade<3";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade<=3";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade<=b";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade<=-1";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade=-1";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		condition = "A.grade!=-1";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		
+		
 	}
 }
