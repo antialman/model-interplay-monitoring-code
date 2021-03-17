@@ -78,7 +78,6 @@ public class LogUtils {
 		}
 
 		for (String attributeName : attributes.keySet()) {
-			propositionList.add("_");
 			AbstractAttribute<?> attribute = attributes.get(attributeName);
 			System.out.println("\tProposition attribute: " + attribute.toString());
 

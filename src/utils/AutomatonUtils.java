@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.processmining.ltl2automaton.plugins.automaton.Automaton;
+import org.processmining.ltl2automaton.plugins.automaton.State;
+import org.processmining.ltl2automaton.plugins.automaton.Transition;
 import org.processmining.ltl2automaton.plugins.formula.DefaultParser;
 import org.processmining.ltl2automaton.plugins.formula.Formula;
 import org.processmining.ltl2automaton.plugins.formula.conjunction.ConjunctionFactory;
@@ -15,6 +17,7 @@ import org.processmining.ltl2automaton.plugins.formula.conjunction.GroupedTreeCo
 import org.processmining.ltl2automaton.plugins.formula.conjunction.TreeFactory;
 import org.processmining.ltl2automaton.plugins.ltl.SyntaxParserException;
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
+import org.processmining.plugins.declareminer.PossibleNodes;
 
 import data.DeclareConstraint;
 import data.PropositionData;
@@ -53,5 +56,46 @@ public class AutomatonUtils {
 		return constraintAutomatons;
 	}
 
+	public static String execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String currentTruthValue) {
+		PossibleNodes current = executableAutomaton.currentState();
+		boolean violated = true;
+		String newTruthValue;
+		if(currentTruthValue.equals("sat") || currentTruthValue.equals("viol")){
+			return currentTruthValue;
+		}
+		if(current!=null&& !(current.get(0)==null)){
+			for (Transition out : current.output()) {
+				if (out.parses(eventProposition)) {
+					violated = false;
+					break;
+				}
+			}
+		}
+
+		if (!violated){
+			ExecutableAutomaton exec = executableAutomaton;
+			exec.next(eventProposition);
+			
+			current = executableAutomaton.currentState();
+			if (current.isAccepting()) {
+				newTruthValue = "poss.sat";
+				for (State state : current) {
+					if (state.isAccepting()) {
+						for (Transition t : state.getOutput()) {
+							if (t.isAll() && t.getTarget().equals(state)) {
+								newTruthValue = "sat";
+							}
+						}
+					}
+				}
+			} else {
+				newTruthValue = "poss.viol";
+			}
+		} else {
+			newTruthValue = "viol";
+		}
+		
+		return newTruthValue;
+	}
 	
 }

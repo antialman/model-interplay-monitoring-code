@@ -10,7 +10,6 @@ import org.deckfour.xes.model.XEvent;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
-
 import data.DeclareConstraint;
 import data.PropositionData;
 import data.proposition.AttributeType;
@@ -32,7 +31,7 @@ public class Main {
 		//String logPath = cmd.getOptionValue("log");
 
 		String declareModelPath = "input/DrivingTest-Model.decl";
-		String logPath = "input/DrivingTest-Log-Positive.xes";
+		String logPath = "input/DrivingTest-Log-Negative.xes";
 
 
 		//Reading the data needed for propositionalization
@@ -50,6 +49,9 @@ public class Main {
 		//Creates the individual automatons for each constraint
 		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomatons(declareConstraints, propositionData);
 
+		
+		//TODO: Cross-product of the constraintAutomata
+		
 		//Map for tracking automata states
 		Map<ExecutableAutomaton, String> truthValues = new HashMap<ExecutableAutomaton, String>(constraintAutomata.size());
 
@@ -61,16 +63,36 @@ public class Main {
 			String traceName = XConceptExtension.instance().extractName(xtrace);
 			System.out.println("Trace: " + traceName);
 			System.out.println("===========================================");
-			for (ExecutableAutomaton individualAutomaton : constraintAutomata.keySet()) {
-				individualAutomaton.ini();
-				truthValues.put(individualAutomaton, "init");
+			
+			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
+				executableAutomaton.ini();
+				truthValues.put(executableAutomaton, "init");
 			}
+			
 			for (XEvent xevent : xtrace) {
-				LogUtils.getEventProposition(xevent, propositionData);
-				for (ExecutableAutomaton constraintAutomaton : constraintAutomata.keySet()) {
-					//TODO: Execute the event on each automaton to test if everything works
-					//Then move on to doing the cross product
+				String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
+				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
+					String newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, truthValues.get(executableAutomaton));
+					
+					truthValues.put(executableAutomaton, newTruthValue);				
 				}
+				
+				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
+					System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
+					System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
+				}
+				System.out.println("");
+			}
+			
+			System.out.println("Final states at trace end");
+			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
+				if (truthValues.get(executableAutomaton).equals("poss.sat")) {
+					truthValues.put(executableAutomaton, "sat");
+				} else if(truthValues.get(executableAutomaton).equals("poss.viol")) {
+					truthValues.put(executableAutomaton, "viol");
+				}
+				System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
+				System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
 			}
 		}
 
