@@ -1,7 +1,6 @@
 package main;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,16 +9,6 @@ import org.deckfour.xes.extension.std.XConceptExtension;
 import org.deckfour.xes.model.XEvent;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
-import org.processmining.ltl2automaton.plugins.automaton.Automaton;
-import org.processmining.ltl2automaton.plugins.formula.DefaultParser;
-import org.processmining.ltl2automaton.plugins.formula.Formula;
-import org.processmining.ltl2automaton.plugins.formula.conjunction.ConjunctionFactory;
-import org.processmining.ltl2automaton.plugins.formula.conjunction.ConjunctionTreeLeaf;
-import org.processmining.ltl2automaton.plugins.formula.conjunction.ConjunctionTreeNode;
-import org.processmining.ltl2automaton.plugins.formula.conjunction.DefaultTreeFactory;
-import org.processmining.ltl2automaton.plugins.formula.conjunction.GroupedTreeConjunction;
-import org.processmining.ltl2automaton.plugins.formula.conjunction.TreeFactory;
-import org.processmining.ltl2automaton.plugins.ltl.SyntaxParserException;
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
 
 import data.DeclareConstraint;
@@ -28,7 +17,6 @@ import data.proposition.AttributeType;
 import utils.AutomatonUtils;
 import utils.DeclareModelUtils;
 import utils.LogUtils;
-import utils.LtlUtils;
 
 public class Main {
 
