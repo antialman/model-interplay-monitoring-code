@@ -117,4 +117,10 @@ public class PropositionData {
 	public Set<String> getAllActivityPropositions(String activityName) {
 		return activityMap.get(activityName).getAllPropositions();
 	}
+	
+	public Set<String> getMatchingPropositions(String activityName, String activityCondition) {
+		return activityMap.get(activityName).getMatchingPropositionNames(activityCondition);
+	}
+	
+	
 }

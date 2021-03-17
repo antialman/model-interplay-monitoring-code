@@ -1,8 +1,6 @@
 package main;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +10,6 @@ import org.deckfour.xes.model.XTrace;
 
 import data.DeclareConstraint;
 import data.PropositionData;
-import data.proposition.AbstractAttribute;
 import data.proposition.AttributeType;
 import utils.DeclareModelUtils;
 import utils.LogUtils;
@@ -51,7 +48,8 @@ public class Main {
 		//Creating constraint automata
 		for (DeclareConstraint declareConstraint : declareConstraints) {
 			String ltlFormula = LtlUtils.getPropositionalizedLtlFormula(declareConstraint, propositionData);
-			System.out.println(ltlFormula);
+			System.out.println("Declare constraint: " + declareConstraint.toString());
+			System.out.println("Propositionalized formula: " + ltlFormula);
 		}
 		
 
@@ -60,12 +58,16 @@ public class Main {
 		XLog xlog = LogUtils.convertToXlog(logPath);
 		for (XTrace xtrace : xlog) {
 			for (XEvent xevent : xtrace) {
-				LogUtils.getEventProposition(xevent, propositionData);
+				//LogUtils.getEventProposition(xevent, propositionData);
 			}
 		}
 		
+		//test();
 		
 		
+	}
+	
+	private static void test() {
 		//Tests code based on input/DrivingTest-Model.decl
 		System.out.println("DrivingLesson");
 		System.out.println(propositionData.getActivity("DrivingLesson"));
@@ -133,7 +135,7 @@ public class Main {
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
 		condition = "A.grade>3 or A.errorType is a";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
-
+		
 		condition = "A.grade>3 and A.grade<3";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
 		condition = "A.errorType in (a,b) and A.errorType not in (b,c)";
@@ -141,13 +143,12 @@ public class Main {
 		condition = "A.errorType in (a,b) and A.errorType not in (b,c)";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
 		
-
+		
 		condition = "A.grade>3";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
 		condition = "A.grade>3 and A.grade>4";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
 		condition = "A.grade>3 and A.grade!=4";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
-		
 	}
 }

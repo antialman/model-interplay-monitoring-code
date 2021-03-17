@@ -10,21 +10,78 @@ public class LtlUtils {
 	private LtlUtils() {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
-	
+
 	public static String getPropositionalizedLtlFormula(DeclareConstraint declareConstraint, PropositionData propositionData) {
-		String ltlFormula=getGeneralLtlFormula(declareConstraint.getTemplate());
+		//This method can be simplified by a lot if it turns out that activation condition can not refer to target activity and vice versa
+		String ltlFormula = getGeneralLtlFormula(declareConstraint.getTemplate());
+		String condition = declareConstraint.getActivationCondition();
 		
-		Set<String> activationPropositions = propositionData.getAllActivityPropositions(declareConstraint.getActivationActivity());
-		ltlFormula = ltlFormula.replace("\"A\"", "( " + String.join(" \\/ ", activationPropositions) + " )");
-		
-		if (declareConstraint.getTemplate().getIsBinary()) {
-			Set<String> targetPropositions = propositionData.getAllActivityPropositions(declareConstraint.getTargetActivity());
-			ltlFormula = ltlFormula.replace("\"B\"", "( " + String.join(" \\/ ", targetPropositions) + " )");
+		if (declareConstraint.getTargetCondition() != null) {
+			if (condition != null) {
+				condition = condition + " and ";
+			}
+			condition = condition + declareConstraint.getTargetCondition();
 		}
 		
+		String activationActivityCondition = null;
+		if (condition != null) {
+			activationActivityCondition = preprocessCondition(condition, "A.", "T.");
+		}
+		
+		Set<String> activationPropositions;
+		if (activationActivityCondition != null) {
+			activationPropositions = propositionData.getMatchingPropositions(declareConstraint.getActivationActivity(), activationActivityCondition);
+		} else {
+			activationPropositions = propositionData.getAllActivityPropositions(declareConstraint.getActivationActivity());
+		}
+		
+		ltlFormula = ltlFormula.replace("\"A\"", "( " + String.join(" \\/ ", activationPropositions) + " )");
+
+		if (declareConstraint.getTemplate().getIsBinary()) {
+			String targetActivityCondition = null;
+			if (condition != null) {
+				targetActivityCondition = preprocessCondition(condition, "T.", "A.");
+			}
+			
+			Set<String> targetPropositions;
+			if (targetActivityCondition != null) {
+				targetPropositions = propositionData.getMatchingPropositions(declareConstraint.getTargetActivity(), targetActivityCondition);
+			} else {
+				targetPropositions = propositionData.getAllActivityPropositions(declareConstraint.getTargetActivity());
+			}
+			
+			ltlFormula = ltlFormula.replace("\"B\"", "( " + String.join(" \\/ ", targetPropositions) + " )");
+		}
+
 		return ltlFormula;
 	}
-	
+
+	private static String preprocessCondition(String condition, String refToKeep, String refToRemove) {
+		int tDotIndex = condition.indexOf(refToRemove);
+
+		while (tDotIndex != -1) {
+			int aDotIndex = condition.indexOf(refToKeep, tDotIndex);
+
+			if (aDotIndex != -1) {
+				condition = condition.substring(0, tDotIndex) + condition.substring(aDotIndex);
+			} else {
+				condition = condition.substring(0, tDotIndex);
+			}
+			tDotIndex = condition.indexOf(refToRemove);
+		}
+		if (condition.endsWith(" and ")) {
+			condition = condition.substring(0, condition.length()-5);
+		} else if (condition.endsWith(" or ")) {
+			condition = condition.substring(0, condition.length()-4);
+		}
+
+		if (condition.isBlank()) {
+			return null;
+		} else {
+			return condition;
+		}
+	}
+
 	private static String getGeneralLtlFormula(DeclareTemplate declareTemplate) {
 		String formula = "";
 		switch (declareTemplate) {
