@@ -52,6 +52,8 @@ public class LtlUtils {
 			
 			ltlFormula = ltlFormula.replace("\"B\"", "( " + String.join(" \\/ ", targetPropositions) + " )");
 		}
+		
+		ltlFormula = ltlFormula.replace("p-1", "px"); //Minus character causes issues with ltl formula parser - doing a simple workaround here
 
 		return ltlFormula;
 	}

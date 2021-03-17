@@ -10,6 +10,18 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.processmining.ltl2automaton.plugins.automaton.Automaton;
+import org.processmining.ltl2automaton.plugins.formula.DefaultParser;
+import org.processmining.ltl2automaton.plugins.formula.Formula;
+import org.processmining.ltl2automaton.plugins.formula.conjunction.ConjunctionFactory;
+import org.processmining.ltl2automaton.plugins.formula.conjunction.ConjunctionTreeLeaf;
+import org.processmining.ltl2automaton.plugins.formula.conjunction.ConjunctionTreeNode;
+import org.processmining.ltl2automaton.plugins.formula.conjunction.DefaultTreeFactory;
+import org.processmining.ltl2automaton.plugins.formula.conjunction.GroupedTreeConjunction;
+import org.processmining.ltl2automaton.plugins.formula.conjunction.TreeFactory;
+import org.processmining.ltl2automaton.plugins.ltl.SyntaxParserException;
+import org.processmining.plugins.declareminer.ExecutableAutomaton;
+
 import data.proposition.AttributeType;
 import data.DeclareConstraint;
 import data.PropositionData;
@@ -90,7 +102,7 @@ public class DeclareModelUtils {
 			timeCondition = null;
 		}
 		
-		return new DeclareConstraint(template, activationActivity, activationCondition, targetActivity, targetCondition, timeCondition);
+		return new DeclareConstraint(constraintString, template, activationActivity, activationCondition, targetActivity, targetCondition, timeCondition);
 	}
 	
 	
@@ -181,4 +193,5 @@ public class DeclareModelUtils {
 			}
 		}
 	}
+
 }

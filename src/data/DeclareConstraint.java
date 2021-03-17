@@ -4,6 +4,7 @@ import utils.DeclareTemplate;
 
 public class DeclareConstraint {
 
+	private String constraintString;
 	private DeclareTemplate template;
 	private String activationActivity;
 	private String activationCondition;
@@ -11,9 +12,10 @@ public class DeclareConstraint {
 	private String targetCondition;
 	private String timeCondition;
 	
-	public DeclareConstraint(DeclareTemplate template, String activationActivity, String activationCondition,
-			String targetActivity, String targetCondition, String timeCondition) {
+	public DeclareConstraint(String constraintString, DeclareTemplate template, String activationActivity,
+			String activationCondition, String targetActivity, String targetCondition, String timeCondition) {
 		super();
+		this.constraintString = constraintString;
 		this.template = template;
 		this.activationActivity = activationActivity;
 		this.activationCondition = activationCondition;
@@ -22,6 +24,10 @@ public class DeclareConstraint {
 		this.timeCondition = timeCondition;
 	}
 
+	public String getConstraintString() {
+		return constraintString;
+	}
+	
 	public DeclareTemplate getTemplate() {
 		return template;
 	}

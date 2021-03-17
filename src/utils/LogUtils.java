@@ -120,6 +120,9 @@ public class LogUtils {
 				proposition = "att" + Integer.toString(attribute.getId()) + "p-1";
 			}
 
+			
+			proposition = proposition.replace("p-1", "px"); //Minus character causes issues with ltl formula parser - doing a simple workaround here
+			
 			propositionList.add(proposition);
 			System.out.println("\tAttribute proposition: " + proposition);
 		}
