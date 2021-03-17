@@ -44,7 +44,7 @@ public class AttributeFloat extends AbstractAttribute<Float> {
 	@Override
 	public Set<String> getAllPropositionNames() {
 		Set<String> propositionNames = new TreeSet<String>();
-		propositionNames.add("att" + Integer.toString(getId()) + "p-1");
+		propositionNames.add("att" + Integer.toString(getId()) + "p-1"); //Used for cases where the log the correct attribute, but with a string value
 
 		for (int i = 0; i < conditionValues.size()*2+1; i++) {
 			propositionNames.add("att" + Integer.toString(getId()) + "p" + Integer.toString(i));
@@ -53,32 +53,32 @@ public class AttributeFloat extends AbstractAttribute<Float> {
 	}
 
 	@Override
-	public Set<String> getMatchingPropositionNames(String singleEquality) {
+	public Set<String> getMatchingPropositionNames(String singleCondition) {
 		Set<String> propositionNames = new TreeSet<String>();
 
 		//TODO: Should add code for handling parenthesis
-		String[] splitEquality = singleEquality.split("<=|!=|>=|<|=|>");
+		String[] splitEquality = singleCondition.split("<=|!=|>=|<|=|>");
 
 		if (!splitEquality[0].substring(2).equals(getName()) ) {
-			System.err.println("Condition attribute (" + singleEquality + ") does not match. Using p-1 as proposition");
+			System.err.println("Condition attribute (" + singleCondition + ") does not match. Using p-1 as proposition");
 			propositionNames.add("att" + Integer.toString(getId()) + "p-1");
 		} else if (!splitEquality[1].matches("^[+-]?((\\d+\\.?\\d*)|(\\.\\d+))$")) {
-			System.err.println("Condition (" + singleEquality + ") value " + splitEquality[1] + " is not a float. Using p-1 as proposition");
+			System.err.println("Condition (" + singleCondition + ") value " + splitEquality[1] + " is not a float. Using p-1 as proposition");
 			propositionNames.add("att" + Integer.toString(getId()) + "p-1");
 		} else {
 			int propositionId = getPropositionId(Float.valueOf(splitEquality[1]));
 
-			if (singleEquality.contains("!=")) {
+			if (singleCondition.contains("!=")) {
 				for (int i = 0; i < conditionValues.size()*2+1; i++) {
 					if (i != propositionId) {
 						propositionNames.add("att" + Integer.toString(getId()) + "p" + Integer.toString(i));
 					}
 				}
 			} else { 
-				if (singleEquality.contains("=")) {
+				if (singleCondition.contains("=")) {
 					propositionNames.add("att" + Integer.toString(getId()) + "p" + Integer.toString(propositionId));
 				}
-				if (singleEquality.contains("<")) {
+				if (singleCondition.contains("<")) {
 					for (int i = 0; i < conditionValues.size()*2+1; i++) {
 						if (i == propositionId) {
 							break;
@@ -86,7 +86,7 @@ public class AttributeFloat extends AbstractAttribute<Float> {
 							propositionNames.add("att" + Integer.toString(getId()) + "p" + Integer.toString(i));
 						}
 					}
-				} else if (singleEquality.contains(">")) {
+				} else if (singleCondition.contains(">")) {
 					for (int i = propositionId+1; i < conditionValues.size()*2+1; i++) {
 						propositionNames.add("att" + Integer.toString(getId()) + "p" + Integer.toString(i));
 					}
@@ -95,7 +95,7 @@ public class AttributeFloat extends AbstractAttribute<Float> {
 		}
 
 		if (propositionNames.isEmpty()) {
-			System.err.println("Likely invalid equality (" + singleEquality + ") for string attribute. Using p-1 as proposition");
+			System.err.println("Likely invalid equality (" + singleCondition + ") for string attribute. Using p-1 as proposition");
 			propositionNames.add("att" + Integer.toString(getId()) + "p-1");
 		}
 

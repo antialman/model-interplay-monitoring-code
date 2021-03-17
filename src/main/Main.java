@@ -60,7 +60,7 @@ public class Main {
 		XLog xlog = LogUtils.convertToXlog(logPath);
 		for (XTrace xtrace : xlog) {
 			for (XEvent xevent : xtrace) {
-				//LogUtils.getEventProposition(xevent, propositionData);
+				LogUtils.getEventProposition(xevent, propositionData);
 			}
 		}
 		
@@ -124,7 +124,30 @@ public class Main {
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
 		condition = "A.grade!=-1";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
+		System.out.println("");
 		
+		
+		condition = "A.grade=1 and A.errorType is a";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
+		condition = "A.grade>3 and A.errorType is a";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
+		condition = "A.grade>3 or A.errorType is a";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
+
+		condition = "A.grade>3 and A.grade<3";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
+		condition = "A.errorType in (a,b) and A.errorType not in (b,c)";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
+		condition = "A.errorType in (a,b) and A.errorType not in (b,c)";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
+		
+
+		condition = "A.grade>3";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
+		condition = "A.grade>3 and A.grade>4";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
+		condition = "A.grade>3 and A.grade!=4";
+		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getMatchingPropositionNames(condition));
 		
 	}
 }

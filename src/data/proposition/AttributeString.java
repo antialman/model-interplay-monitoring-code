@@ -28,7 +28,7 @@ public class AttributeString extends AbstractAttribute<String> {
 			//Using index of the value in conditionValues as the proposition id 
 			return "att" + Integer.toString(getId()) + "p" + Integer.toString(index);
 		} else {
-			//If value is not found in conditionValues then using -1 as the proposition id
+			//If value is not found in conditionValues then using -1 as the proposition id (consider "is not a", it would be satisfied by c even if c is not used in the model at all)
 			return "att" + Integer.toString(getId()) + "p-1";
 		}
 	}
@@ -45,17 +45,17 @@ public class AttributeString extends AbstractAttribute<String> {
 	}
 
 	@Override
-	public Set<String> getMatchingPropositionNames(String singleEquality) {
+	public Set<String> getMatchingPropositionNames(String singleCondition) {
 		Set<String> propositionNames = new TreeSet<String>();
 		
 		//TODO: Should add code for handling parenthesis
-		String[] splitEquality = singleEquality.split(" is not | is | not in | in ");
+		String[] splitEquality = singleCondition.split(" is not | is | not in | in ");
 		
 		if (!splitEquality[0].substring(2).equals(getName())) {
-			System.err.println("Condition attribute (" + singleEquality + ") does not match. Using p-1 as proposition");
+			System.err.println("Condition attribute (" + singleCondition + ") does not match. Using p-1 as proposition");
 			propositionNames.add("att" + Integer.toString(getId()) + "p-1");
 		} else {
-			if (singleEquality.contains(" is not ")) {
+			if (singleCondition.contains(" is not ")) {
 				propositionNames.add("att" + Integer.toString(getId()) + "p-1");
 				int index=-1;
 				for (String conditionValue : conditionValues) {
@@ -65,14 +65,14 @@ public class AttributeString extends AbstractAttribute<String> {
 					}
 				}
 				
-			} else if (singleEquality.contains(" is ")) {
+			} else if (singleCondition.contains(" is ")) {
 				if (conditionValues.contains(splitEquality[1])) {
 					propositionNames.add(getPropositionName(splitEquality[1]));
 				} else {
-					System.err.println("Equality (" + singleEquality + ") value not in conditionValues. Skipping");
+					System.err.println("Equality (" + singleCondition + ") value not in conditionValues. Skipping");
 				}
 				
-			} else if (singleEquality.contains(" not in ")) {
+			} else if (singleCondition.contains(" not in ")) {
 				List<String> equalityValues = Arrays.asList(splitEquality[1].substring(1, splitEquality[1].length()-1).split(","));
 				propositionNames.add("att" + Integer.toString(getId()) + "p-1");
 				int index=-1;
@@ -83,18 +83,18 @@ public class AttributeString extends AbstractAttribute<String> {
 					}
 				}
 				
-			} else if (singleEquality.contains(" in ")) {
+			} else if (singleCondition.contains(" in ")) {
 				List<String> equalityValues = Arrays.asList(splitEquality[1].substring(1, splitEquality[1].length()-1).split(","));
 				for (String equalityValue : equalityValues) {
 					if (conditionValues.contains(equalityValue.strip())) {
 						propositionNames.add(getPropositionName(equalityValue.strip()));
 					} else {
-						System.err.println("Equality (" + singleEquality + ") value " + equalityValue.strip() + " not in conditionValues. Skipping");
+						System.err.println("Equality (" + singleCondition + ") value " + equalityValue.strip() + " not in conditionValues. Skipping");
 					}
 				}
 				
 			} else {
-				System.err.println("Likely invalid equality (" + singleEquality + ") for string attribute. Using p-1 as proposition");
+				System.err.println("Likely invalid equality (" + singleCondition + ") for string attribute. Using p-1 as proposition");
 				propositionNames.add("att" + Integer.toString(getId()) + "p-1");
 			}
 		}
