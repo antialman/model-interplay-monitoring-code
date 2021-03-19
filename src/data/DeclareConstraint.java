@@ -54,8 +54,9 @@ public class DeclareConstraint {
 
 	@Override
 	public String toString() {
-		return "DeclareConstraint [template=" + template + ", activationActivity=" + activationActivity
-				+ ", activationCondition=" + activationCondition + ", targetActivity=" + targetActivity
-				+ ", targetCondition=" + targetCondition + ", timeCondition=" + timeCondition + "]";
+		return "DeclareConstraint [constraintString=" + constraintString + ", template=" + template
+				+ ", activationActivity=" + activationActivity + ", activationCondition=" + activationCondition
+				+ ", targetActivity=" + targetActivity + ", targetCondition=" + targetCondition + ", timeCondition="
+				+ timeCondition + "]";
 	}
 }
