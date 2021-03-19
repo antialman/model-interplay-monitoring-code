@@ -1,7 +1,6 @@
 package utils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.processmining.ltl2automaton.plugins.automaton.Automaton;
@@ -20,40 +19,44 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import org.processmining.plugins.declareminer.PossibleNodes;
 
 import data.DeclareConstraint;
-import data.PropositionData;
 
 public class AutomatonUtils {
+	
+	private static Map<ExecutableAutomaton, String> constraintAutomatons = new HashMap<ExecutableAutomaton, String>();
+	private static TreeFactory<ConjunctionTreeNode, ConjunctionTreeLeaf> treeFactory = DefaultTreeFactory.getInstance();
+	private static ConjunctionFactory<? extends GroupedTreeConjunction> conjunctionFactory = GroupedTreeConjunction.getFactory(treeFactory);
 	
 	private AutomatonUtils() {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
 	
-	public static Map<ExecutableAutomaton, String> createConstraintAutomatons(List<DeclareConstraint> declareConstraints, PropositionData propositionData) {
-		Map<ExecutableAutomaton, String> constraintAutomatons = new HashMap<ExecutableAutomaton, String>();
-		TreeFactory<ConjunctionTreeNode, ConjunctionTreeLeaf> treeFactory = DefaultTreeFactory.getInstance();
-		ConjunctionFactory<? extends GroupedTreeConjunction> conjunctionFactory = GroupedTreeConjunction.getFactory(treeFactory);
-		
-		for (DeclareConstraint declareConstraint : declareConstraints) {
-			String ltlFormula = LtlUtils.getPropositionalizedLtlFormula(declareConstraint, propositionData);
-			System.out.println("Declare constraint: " + declareConstraint.toString());
-			System.out.println("Propositionalized formula: " + ltlFormula);
+	public static Map<ExecutableAutomaton, String> createConstraintAutomatons(Map<DeclareConstraint, String> ltlFormulaMap) {
+		for (DeclareConstraint declareConstraint : ltlFormulaMap.keySet()) {
 			
-			//Parsing the ltl formula
-			try {
-				Formula parsedFormula = new DefaultParser(ltlFormula).parse();
-				System.out.println("Parsed formula: " + parsedFormula);
-				GroupedTreeConjunction conjunction = conjunctionFactory.instance(parsedFormula);
-				Automaton aut = conjunction.getAutomaton().op.reduce();
-				ExecutableAutomaton execAut = new ExecutableAutomaton(aut);
-				constraintAutomatons.put(execAut, declareConstraint.getConstraintString());
-			} catch (SyntaxParserException e) {
-				System.out.println("Unable to parse formula: " + ltlFormula);
-				e.printStackTrace();
-			}
-			System.out.println("");
+			ExecutableAutomaton execAut = createAutomatonForLTLFormula(ltlFormulaMap.get(declareConstraint));
+			constraintAutomatons.put(execAut, declareConstraint.getConstraintString());
 		}
-		
 		return constraintAutomatons;
+	}
+	
+	public static ExecutableAutomaton createAutomatonForLTLFormula(String ltlFormula) {
+		ExecutableAutomaton execAut = null;
+		
+		//Parsing the ltl formula
+		try {
+			Formula parsedFormula = new DefaultParser(ltlFormula).parse();
+			System.out.println("Parsed formula: " + parsedFormula);
+			GroupedTreeConjunction conjunction = conjunctionFactory.instance(parsedFormula);
+			Automaton aut = conjunction.getAutomaton().op.reduce();
+			execAut = new ExecutableAutomaton(aut);
+		} catch (SyntaxParserException e) {
+			System.out.println("Unable to parse formula: " + ltlFormula);
+			e.printStackTrace();
+		}
+		System.out.println("");
+		
+		return execAut;
+		
 	}
 
 	public static String execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String currentTruthValue) {

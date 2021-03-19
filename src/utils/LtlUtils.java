@@ -1,5 +1,8 @@
 package utils;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import data.DeclareConstraint;
@@ -11,30 +14,42 @@ public class LtlUtils {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
 
-	public static String getPropositionalizedLtlFormula(DeclareConstraint declareConstraint, PropositionData propositionData) {
+	public static Map<DeclareConstraint, String> getPropositionalizedLtlFormulaMap(List<DeclareConstraint> declareConstraints, PropositionData propositionData) {
+		Map<DeclareConstraint, String> propositionalizedLtlFormulas = new HashMap<DeclareConstraint, String>();
+		for (DeclareConstraint declareConstraint : declareConstraints) {
+			String ltlFormula = LtlUtils.getPropositionalizedLtlFormula(declareConstraint, propositionData);
+			System.out.println("Declare constraint: " + declareConstraint.toString());
+			System.out.println("Propositionalized formula: " + ltlFormula);
+			
+			propositionalizedLtlFormulas.put(declareConstraint, ltlFormula);
+		}
+		return propositionalizedLtlFormulas;
+	}
+
+	private static String getPropositionalizedLtlFormula(DeclareConstraint declareConstraint, PropositionData propositionData) {
 		//This method can be simplified by a lot if it turns out that activation condition can not refer to target activity and vice versa
 		String ltlFormula = getGeneralLtlFormula(declareConstraint.getTemplate());
 		String condition = declareConstraint.getActivationCondition();
-		
+
 		if (declareConstraint.getTargetCondition() != null) {
 			if (condition != null) {
 				condition = condition + " and ";
 			}
 			condition = condition + declareConstraint.getTargetCondition();
 		}
-		
+
 		String activationActivityCondition = null;
 		if (condition != null) {
 			activationActivityCondition = preprocessCondition(condition, "A.", "T.");
 		}
-		
+
 		Set<String> activationPropositions;
 		if (activationActivityCondition != null) {
 			activationPropositions = propositionData.getMatchingPropositions(declareConstraint.getActivationActivity(), activationActivityCondition);
 		} else {
 			activationPropositions = propositionData.getAllActivityPropositions(declareConstraint.getActivationActivity());
 		}
-		
+
 		ltlFormula = ltlFormula.replace("\"A\"", "( " + String.join(" \\/ ", activationPropositions) + " )");
 
 		if (declareConstraint.getTemplate().getIsBinary()) {
@@ -42,17 +57,17 @@ public class LtlUtils {
 			if (condition != null) {
 				targetActivityCondition = preprocessCondition(condition, "T.", "A.");
 			}
-			
+
 			Set<String> targetPropositions;
 			if (targetActivityCondition != null) {
 				targetPropositions = propositionData.getMatchingPropositions(declareConstraint.getTargetActivity(), targetActivityCondition);
 			} else {
 				targetPropositions = propositionData.getAllActivityPropositions(declareConstraint.getTargetActivity());
 			}
-			
+
 			ltlFormula = ltlFormula.replace("\"B\"", "( " + String.join(" \\/ ", targetPropositions) + " )");
 		}
-		
+
 		ltlFormula = ltlFormula.replace("p-1", "px"); //Minus character causes issues with ltl formula parser - doing a simple workaround here
 
 		return ltlFormula;

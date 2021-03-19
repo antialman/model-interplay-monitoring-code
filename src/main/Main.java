@@ -16,6 +16,7 @@ import data.proposition.AttributeType;
 import utils.AutomatonUtils;
 import utils.DeclareModelUtils;
 import utils.LogUtils;
+import utils.LtlUtils;
 
 public class Main {
 
@@ -43,12 +44,16 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		//Creates the data structure that is used for propositionalization of constraints and also events
+		//Populates the data structure that is used for propositionalization of constraints and also events
 		DeclareModelUtils.updatePropositionData(declareConstraints, attributeTypeMap, propositionData);
-
+		
+		//Creating propositionalized ltl formulas for each declare constraint 
+		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstraints, propositionData);
+		
 		//Creates the individual automatons for each constraint
-		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomatons(declareConstraints, propositionData);
+		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomatons(ltlFormulaMap);
 
+		
 		
 		//TODO: Cross-product of the constraintAutomata
 		
