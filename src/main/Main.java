@@ -2,6 +2,7 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -53,13 +54,26 @@ public class Main {
 		//Creates the individual automatons for each constraint
 		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomatons(ltlFormulaMap);
 
+		StringBuilder globalFormulaBuilder = new StringBuilder("( ");
+		for (Iterator<String> iterator=ltlFormulaMap.values().iterator(); iterator.hasNext();) {
+			globalFormulaBuilder.append(iterator.next());
+			if (iterator.hasNext()) {
+				globalFormulaBuilder.append(" ) && ( ");
+			} else {
+				globalFormulaBuilder.append(" )");
+			}
+		}
+		String globalFormula = globalFormulaBuilder.toString();
+		System.out.println("Global formula: " + globalFormula.toString());
+		ExecutableAutomaton globalAutomaton = AutomatonUtils.createAutomatonForLTLFormula(globalFormula, false);
+		globalAutomaton.ini();
 		
+		globalAutomaton.next("act0att0p0");
 		
 		//TODO: Cross-product of the constraintAutomata
 		
 		//Map for tracking automata states
 		Map<ExecutableAutomaton, String> truthValues = new HashMap<ExecutableAutomaton, String>(constraintAutomata.size());
-
 
 		//Replaying the event log
 		System.out.println("Replaying the event log");

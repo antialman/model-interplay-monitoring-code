@@ -33,13 +33,13 @@ public class AutomatonUtils {
 	public static Map<ExecutableAutomaton, String> createConstraintAutomatons(Map<DeclareConstraint, String> ltlFormulaMap) {
 		for (DeclareConstraint declareConstraint : ltlFormulaMap.keySet()) {
 			
-			ExecutableAutomaton execAut = createAutomatonForLTLFormula(ltlFormulaMap.get(declareConstraint));
+			ExecutableAutomaton execAut = createAutomatonForLTLFormula(ltlFormulaMap.get(declareConstraint), true);
 			constraintAutomatons.put(execAut, declareConstraint.getConstraintString());
 		}
 		return constraintAutomatons;
 	}
 	
-	public static ExecutableAutomaton createAutomatonForLTLFormula(String ltlFormula) {
+	public static ExecutableAutomaton createAutomatonForLTLFormula(String ltlFormula, boolean reduce) {
 		ExecutableAutomaton execAut = null;
 		
 		//Parsing the ltl formula
@@ -47,7 +47,12 @@ public class AutomatonUtils {
 			Formula parsedFormula = new DefaultParser(ltlFormula).parse();
 			System.out.println("Parsed formula: " + parsedFormula);
 			GroupedTreeConjunction conjunction = conjunctionFactory.instance(parsedFormula);
-			Automaton aut = conjunction.getAutomaton().op.reduce();
+			Automaton aut;
+			if (reduce) {
+				aut = conjunction.getAutomaton().op.reduce();
+			} else {
+				aut = conjunction.getAutomaton();
+			}
 			execAut = new ExecutableAutomaton(aut);
 		} catch (SyntaxParserException e) {
 			System.out.println("Unable to parse formula: " + ltlFormula);
