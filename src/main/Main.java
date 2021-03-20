@@ -103,6 +103,7 @@ public class Main {
 					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
 					System.out.println("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(executableAutomaton));
 					if (!truthValues.get(executableAutomaton).equals(globalAutomatonColours.get(globalState).get(executableAutomaton))) {
+						//If this happens then there must be a mistake in either creating or colouring the global automaton - keeping it as a sanity check
 						System.err.println("Global colour does not match truth value, something is wrong!");
 					}
 				}
