@@ -1,6 +1,7 @@
 package main;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.deckfour.xes.model.XEvent;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
 import org.processmining.ltl2automaton.plugins.automaton.State;
+import org.processmining.ltl2automaton.plugins.automaton.Transition;
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import data.DeclareConstraint;
 import data.PropositionData;
@@ -96,6 +98,7 @@ public class Main {
 				System.out.println("Global state: " + globalState);
 				System.out.println("Global truth value: " + globalTruthValue);
 
+				//Using individual automata to double-check global automata correctness (functionally not needed)
 				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 					ConstraintState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton);
 					truthValues.put(executableAutomaton, newTruthValue);				
@@ -103,10 +106,24 @@ public class Main {
 					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
 					System.out.println("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(executableAutomaton));
 					if (!truthValues.get(executableAutomaton).equals(globalAutomatonColours.get(globalState).get(executableAutomaton))) {
-						//If this happens then there must be a mistake in either creating or colouring the global automaton - keeping it as a sanity check
+						//If this happens then there must be a mistake in either creating or colouring the global automaton
 						System.err.println("Global colour does not match truth value, something is wrong!");
 					}
 				}
+				
+				//Getting the transitions that lead to best achievable cost from the current state
+				Integer bestAchievableCost = costBestMap.get(globalState);
+				List<Transition> bestNextTransitions = new ArrayList<Transition>();
+				for (Transition t : globalState.getOutput()) {
+					if (costBestMap.get(t.getTarget()).intValue() == bestAchievableCost.intValue()) {
+						//TODO: Translate transition labels (propositions) into corresponding activities with corresponding attribute value ranges
+						bestNextTransitions.add(t);
+					}
+				}
+				System.out.println("Best achievable cost from current state: " + bestAchievableCost);
+				System.out.println("\twith transitions: " + bestNextTransitions);
+				System.out.println("\tstopping cost: " + costCurrMap.get(globalState));
+				
 				System.out.println();
 			}
 
