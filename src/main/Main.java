@@ -2,7 +2,6 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public class Main {
 		//String logPath = cmd.getOptionValue("log");
 
 		String declareModelPath = "input/DrivingTest-Model.decl";
-		String logPath = "input/DrivingTest-Log-Negative.xes";
+		String logPath = "input/DrivingTest-Log-Positive.xes";
 
 
 		//Reading the data needed for propositionalization
@@ -52,28 +51,18 @@ public class Main {
 		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstraints, propositionData);
 		
 		//Creates the individual automatons for each constraint
-		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomatons(ltlFormulaMap);
+		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomata(ltlFormulaMap);
 
-		StringBuilder globalFormulaBuilder = new StringBuilder("( ");
-		for (Iterator<String> iterator=ltlFormulaMap.values().iterator(); iterator.hasNext();) {
-			globalFormulaBuilder.append(iterator.next());
-			if (iterator.hasNext()) {
-				globalFormulaBuilder.append(" ) && ( ");
-			} else {
-				globalFormulaBuilder.append(" )");
-			}
-		}
-		String globalFormula = globalFormulaBuilder.toString();
-		System.out.println("Global formula: " + globalFormula.toString());
-		ExecutableAutomaton globalAutomaton = AutomatonUtils.createAutomatonForLTLFormula(globalFormula, false);
-		globalAutomaton.ini();
+		//Creates the global automaton
+		ExecutableAutomaton globalAutomaton = AutomatonUtils.createGlobalAutomaton(ltlFormulaMap);
 		
-		globalAutomaton.next("act0att0p0");
+		
 		
 		//TODO: Cross-product of the constraintAutomata
 		
 		//Map for tracking automata states
 		Map<ExecutableAutomaton, String> truthValues = new HashMap<ExecutableAutomaton, String>(constraintAutomata.size());
+		String globalTruthValue;
 
 		//Replaying the event log
 		System.out.println("Replaying the event log");
@@ -83,23 +72,26 @@ public class Main {
 			System.out.println("Trace: " + traceName);
 			System.out.println("===========================================");
 			
+			//Initialising the automata at the start of each trace
 			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 				executableAutomaton.ini();
 				truthValues.put(executableAutomaton, "init");
 			}
+			globalAutomaton.ini();
+			globalTruthValue = "init";
 			
 			for (XEvent xevent : xtrace) {
 				String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
 				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 					String newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, truthValues.get(executableAutomaton));
-					
 					truthValues.put(executableAutomaton, newTruthValue);				
-				}
-				
-				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 					System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
-					System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
+					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
 				}
+				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, globalTruthValue);
+				
+				System.out.println("Global state: " + globalAutomaton.currentState());
+				System.out.println("\tTruth value: " + globalTruthValue);
 				System.out.println("");
 			}
 			
@@ -113,6 +105,14 @@ public class Main {
 				System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
 				System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
 			}
+			
+			if (globalTruthValue.equals("poss.sat")) {
+				globalTruthValue = "sat";
+			} else if (globalTruthValue.equals("poss.viol")) {
+				globalTruthValue = "viol";
+			}
+			System.out.println("Global state: " + globalAutomaton.currentState());
+			System.out.println("\tTruth value: " + globalTruthValue);
 		}
 
 		//test();

@@ -30,41 +30,57 @@ public class AutomatonUtils {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
 	
-	public static Map<ExecutableAutomaton, String> createConstraintAutomatons(Map<DeclareConstraint, String> ltlFormulaMap) {
+	public static Map<ExecutableAutomaton, String> createConstraintAutomata(Map<DeclareConstraint, String> ltlFormulaMap) {
 		for (DeclareConstraint declareConstraint : ltlFormulaMap.keySet()) {
 			
-			ExecutableAutomaton execAut = createAutomatonForLTLFormula(ltlFormulaMap.get(declareConstraint), true);
-			constraintAutomatons.put(execAut, declareConstraint.getConstraintString());
+			Automaton aut = createAutomatonForLTLFormula(ltlFormulaMap.get(declareConstraint));
+			constraintAutomatons.put(new ExecutableAutomaton(aut), declareConstraint.getConstraintString());
 		}
 		return constraintAutomatons;
 	}
 	
-	public static ExecutableAutomaton createAutomatonForLTLFormula(String ltlFormula, boolean reduce) {
-		ExecutableAutomaton execAut = null;
+	public static ExecutableAutomaton createGlobalAutomaton(Map<DeclareConstraint, String> ltlFormulaMap) {
+		Automaton globalAutomaton = null;
+		
+		for (String ltlFormula : ltlFormulaMap.values()) {
+			//Creating new automata just in case because op.intersect modifies the automata being intersected 
+			Automaton individualAutomaton = createAutomatonForLTLFormula(ltlFormula);
+			if (globalAutomaton==null && individualAutomaton != null) {
+				globalAutomaton = individualAutomaton;
+			} else if (individualAutomaton != null) {
+				globalAutomaton = globalAutomaton.op.intersect(individualAutomaton);
+			}			
+		}
+		if (globalAutomaton != null) {
+			globalAutomaton = globalAutomaton.op.determinize().op.complete();
+			return new ExecutableAutomaton(globalAutomaton);
+		} else {
+			return null;
+		}
+	}
+	
+	private static Automaton createAutomatonForLTLFormula(String ltlFormula) {
+		Automaton aut = null;
 		
 		//Parsing the ltl formula
 		try {
 			Formula parsedFormula = new DefaultParser(ltlFormula).parse();
 			System.out.println("Parsed formula: " + parsedFormula);
 			GroupedTreeConjunction conjunction = conjunctionFactory.instance(parsedFormula);
-			Automaton aut;
-			if (reduce) {
-				aut = conjunction.getAutomaton().op.reduce();
-			} else {
-				aut = conjunction.getAutomaton();
-			}
-			execAut = new ExecutableAutomaton(aut);
+			aut = conjunction.getAutomaton();
 		} catch (SyntaxParserException e) {
 			System.out.println("Unable to parse formula: " + ltlFormula);
 			e.printStackTrace();
 		}
 		System.out.println("");
 		
-		return execAut;
-		
+		return aut;
 	}
+	
+	
 
 	public static String execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String currentTruthValue) {
+		//TODO: This method assumes that the automaton is reduced
 		PossibleNodes current = executableAutomaton.currentState();
 		boolean violated = true;
 		String newTruthValue;
@@ -105,5 +121,7 @@ public class AutomatonUtils {
 		
 		return newTruthValue;
 	}
+
+	
 	
 }
