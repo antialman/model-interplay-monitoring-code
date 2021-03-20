@@ -46,18 +46,20 @@ public class Main {
 
 		//Populates the data structure that is used for propositionalization of constraints and also events
 		DeclareModelUtils.updatePropositionData(declareConstraints, attributeTypeMap, propositionData);
-		
+
 		//Creating propositionalized ltl formulas for each declare constraint 
 		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstraints, propositionData);
-		
+
 		//Creates the individual automatons for each constraint
 		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomata(ltlFormulaMap);
 
 		//Creates the global automaton
 		ExecutableAutomaton globalAutomaton = AutomatonUtils.createGlobalAutomaton(ltlFormulaMap);
-		
+
 		//TODO: colouring of the automata
-		
+		Map<String, Map<ExecutableAutomaton, String>> globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(globalAutomaton, constraintAutomata);
+
+
 		//Map for tracking automata states
 		Map<ExecutableAutomaton, String> truthValues = new HashMap<ExecutableAutomaton, String>(constraintAutomata.size());
 		String globalTruthValue;
@@ -69,7 +71,7 @@ public class Main {
 			String traceName = XConceptExtension.instance().extractName(xtrace);
 			System.out.println("Trace: " + traceName);
 			System.out.println("===========================================");
-			
+
 			//Initialising the automata at the start of each trace
 			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 				executableAutomaton.ini();
@@ -77,33 +79,40 @@ public class Main {
 			}
 			globalAutomaton.ini();
 			globalTruthValue = "init";
-			
+
 			for (XEvent xevent : xtrace) {
 				String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
+
+				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, null);
+				String globalState = globalAutomaton.currentState().get(0).toString();
+				System.out.println("Global state: " + globalState);
+				System.out.println("Global truth value: " + globalTruthValue);
+
 				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
-					String newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, truthValues.get(executableAutomaton), constraintAutomata.get(executableAutomaton));
+					String newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, constraintAutomata.get(executableAutomaton));
 					truthValues.put(executableAutomaton, newTruthValue);				
 					System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
 					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
+					System.out.println("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(executableAutomaton));
+					if (!truthValues.get(executableAutomaton).equals(globalAutomatonColours.get(globalState).get(executableAutomaton))) {
+						System.err.println("Global colour does not match truth value, something is wrong!");
+					}
 				}
-				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, globalTruthValue, null);
-				
-				System.out.println("Global state: " + globalAutomaton.currentState());
-				System.out.println("\tTruth value: " + globalTruthValue);
 				System.out.println("");
 			}
-			
+
 			System.out.println("Final states at trace end");
+			String globalState = globalAutomaton.currentState().get(0).toString();
 			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
-				if (truthValues.get(executableAutomaton).equals("poss.sat")) {
+				if (globalAutomatonColours.get(globalState).get(executableAutomaton).equals("poss.sat")) {
 					truthValues.put(executableAutomaton, "sat");
-				} else if(truthValues.get(executableAutomaton).equals("poss.viol")) {
+				} else if(globalAutomatonColours.get(globalState).get(executableAutomaton).equals("poss.viol")) {
 					truthValues.put(executableAutomaton, "viol");
 				}
 				System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
 				System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
 			}
-			
+
 			if (globalTruthValue.equals("poss.sat")) {
 				globalTruthValue = "sat";
 			} else if (globalTruthValue.equals("poss.viol")) {

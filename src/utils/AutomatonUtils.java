@@ -2,6 +2,7 @@ package utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import org.processmining.ltl2automaton.plugins.automaton.Automaton;
 import org.processmining.ltl2automaton.plugins.automaton.State;
@@ -79,17 +80,18 @@ public class AutomatonUtils {
 	
 	
 
-	public static String execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String currentTruthValue, String constraintString) {
+	public static String execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String constraintString) {
+		//Each event must be executed at least on the global automata during event log replay
+		PossibleNodes currentState = executableAutomaton.next(eventProposition);
+		return checkTruthValue(currentState);
+	}
+	
+	private static String checkTruthValue(PossibleNodes currentState) {
 		String newTruthValue;
-		PossibleNodes current = executableAutomaton.next(eventProposition); //Each event must be executed at least on the global automata
-
-		if(currentTruthValue.equals("sat") || currentTruthValue.equals("viol")){
-			return currentTruthValue;
-		}
 		
-		if (current.isAccepting()) {
+		if (currentState.isAccepting()) {
 			newTruthValue = "poss.sat";
-			for (State state : current) {
+			for (State state : currentState) {
 				for (Transition t : state.getOutput()) {
 					if (t.isAll()) {
 						newTruthValue = "sat";
@@ -98,13 +100,59 @@ public class AutomatonUtils {
 			}
 		} else {
 			newTruthValue = "poss.viol";
-			for (State state : current) {
-				if (!current.acceptingReachable(state)) {
+			for (State state : currentState) {
+				if (!currentState.acceptingReachable(state)) {
 					newTruthValue = "viol";
 				}
 			}
 		}
 		
 		return newTruthValue;
+	}
+
+	public static Map<String, Map<ExecutableAutomaton, String>> getGlobalAutomatonColours(ExecutableAutomaton globalAutomaton, Map<ExecutableAutomaton, String> constraintAutomata) {
+		Map<String, Map<ExecutableAutomaton, String>> globalAutomatonColours = new HashMap<String, Map<ExecutableAutomaton,String>>();
+		boolean visited[] = new boolean[globalAutomaton.stateCount()];
+		
+		//Just to make sure the initial states are correct
+		for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
+			executableAutomaton.ini();
+		}
+		globalAutomaton.ini();
+		
+		for (State state : globalAutomaton.currentState()) {
+			Stack<String> executedPropositions = new Stack<String>();
+			processGlobalAutomatonState(state, visited, constraintAutomata, globalAutomatonColours, executedPropositions);
+		}
+		
+		return globalAutomatonColours;
+	}
+
+	private static void processGlobalAutomatonState(State state, boolean[] visited, Map<ExecutableAutomaton, String> constraintAutomata, Map<String, Map<ExecutableAutomaton, String>> globalAutomatonColours, Stack<String> executedPropositions) {
+		visited[state.getId()] = true;
+		System.out.println("Global state colours " + state.toString());
+		HashMap<ExecutableAutomaton, String> globalStateColours = new HashMap<ExecutableAutomaton, String>();
+		
+		for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
+			if (!executedPropositions.empty()) {
+				executableAutomaton.ini();
+				for (String executedProposition : executedPropositions) {
+					executableAutomaton.next(executedProposition);
+				}
+			}
+			String truthValue = checkTruthValue(executableAutomaton.currentState());
+			globalStateColours.put(executableAutomaton, truthValue);
+			System.out.println("\t" + truthValue + ": " + constraintAutomata.get(executableAutomaton));
+		}
+		globalAutomatonColours.put(state.toString(), globalStateColours);
+		
+		
+		for (Transition t : state.getOutput()) {
+			if (!visited[t.getTarget().getId()]) {
+				executedPropositions.push(t.getPositiveLabel()); //Returns a label even if the transition is negative which is useful in this case
+				processGlobalAutomatonState(t.getTarget(), visited, constraintAutomata, globalAutomatonColours, executedPropositions);
+				executedPropositions.pop();
+			}
+		}
 	}
 }
