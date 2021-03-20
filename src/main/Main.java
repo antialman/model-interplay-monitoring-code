@@ -56,9 +56,7 @@ public class Main {
 		//Creates the global automaton
 		ExecutableAutomaton globalAutomaton = AutomatonUtils.createGlobalAutomaton(ltlFormulaMap);
 		
-		
-		
-		//TODO: Cross-product of the constraintAutomata
+		//TODO: colouring of the automata
 		
 		//Map for tracking automata states
 		Map<ExecutableAutomaton, String> truthValues = new HashMap<ExecutableAutomaton, String>(constraintAutomata.size());
