@@ -62,8 +62,9 @@ public class Main {
 		//Colouring of the global automaton
 		Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(globalAutomaton, constraintAutomata);
 
-		//Calculating the violations cost for each node in the global automaton (cost_curr values)
+		//Calculating the current cost for each node in the global automaton (cost_curr values)
 		Map<State, Integer> costCurrMap = AutomatonUtils.getCostCurrMap(globalAutomaton, globalAutomatonColours, constraintAutomata);
+		
 		
 		
 		//For tracking the truth values of individual constraint automata

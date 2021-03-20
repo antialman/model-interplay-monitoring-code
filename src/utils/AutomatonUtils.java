@@ -178,7 +178,7 @@ public class AutomatonUtils {
 		
 		for (ExecutableAutomaton executableAutomaton : globalAutomatonColours.get(state).keySet()) {
 			ConstraintState constraintState = globalAutomatonColours.get(state).get(executableAutomaton);
-			if (constraintState == ConstraintState.VIOL) {
+			if (constraintState == ConstraintState.VIOL || constraintState == ConstraintState.POSS_VIOL) {
 				costCurr = costCurr + constraintAutomata.get(executableAutomaton).getViolationCost();
 			}
 		}
