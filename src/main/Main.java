@@ -65,7 +65,8 @@ public class Main {
 		//Calculating the current cost for each node in the global automaton (cost_curr values)
 		Map<State, Integer> costCurrMap = AutomatonUtils.getCostCurrMap(globalAutomaton, globalAutomatonColours, constraintAutomata);
 		
-		
+		//Calculating the best cost for each node in the global automaton (cost_best values)
+		Map<State, Integer> costBestMap = AutomatonUtils.getCostBestMap(globalAutomaton, costCurrMap);
 		
 		//For tracking the truth values of individual constraint automata
 		Map<ExecutableAutomaton, ConstraintState> truthValues = new HashMap<ExecutableAutomaton, ConstraintState>(constraintAutomata.size());
@@ -105,7 +106,7 @@ public class Main {
 						System.err.println("Global colour does not match truth value, something is wrong!");
 					}
 				}
-				System.out.println("");
+				System.out.println();
 			}
 
 			System.out.println("Final states at trace end");
@@ -127,7 +128,7 @@ public class Main {
 			}
 			System.out.println("Global state: " + globalAutomaton.currentState());
 			System.out.println("\tTruth value: " + globalTruthValue);
-			System.out.println("");
+			System.out.println();
 		}
 
 		//test();
@@ -140,17 +141,17 @@ public class Main {
 		System.out.println("DrivingLesson");
 		System.out.println(propositionData.getActivity("DrivingLesson"));
 		System.out.println(propositionData.getActivity("DrivingLesson").getAllPropositions());
-		System.out.println("");
+		System.out.println();
 
 		System.out.println("DrivingTest");
 		System.out.println(propositionData.getActivity("DrivingTest"));
 		System.out.println(propositionData.getActivity("DrivingTest").getAllPropositions());
-		System.out.println("");
+		System.out.println();
 
 		System.out.println("GettingLicence");
 		System.out.println(propositionData.getActivity("GettingLicence"));
 		System.out.println(propositionData.getActivity("GettingLicence").getAllPropositions());
-		System.out.println("");
+		System.out.println();
 
 
 		System.out.println("DrivingLesson.lessonsDone");
@@ -168,7 +169,7 @@ public class Main {
 		condition = "A.lessonsDone not in (true,false)";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone").getMatchingPropositionNames(condition));
 		System.out.println(propositionData.getActivity("DrivingLesson").getAttributes().get("lessonsDone"));
-		System.out.println("");
+		System.out.println();
 
 		System.out.println("DrivingTest.grade");
 		System.out.println(propositionData.getActivity("DrivingTest").getAttributes().get("grade"));
@@ -194,7 +195,7 @@ public class Main {
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
 		condition = "A.grade!=-1";
 		System.out.println(condition + ": " + propositionData.getActivity("DrivingTest").getAttributes().get("grade").getMatchingPropositionNames(condition));
-		System.out.println("");
+		System.out.println();
 
 
 		condition = "A.grade=1 and A.errorType is a";

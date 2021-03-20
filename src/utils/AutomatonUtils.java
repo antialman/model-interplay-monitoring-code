@@ -1,7 +1,6 @@
 package utils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -24,27 +23,27 @@ import data.DeclareConstraint;
 import utils.enums.ConstraintState;
 
 public class AutomatonUtils {
-	
+
 	private static TreeFactory<ConjunctionTreeNode, ConjunctionTreeLeaf> treeFactory = DefaultTreeFactory.getInstance();
 	private static ConjunctionFactory<? extends GroupedTreeConjunction> conjunctionFactory = GroupedTreeConjunction.getFactory(treeFactory);
-	
+
 	private AutomatonUtils() {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
-	
+
 	public static Map<ExecutableAutomaton, DeclareConstraint> createConstraintAutomata(Map<DeclareConstraint, String> ltlFormulaMap) {
 		Map<ExecutableAutomaton, DeclareConstraint> constraintAutomatons = new HashMap<ExecutableAutomaton, DeclareConstraint>();
 		for (DeclareConstraint declareConstraint : ltlFormulaMap.keySet()) {
-			
+
 			Automaton aut = createAutomatonForLTLFormula(ltlFormulaMap.get(declareConstraint));
 			constraintAutomatons.put(new ExecutableAutomaton(aut), declareConstraint);
 		}
 		return constraintAutomatons;
 	}
-	
+
 	public static ExecutableAutomaton createGlobalAutomaton(Map<DeclareConstraint, String> ltlFormulaMap) {
 		Automaton globalAutomaton = null;
-		
+
 		for (String ltlFormula : ltlFormulaMap.values()) {
 			//Creating new automata just in case because op.intersect modifies the automata being intersected 
 			Automaton individualAutomaton = createAutomatonForLTLFormula(ltlFormula);
@@ -61,10 +60,10 @@ public class AutomatonUtils {
 			return null;
 		}
 	}
-	
+
 	private static Automaton createAutomatonForLTLFormula(String ltlFormula) {
 		Automaton aut = null;
-		
+
 		//Parsing the ltl formula
 		try {
 			Formula parsedFormula = new DefaultParser(ltlFormula).parse();
@@ -75,22 +74,22 @@ public class AutomatonUtils {
 			System.out.println("Unable to parse formula: " + ltlFormula);
 			e.printStackTrace();
 		}
-		System.out.println("");
-		
+		System.out.println();
+
 		return aut;
 	}
-	
-	
+
+
 
 	public static ConstraintState execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton) {
 		//Each event must be executed at least on the global automata during event log replay
 		PossibleNodes currentState = executableAutomaton.next(eventProposition);
 		return checkTruthValue(currentState);
 	}
-	
+
 	private static ConstraintState checkTruthValue(PossibleNodes currentState) {
 		ConstraintState newTruthValue;
-		
+
 		if (currentState.isAccepting()) {
 			newTruthValue = ConstraintState.POSS_SAT;
 			for (State state : currentState) {
@@ -108,25 +107,25 @@ public class AutomatonUtils {
 				}
 			}
 		}
-		
+
 		return newTruthValue;
 	}
 
 	public static Map<State, Map<ExecutableAutomaton, ConstraintState>> getGlobalAutomatonColours(ExecutableAutomaton globalAutomaton, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
 		Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = new HashMap<State, Map<ExecutableAutomaton, ConstraintState>>();
 		boolean visited[] = new boolean[globalAutomaton.stateCount()];
-		
+
 		//Just to make sure the initial states are correct
 		for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 			executableAutomaton.ini();
 		}
 		globalAutomaton.ini();
-		
+
 		for (State state : globalAutomaton.currentState()) {
 			Stack<String> executedPropositions = new Stack<String>();
 			colourGlobalAutomatonState(state, visited, constraintAutomata, globalAutomatonColours, executedPropositions);
 		}
-		
+
 		return globalAutomatonColours;
 	}
 
@@ -134,7 +133,7 @@ public class AutomatonUtils {
 		visited[state.getId()] = true;
 		System.out.println("Global state colours " + state.toString());
 		HashMap<ExecutableAutomaton, ConstraintState> globalStateColours = new HashMap<ExecutableAutomaton, ConstraintState>();
-		
+
 		for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 			if (!executedPropositions.empty()) {
 				executableAutomaton.ini();
@@ -147,8 +146,8 @@ public class AutomatonUtils {
 			System.out.println("\t" + truthValue + ": " + constraintAutomata.get(executableAutomaton).getConstraintString());
 		}
 		globalAutomatonColours.put(state, globalStateColours);
-		
-		
+
+
 		for (Transition t : state.getOutput()) {
 			if (!visited[t.getTarget().getId()]) {
 				executedPropositions.push(t.getPositiveLabel()); //Returns a label even if the transition is negative which is useful in this case
@@ -161,35 +160,111 @@ public class AutomatonUtils {
 	public static Map<State, Integer> getCostCurrMap(ExecutableAutomaton globalAutomaton, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
 		Map<State, Integer> costCurrMap = new HashMap<State, Integer>();
 		boolean visited[] = new boolean[globalAutomaton.stateCount()];
-		
+
 		//Just to make sure the initial state is correct
 		globalAutomaton.ini();
-		
+
 		for (State state : globalAutomaton.currentState()) {
 			calculateCostCurrForState(state, visited, costCurrMap, globalAutomaton, globalAutomatonColours, constraintAutomata);
 		}
+		for (State state : costCurrMap.keySet()) {
+			System.out.println("cost_cur for state " + state.toString() + ": " + costCurrMap.get(state));
+		}
+		System.out.println();
 		
+
 		return costCurrMap;
 	}
 
 	private static void calculateCostCurrForState(State state, boolean[] visited, Map<State, Integer> costCurrMap, ExecutableAutomaton globalAutomaton, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
 		visited[state.getId()] = true;
 		int costCurr = 0;
-		
+
 		for (ExecutableAutomaton executableAutomaton : globalAutomatonColours.get(state).keySet()) {
 			ConstraintState constraintState = globalAutomatonColours.get(state).get(executableAutomaton);
 			if (constraintState == ConstraintState.VIOL || constraintState == ConstraintState.POSS_VIOL) {
 				costCurr = costCurr + constraintAutomata.get(executableAutomaton).getViolationCost();
 			}
 		}
-		System.out.println("cost_curr for state " + state.toString() + ": " + costCurr);
 		costCurrMap.put(state, Integer.valueOf(costCurr));
-		
+
 		for (Transition t : state.getOutput()) {
 			if (!visited[t.getTarget().getId()]) {
 				calculateCostCurrForState(t.getTarget(), visited, costCurrMap, globalAutomaton, globalAutomatonColours, constraintAutomata);
 			}
 		}
-		
+
 	}
+
+	public static Map<State, Integer> getCostBestMap(ExecutableAutomaton globalAutomaton, Map<State, Integer> costCurrMap) {
+		Map<State, Integer> costBestMap = new HashMap<State, Integer>();
+
+		//Initialising costBestMap
+		for (State state : costCurrMap.keySet()) {
+			costBestMap.put(state, costCurrMap.get(state));
+		}
+
+		//Loop until cost_best stabilises for all states
+		boolean mapChanged = true;
+		while (mapChanged) {
+			System.out.println("Iterating cost_best values");
+			mapChanged = iterateCostBestValues(costBestMap, globalAutomaton);
+		}
+
+		for (State state : costBestMap.keySet()) {
+			System.out.println("cost_best for state " + state.toString() + ": " + costBestMap.get(state));
+		}
+		System.out.println();
+
+		return costBestMap;
+	}
+
+	private static boolean iterateCostBestValues(Map<State, Integer> costBestMap, ExecutableAutomaton globalAutomaton) {
+		boolean visited[] = new boolean[globalAutomaton.stateCount()];
+		boolean mapChanged = false;
+		boolean valueChanged = false;
+		
+		//Just to make sure the initial state is correct
+		globalAutomaton.ini();
+
+		for (State state : globalAutomaton.currentState()) {
+			valueChanged = updateCostBestForState(state, visited, costBestMap, globalAutomaton);
+			if (valueChanged && !mapChanged) {
+				mapChanged = true;
+			}
+		}
+
+		return mapChanged;
+	}
+
+	private static boolean updateCostBestForState(State state, boolean[] visited, Map<State, Integer> costBestMap, ExecutableAutomaton globalAutomaton) {
+		visited[state.getId()] = true;
+		boolean valueChanged = false;
+		boolean valueChanged2 = false;
+		Integer costBest = costBestMap.get(state);
+		
+		for (Transition t : state.getOutput()) {
+			//t.getTarget() != state excludes self loops
+			if (t.getTarget() != state && costBest.intValue() > costBestMap.get(t.getTarget()).intValue()) {
+				costBest = costBestMap.get(t.getTarget());
+				valueChanged = true;
+			}
+		}
+		costBestMap.put(state, costBest);
+		
+		
+		for (Transition t : state.getOutput()) {
+			if (!visited[t.getTarget().getId()]) {
+				valueChanged2 = updateCostBestForState(t.getTarget(), visited, costBestMap, globalAutomaton);
+				if (valueChanged2 && !valueChanged) {
+					valueChanged = true;
+				}
+			}
+		}
+		
+		
+		return valueChanged;
+	}
+
+
 }
