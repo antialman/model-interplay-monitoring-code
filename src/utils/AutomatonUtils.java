@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -24,7 +25,6 @@ import utils.enums.ConstraintState;
 
 public class AutomatonUtils {
 	
-	private static Map<ExecutableAutomaton, String> constraintAutomatons = new HashMap<ExecutableAutomaton, String>();
 	private static TreeFactory<ConjunctionTreeNode, ConjunctionTreeLeaf> treeFactory = DefaultTreeFactory.getInstance();
 	private static ConjunctionFactory<? extends GroupedTreeConjunction> conjunctionFactory = GroupedTreeConjunction.getFactory(treeFactory);
 	
@@ -32,11 +32,12 @@ public class AutomatonUtils {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
 	
-	public static Map<ExecutableAutomaton, String> createConstraintAutomata(Map<DeclareConstraint, String> ltlFormulaMap) {
+	public static Map<ExecutableAutomaton, DeclareConstraint> createConstraintAutomata(Map<DeclareConstraint, String> ltlFormulaMap) {
+		Map<ExecutableAutomaton, DeclareConstraint> constraintAutomatons = new HashMap<ExecutableAutomaton, DeclareConstraint>();
 		for (DeclareConstraint declareConstraint : ltlFormulaMap.keySet()) {
 			
 			Automaton aut = createAutomatonForLTLFormula(ltlFormulaMap.get(declareConstraint));
-			constraintAutomatons.put(new ExecutableAutomaton(aut), declareConstraint.getConstraintString());
+			constraintAutomatons.put(new ExecutableAutomaton(aut), declareConstraint);
 		}
 		return constraintAutomatons;
 	}
@@ -81,7 +82,7 @@ public class AutomatonUtils {
 	
 	
 
-	public static ConstraintState execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String constraintString) {
+	public static ConstraintState execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton) {
 		//Each event must be executed at least on the global automata during event log replay
 		PossibleNodes currentState = executableAutomaton.next(eventProposition);
 		return checkTruthValue(currentState);
@@ -111,8 +112,8 @@ public class AutomatonUtils {
 		return newTruthValue;
 	}
 
-	public static Map<String, Map<ExecutableAutomaton, ConstraintState>> getGlobalAutomatonColours(ExecutableAutomaton globalAutomaton, Map<ExecutableAutomaton, String> constraintAutomata) {
-		Map<String, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = new HashMap<String, Map<ExecutableAutomaton, ConstraintState>>();
+	public static Map<State, Map<ExecutableAutomaton, ConstraintState>> getGlobalAutomatonColours(ExecutableAutomaton globalAutomaton, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
+		Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = new HashMap<State, Map<ExecutableAutomaton, ConstraintState>>();
 		boolean visited[] = new boolean[globalAutomaton.stateCount()];
 		
 		//Just to make sure the initial states are correct
@@ -123,13 +124,13 @@ public class AutomatonUtils {
 		
 		for (State state : globalAutomaton.currentState()) {
 			Stack<String> executedPropositions = new Stack<String>();
-			processGlobalAutomatonState(state, visited, constraintAutomata, globalAutomatonColours, executedPropositions);
+			colourGlobalAutomatonState(state, visited, constraintAutomata, globalAutomatonColours, executedPropositions);
 		}
 		
 		return globalAutomatonColours;
 	}
 
-	private static void processGlobalAutomatonState(State state, boolean[] visited, Map<ExecutableAutomaton, String> constraintAutomata, Map<String, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Stack<String> executedPropositions) {
+	private static void colourGlobalAutomatonState(State state, boolean[] visited, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Stack<String> executedPropositions) {
 		visited[state.getId()] = true;
 		System.out.println("Global state colours " + state.toString());
 		HashMap<ExecutableAutomaton, ConstraintState> globalStateColours = new HashMap<ExecutableAutomaton, ConstraintState>();
@@ -143,17 +144,52 @@ public class AutomatonUtils {
 			}
 			ConstraintState truthValue = checkTruthValue(executableAutomaton.currentState());
 			globalStateColours.put(executableAutomaton, truthValue);
-			System.out.println("\t" + truthValue + ": " + constraintAutomata.get(executableAutomaton));
+			System.out.println("\t" + truthValue + ": " + constraintAutomata.get(executableAutomaton).getConstraintString());
 		}
-		globalAutomatonColours.put(state.toString(), globalStateColours);
+		globalAutomatonColours.put(state, globalStateColours);
 		
 		
 		for (Transition t : state.getOutput()) {
 			if (!visited[t.getTarget().getId()]) {
 				executedPropositions.push(t.getPositiveLabel()); //Returns a label even if the transition is negative which is useful in this case
-				processGlobalAutomatonState(t.getTarget(), visited, constraintAutomata, globalAutomatonColours, executedPropositions);
+				colourGlobalAutomatonState(t.getTarget(), visited, constraintAutomata, globalAutomatonColours, executedPropositions);
 				executedPropositions.pop();
 			}
 		}
+	}
+
+	public static Map<State, Integer> getCostCurrMap(ExecutableAutomaton globalAutomaton, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
+		Map<State, Integer> costCurrMap = new HashMap<State, Integer>();
+		boolean visited[] = new boolean[globalAutomaton.stateCount()];
+		
+		//Just to make sure the initial state is correct
+		globalAutomaton.ini();
+		
+		for (State state : globalAutomaton.currentState()) {
+			calculateCostCurrForState(state, visited, costCurrMap, globalAutomaton, globalAutomatonColours, constraintAutomata);
+		}
+		
+		return costCurrMap;
+	}
+
+	private static void calculateCostCurrForState(State state, boolean[] visited, Map<State, Integer> costCurrMap, ExecutableAutomaton globalAutomaton, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
+		visited[state.getId()] = true;
+		int costCurr = 0;
+		
+		for (ExecutableAutomaton executableAutomaton : globalAutomatonColours.get(state).keySet()) {
+			ConstraintState constraintState = globalAutomatonColours.get(state).get(executableAutomaton);
+			if (constraintState == ConstraintState.VIOL) {
+				costCurr = costCurr + constraintAutomata.get(executableAutomaton).getViolationCost();
+			}
+		}
+		System.out.println("cost_curr for state " + state.toString() + ": " + costCurr);
+		costCurrMap.put(state, Integer.valueOf(costCurr));
+		
+		for (Transition t : state.getOutput()) {
+			if (!visited[t.getTarget().getId()]) {
+				calculateCostCurrForState(t.getTarget(), visited, costCurrMap, globalAutomaton, globalAutomatonColours, constraintAutomata);
+			}
+		}
+		
 	}
 }

@@ -22,8 +22,8 @@ public class DeclareModelUtils {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
 
-	public static Map<DeclareConstraint, Integer> readConstraints(String declareModelPath) throws FileNotFoundException {
-		Map<DeclareConstraint, Integer> declareConstraints = new HashMap<DeclareConstraint, Integer>();
+	public static List<DeclareConstraint> readConstraints(String declareModelPath) throws FileNotFoundException {
+		List<DeclareConstraint> declareConstraints = new ArrayList<DeclareConstraint>();
 		
 		Scanner sc = new Scanner(new File(declareModelPath));
 		Pattern constraintPattern = Pattern.compile("\\w+(\\[.*\\]) \\|");
@@ -50,7 +50,9 @@ public class DeclareModelUtils {
 					} else {
 						System.out.println("Cost missing on line: " + line);
 					}
-					declareConstraints.put(readConstraintString(constraintString), cost);
+					DeclareConstraint declareConstraint = readConstraintString(constraintString);
+					declareConstraint.setViolationCost(cost);
+					declareConstraints.add(declareConstraint);
 				}
 			}
 		}
@@ -144,7 +146,7 @@ public class DeclareModelUtils {
 		return attributeTypeMap;
 	}
 
-	public static void updatePropositionData(Set<DeclareConstraint> declareConstraints, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
+	public static void updatePropositionData(List<DeclareConstraint> declareConstraints, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
 		for (DeclareConstraint declareConstraint : declareConstraints) {
 			
 			propositionData.addActivity(declareConstraint.getActivationActivity());

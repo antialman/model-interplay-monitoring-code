@@ -2,12 +2,14 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.deckfour.xes.extension.std.XConceptExtension;
 import org.deckfour.xes.model.XEvent;
 import org.deckfour.xes.model.XLog;
 import org.deckfour.xes.model.XTrace;
+import org.processmining.ltl2automaton.plugins.automaton.State;
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import data.DeclareConstraint;
 import data.PropositionData;
@@ -22,7 +24,7 @@ public class Main {
 
 	private static PropositionData propositionData = new PropositionData();
 
-	private static Map<DeclareConstraint, Integer> declareConstraints;
+	private static List<DeclareConstraint> declareConstrains;
 	private static Map<String, AttributeType> attributeTypeMap;
 
 	public static void main(String[] args) {
@@ -37,31 +39,36 @@ public class Main {
 
 		//Reading the data needed for propositionalization
 		try {
-			declareConstraints = DeclareModelUtils.readConstraints(declareModelPath);
+			declareConstrains = DeclareModelUtils.readConstraints(declareModelPath);
 			attributeTypeMap = DeclareModelUtils.readAttributeTypes(declareModelPath);
 		} catch (FileNotFoundException e) {
 			System.out.println("Unable to open Declare model: " + declareModelPath);
 			e.printStackTrace();
+			System.exit(-1);
 		}
 
 		//Populates the data structure that is used for propositionalization of constraints and also events
-		DeclareModelUtils.updatePropositionData(declareConstraints.keySet(), attributeTypeMap, propositionData);
+		DeclareModelUtils.updatePropositionData(declareConstrains, attributeTypeMap, propositionData);
 
 		//Creating propositionalized ltl formulas for each declare constraint 
-		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstraints.keySet(), propositionData);
+		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstrains, propositionData);
 
 		//Creates the individual automatons for each constraint
-		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomata(ltlFormulaMap);
+		Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata = AutomatonUtils.createConstraintAutomata(ltlFormulaMap);
 
 		//Creates the global automaton
 		ExecutableAutomaton globalAutomaton = AutomatonUtils.createGlobalAutomaton(ltlFormulaMap);
 
 		//Colouring of the global automaton
-		Map<String, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(globalAutomaton, constraintAutomata);
+		Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(globalAutomaton, constraintAutomata);
 
-		//For tracking the truth values
+		//Calculating the violations cost for each node in the global automaton (cost_curr values)
+		Map<State, Integer> costCurrMap = AutomatonUtils.getCostCurrMap(globalAutomaton, globalAutomatonColours, constraintAutomata);
+		
+		
+		//For tracking the truth values of individual constraint automata
 		Map<ExecutableAutomaton, ConstraintState> truthValues = new HashMap<ExecutableAutomaton, ConstraintState>(constraintAutomata.size());
-		ConstraintState globalTruthValue;
+		ConstraintState globalTruthValue; //And for tracking the global truth value
 
 		//Replaying the event log
 		System.out.println("Replaying the event log");
@@ -82,15 +89,15 @@ public class Main {
 			for (XEvent xevent : xtrace) {
 				String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
 
-				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, null);
-				String globalState = globalAutomaton.currentState().get(0).toString();
+				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton);
+				State globalState = globalAutomaton.currentState().get(0);
 				System.out.println("Global state: " + globalState);
 				System.out.println("Global truth value: " + globalTruthValue);
 
 				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
-					ConstraintState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, constraintAutomata.get(executableAutomaton));
+					ConstraintState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton);
 					truthValues.put(executableAutomaton, newTruthValue);				
-					System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
+					System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton).getConstraintString());
 					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
 					System.out.println("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(executableAutomaton));
 					if (!truthValues.get(executableAutomaton).equals(globalAutomatonColours.get(globalState).get(executableAutomaton))) {
@@ -101,14 +108,14 @@ public class Main {
 			}
 
 			System.out.println("Final states at trace end");
-			String globalState = globalAutomaton.currentState().get(0).toString();
+			State globalState = globalAutomaton.currentState().get(0);
 			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 				if (globalAutomatonColours.get(globalState).get(executableAutomaton).equals(ConstraintState.POSS_SAT)) {
 					truthValues.put(executableAutomaton, ConstraintState.SAT);
 				} else if(globalAutomatonColours.get(globalState).get(executableAutomaton).equals(ConstraintState.POSS_VIOL)) {
 					truthValues.put(executableAutomaton, ConstraintState.VIOL);
 				}
-				System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
+				System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton).getConstraintString());
 				System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
 			}
 

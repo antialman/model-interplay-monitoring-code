@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public class LtlUtils {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
 
-	public static Map<DeclareConstraint, String> getPropositionalizedLtlFormulaMap(Set<DeclareConstraint> declareConstraints, PropositionData propositionData) {
+	public static Map<DeclareConstraint, String> getPropositionalizedLtlFormulaMap(List<DeclareConstraint> declareConstraints, PropositionData propositionData) {
 		Map<DeclareConstraint, String> propositionalizedLtlFormulas = new HashMap<DeclareConstraint, String>();
 		for (DeclareConstraint declareConstraint : declareConstraints) {
 			String ltlFormula = LtlUtils.getPropositionalizedLtlFormula(declareConstraint, propositionData);

@@ -11,6 +11,7 @@ public class DeclareConstraint {
 	private String targetActivity;
 	private String targetCondition;
 	private String timeCondition;
+	private int violationCost;
 	
 	public DeclareConstraint(String constraintString, DeclareTemplate template, String activationActivity,
 			String activationCondition, String targetActivity, String targetCondition, String timeCondition) {
@@ -51,12 +52,19 @@ public class DeclareConstraint {
 	public String getTimeCondition() {
 		return timeCondition;
 	}
+	
+	public void setViolationCost(int violationCost) {
+		this.violationCost = violationCost;
+	}
+	public int getViolationCost() {
+		return violationCost;
+	}
 
 	@Override
 	public String toString() {
 		return "DeclareConstraint [constraintString=" + constraintString + ", template=" + template
 				+ ", activationActivity=" + activationActivity + ", activationCondition=" + activationCondition
 				+ ", targetActivity=" + targetActivity + ", targetCondition=" + targetCondition + ", timeCondition="
-				+ timeCondition + "]";
+				+ timeCondition + ", violationCost=" + violationCost + "]";
 	}
 }
