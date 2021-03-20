@@ -32,7 +32,7 @@ public class Main {
 		//String logPath = cmd.getOptionValue("log");
 
 		String declareModelPath = "input/DrivingTest-Model.decl";
-		String logPath = "input/DrivingTest-Log-Positive.xes";
+		String logPath = "input/DrivingTest-Log-Negative.xes";
 
 
 		//Reading the data needed for propositionalization
@@ -83,12 +83,12 @@ public class Main {
 			for (XEvent xevent : xtrace) {
 				String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
 				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
-					String newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, truthValues.get(executableAutomaton));
+					String newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, truthValues.get(executableAutomaton), constraintAutomata.get(executableAutomaton));
 					truthValues.put(executableAutomaton, newTruthValue);				
 					System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
 					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
 				}
-				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, globalTruthValue);
+				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, globalTruthValue, null);
 				
 				System.out.println("Global state: " + globalAutomaton.currentState());
 				System.out.println("\tTruth value: " + globalTruthValue);
@@ -113,6 +113,7 @@ public class Main {
 			}
 			System.out.println("Global state: " + globalAutomaton.currentState());
 			System.out.println("\tTruth value: " + globalTruthValue);
+			System.out.println("");
 		}
 
 		//test();

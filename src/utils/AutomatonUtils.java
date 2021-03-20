@@ -79,49 +79,32 @@ public class AutomatonUtils {
 	
 	
 
-	public static String execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String currentTruthValue) {
-		//TODO: This method assumes that the automaton is reduced
-		PossibleNodes current = executableAutomaton.currentState();
-		boolean violated = true;
+	public static String execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String currentTruthValue, String constraintString) {
 		String newTruthValue;
+		PossibleNodes current = executableAutomaton.next(eventProposition); //Each event must be executed at least on the global automata
+
 		if(currentTruthValue.equals("sat") || currentTruthValue.equals("viol")){
 			return currentTruthValue;
 		}
-		if(current!=null&& !(current.get(0)==null)){
-			for (Transition out : current.output()) {
-				if (out.parses(eventProposition)) {
-					violated = false;
-					break;
-				}
-			}
-		}
-
-		if (!violated){
-			ExecutableAutomaton exec = executableAutomaton;
-			exec.next(eventProposition);
-			
-			current = executableAutomaton.currentState();
-			if (current.isAccepting()) {
-				newTruthValue = "poss.sat";
-				for (State state : current) {
-					if (state.isAccepting()) {
-						for (Transition t : state.getOutput()) {
-							if (t.isAll() && t.getTarget().equals(state)) {
-								newTruthValue = "sat";
-							}
-						}
+		
+		if (current.isAccepting()) {
+			newTruthValue = "poss.sat";
+			for (State state : current) {
+				for (Transition t : state.getOutput()) {
+					if (t.isAll()) {
+						newTruthValue = "sat";
 					}
 				}
-			} else {
-				newTruthValue = "poss.viol";
 			}
 		} else {
-			newTruthValue = "viol";
+			newTruthValue = "poss.viol";
+			for (State state : current) {
+				if (!current.acceptingReachable(state)) {
+					newTruthValue = "viol";
+				}
+			}
 		}
 		
 		return newTruthValue;
 	}
-
-	
-	
 }
