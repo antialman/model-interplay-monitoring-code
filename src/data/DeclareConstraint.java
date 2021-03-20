@@ -1,6 +1,6 @@
 package data;
 
-import utils.DeclareTemplate;
+import utils.enums.DeclareTemplate;
 
 public class DeclareConstraint {
 

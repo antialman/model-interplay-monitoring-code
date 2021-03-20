@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import data.proposition.AttributeType;
+import utils.enums.DeclareTemplate;
 import data.DeclareConstraint;
 import data.PropositionData;
 

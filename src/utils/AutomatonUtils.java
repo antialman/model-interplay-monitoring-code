@@ -20,6 +20,7 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import org.processmining.plugins.declareminer.PossibleNodes;
 
 import data.DeclareConstraint;
+import utils.enums.ConstraintState;
 
 public class AutomatonUtils {
 	
@@ -80,29 +81,29 @@ public class AutomatonUtils {
 	
 	
 
-	public static String execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String constraintString) {
+	public static ConstraintState execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, String constraintString) {
 		//Each event must be executed at least on the global automata during event log replay
 		PossibleNodes currentState = executableAutomaton.next(eventProposition);
 		return checkTruthValue(currentState);
 	}
 	
-	private static String checkTruthValue(PossibleNodes currentState) {
-		String newTruthValue;
+	private static ConstraintState checkTruthValue(PossibleNodes currentState) {
+		ConstraintState newTruthValue;
 		
 		if (currentState.isAccepting()) {
-			newTruthValue = "poss.sat";
+			newTruthValue = ConstraintState.POSS_SAT;
 			for (State state : currentState) {
 				for (Transition t : state.getOutput()) {
 					if (t.isAll()) {
-						newTruthValue = "sat";
+						newTruthValue = ConstraintState.SAT;
 					}
 				}
 			}
 		} else {
-			newTruthValue = "poss.viol";
+			newTruthValue = ConstraintState.POSS_VIOL;
 			for (State state : currentState) {
 				if (!currentState.acceptingReachable(state)) {
-					newTruthValue = "viol";
+					newTruthValue = ConstraintState.VIOL;
 				}
 			}
 		}
@@ -110,8 +111,8 @@ public class AutomatonUtils {
 		return newTruthValue;
 	}
 
-	public static Map<String, Map<ExecutableAutomaton, String>> getGlobalAutomatonColours(ExecutableAutomaton globalAutomaton, Map<ExecutableAutomaton, String> constraintAutomata) {
-		Map<String, Map<ExecutableAutomaton, String>> globalAutomatonColours = new HashMap<String, Map<ExecutableAutomaton,String>>();
+	public static Map<String, Map<ExecutableAutomaton, ConstraintState>> getGlobalAutomatonColours(ExecutableAutomaton globalAutomaton, Map<ExecutableAutomaton, String> constraintAutomata) {
+		Map<String, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = new HashMap<String, Map<ExecutableAutomaton, ConstraintState>>();
 		boolean visited[] = new boolean[globalAutomaton.stateCount()];
 		
 		//Just to make sure the initial states are correct
@@ -128,10 +129,10 @@ public class AutomatonUtils {
 		return globalAutomatonColours;
 	}
 
-	private static void processGlobalAutomatonState(State state, boolean[] visited, Map<ExecutableAutomaton, String> constraintAutomata, Map<String, Map<ExecutableAutomaton, String>> globalAutomatonColours, Stack<String> executedPropositions) {
+	private static void processGlobalAutomatonState(State state, boolean[] visited, Map<ExecutableAutomaton, String> constraintAutomata, Map<String, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Stack<String> executedPropositions) {
 		visited[state.getId()] = true;
 		System.out.println("Global state colours " + state.toString());
-		HashMap<ExecutableAutomaton, String> globalStateColours = new HashMap<ExecutableAutomaton, String>();
+		HashMap<ExecutableAutomaton, ConstraintState> globalStateColours = new HashMap<ExecutableAutomaton, ConstraintState>();
 		
 		for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 			if (!executedPropositions.empty()) {
@@ -140,7 +141,7 @@ public class AutomatonUtils {
 					executableAutomaton.next(executedProposition);
 				}
 			}
-			String truthValue = checkTruthValue(executableAutomaton.currentState());
+			ConstraintState truthValue = checkTruthValue(executableAutomaton.currentState());
 			globalStateColours.put(executableAutomaton, truthValue);
 			System.out.println("\t" + truthValue + ": " + constraintAutomata.get(executableAutomaton));
 		}

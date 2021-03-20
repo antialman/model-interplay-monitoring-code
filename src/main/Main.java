@@ -16,6 +16,7 @@ import utils.AutomatonUtils;
 import utils.DeclareModelUtils;
 import utils.LogUtils;
 import utils.LtlUtils;
+import utils.enums.ConstraintState;
 
 public class Main {
 
@@ -56,11 +57,11 @@ public class Main {
 		ExecutableAutomaton globalAutomaton = AutomatonUtils.createGlobalAutomaton(ltlFormulaMap);
 
 		//Colouring of the global automaton
-		Map<String, Map<ExecutableAutomaton, String>> globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(globalAutomaton, constraintAutomata);
+		Map<String, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(globalAutomaton, constraintAutomata);
 
 		//For tracking the truth values
-		Map<ExecutableAutomaton, String> truthValues = new HashMap<ExecutableAutomaton, String>(constraintAutomata.size());
-		String globalTruthValue;
+		Map<ExecutableAutomaton, ConstraintState> truthValues = new HashMap<ExecutableAutomaton, ConstraintState>(constraintAutomata.size());
+		ConstraintState globalTruthValue;
 
 		//Replaying the event log
 		System.out.println("Replaying the event log");
@@ -73,10 +74,10 @@ public class Main {
 			//Initialising the automata at the start of each trace
 			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 				executableAutomaton.ini();
-				truthValues.put(executableAutomaton, "init");
+				truthValues.put(executableAutomaton, ConstraintState.INIT);
 			}
 			globalAutomaton.ini();
-			globalTruthValue = "init";
+			globalTruthValue = ConstraintState.INIT;
 
 			for (XEvent xevent : xtrace) {
 				String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
@@ -87,7 +88,7 @@ public class Main {
 				System.out.println("Global truth value: " + globalTruthValue);
 
 				for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
-					String newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, constraintAutomata.get(executableAutomaton));
+					ConstraintState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, constraintAutomata.get(executableAutomaton));
 					truthValues.put(executableAutomaton, newTruthValue);				
 					System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
 					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
@@ -102,19 +103,19 @@ public class Main {
 			System.out.println("Final states at trace end");
 			String globalState = globalAutomaton.currentState().get(0).toString();
 			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
-				if (globalAutomatonColours.get(globalState).get(executableAutomaton).equals("poss.sat")) {
-					truthValues.put(executableAutomaton, "sat");
-				} else if(globalAutomatonColours.get(globalState).get(executableAutomaton).equals("poss.viol")) {
-					truthValues.put(executableAutomaton, "viol");
+				if (globalAutomatonColours.get(globalState).get(executableAutomaton).equals(ConstraintState.POSS_SAT)) {
+					truthValues.put(executableAutomaton, ConstraintState.SAT);
+				} else if(globalAutomatonColours.get(globalState).get(executableAutomaton).equals(ConstraintState.POSS_VIOL)) {
+					truthValues.put(executableAutomaton, ConstraintState.VIOL);
 				}
 				System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton));
 				System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
 			}
 
-			if (globalTruthValue.equals("poss.sat")) {
-				globalTruthValue = "sat";
-			} else if (globalTruthValue.equals("poss.viol")) {
-				globalTruthValue = "viol";
+			if (globalTruthValue.equals(ConstraintState.POSS_SAT)) {
+				globalTruthValue = ConstraintState.SAT;
+			} else if (globalTruthValue.equals(ConstraintState.POSS_VIOL)) {
+				globalTruthValue = ConstraintState.VIOL;
 			}
 			System.out.println("Global state: " + globalAutomaton.currentState());
 			System.out.println("\tTruth value: " + globalTruthValue);

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import data.DeclareConstraint;
 import data.PropositionData;
+import utils.enums.DeclareTemplate;
 
 public class LtlUtils {
 
