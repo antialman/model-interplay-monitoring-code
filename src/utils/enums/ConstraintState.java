@@ -1,9 +1,26 @@
 package utils.enums;
 
 public enum ConstraintState {
-	INIT, //Initial state of the constraint automata("init"), could probably be removed 
-	SAT, //Permanently satisfied ("sat")
-	VIOL, //Permanently violated ("viol")
-	POSS_SAT, //Possibly satisfied ("poss.sat")
-	POSS_VIOL; //Possibly violated ("poss.viol")
+	INIT("init"), //Initial state of the constraint automata, could probably be removed
+	SAT("sat"), //Permanently satisfied
+	VIOL("viol"), //Permanently violated
+	POSS_SAT("poss.sat"), //Possibly satisfied
+	POSS_VIOL("poss.viol"); //Possibly violated
+	
+	
+	private final String mobuconltlName;
+	
+	private ConstraintState(String mobuconltlName) {
+		this.mobuconltlName=mobuconltlName;
+	}
+	
+	public String getMobuconltlName() {
+		return mobuconltlName;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return mobuconltlName;
+	}
 }
