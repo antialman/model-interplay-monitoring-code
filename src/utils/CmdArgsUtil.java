@@ -17,17 +17,13 @@ public class CmdArgsUtil {
 	public static CommandLine handleArgs(String[] args) {
 		//TODO Review after implementation is done
 		Options options = new Options();
-		Option declareParam = new Option("d", "declareModel", true, "Declare model path");
+		Option declareParam = new Option("d", "declareModel", true, "Declare model path. Constraint costs should be written on the same line with the constraint. Semicolon is used as the separator. For example: Init[DrivingLesson] | |;2");
 		declareParam.setRequired(true);
 		options.addOption(declareParam);
 		
 		Option petrinetParam = new Option("p", "petrinetModel", true, "Petrinet model path");
 		petrinetParam.setRequired(true);
 		options.addOption(petrinetParam);
-		
-		Option costParam = new Option("c", "costsFile", true, "Violation costs file path");
-		costParam.setRequired(true);
-		options.addOption(costParam);
 
 		Option logParam = new Option("l", "log", true, "input event log path");
 		logParam.setRequired(true);

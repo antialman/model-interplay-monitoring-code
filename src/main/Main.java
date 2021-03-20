@@ -2,7 +2,6 @@ package main;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.deckfour.xes.extension.std.XConceptExtension;
@@ -22,14 +21,14 @@ public class Main {
 
 	private static PropositionData propositionData = new PropositionData();
 
-	private static List<DeclareConstraint> declareConstraints;
+	private static Map<DeclareConstraint, Integer> declareConstraints;
 	private static Map<String, AttributeType> attributeTypeMap;
 
 	public static void main(String[] args) {
 		//TODO Uncomment and review after the code is done
-		//CommandLine cmd = CmdArgsUtil.handleArgs(args);
-		//String declareModelPath = cmd.getOptionValue("declareModel");
-		//String logPath = cmd.getOptionValue("log");
+//		CommandLine cmd = CmdArgsUtil.handleArgs(args);
+//		String declareModelPath = cmd.getOptionValue("declareModel");
+//		String logPath = cmd.getOptionValue("log");
 
 		String declareModelPath = "input/DrivingTest-Model.decl";
 		String logPath = "input/DrivingTest-Log-Negative.xes";
@@ -45,10 +44,10 @@ public class Main {
 		}
 
 		//Populates the data structure that is used for propositionalization of constraints and also events
-		DeclareModelUtils.updatePropositionData(declareConstraints, attributeTypeMap, propositionData);
+		DeclareModelUtils.updatePropositionData(declareConstraints.keySet(), attributeTypeMap, propositionData);
 
 		//Creating propositionalized ltl formulas for each declare constraint 
-		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstraints, propositionData);
+		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstraints.keySet(), propositionData);
 
 		//Creates the individual automatons for each constraint
 		Map<ExecutableAutomaton, String> constraintAutomata = AutomatonUtils.createConstraintAutomata(ltlFormulaMap);

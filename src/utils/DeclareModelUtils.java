@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,22 +21,35 @@ public class DeclareModelUtils {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
 
-	public static List<DeclareConstraint> readConstraints(String declareModelPath) throws FileNotFoundException {
-		List<DeclareConstraint> declareConstraints = new ArrayList<DeclareConstraint>();
+	public static Map<DeclareConstraint, Integer> readConstraints(String declareModelPath) throws FileNotFoundException {
+		Map<DeclareConstraint, Integer> declareConstraints = new HashMap<DeclareConstraint, Integer>();
 		
 		Scanner sc = new Scanner(new File(declareModelPath));
 		Pattern constraintPattern = Pattern.compile("\\w+(\\[.*\\]) \\|");
 		
 		while(sc.hasNextLine()) {
 			String line = sc.nextLine();
-			if(line.startsWith("activity") && line.length() > 9) { //Activities
+			String[] splitLine = line.split(";");
+			String constraintString = splitLine[0];
+			
+			if(constraintString.startsWith("activity") && constraintString.length() > 9) { //Activities
 				//Using constraints to detect the activities
-			} else if(line.startsWith("bind") && line.length() > 7 && line.substring(6).contains(":")) {
+			} else if(constraintString.startsWith("bind") && constraintString.length() > 7 && constraintString.substring(6).contains(":")) {
 				//Using constraints to detect activity-attribute relations
 			} else {
-				Matcher constraintMatcher = constraintPattern.matcher(line);
+				Matcher constraintMatcher = constraintPattern.matcher(constraintString);
 				if (constraintMatcher.find()) { //Constraints
-					declareConstraints.add(readConstraintString(line));
+					Integer cost = Integer.valueOf(0);
+					if (splitLine.length>1) {
+						try {
+							cost = Integer.valueOf(splitLine[1]);
+						} catch (NumberFormatException e) {
+							System.out.println("Unable to parse cost on line: " + line);
+						}
+					} else {
+						System.out.println("Cost missing on line: " + line);
+					}
+					declareConstraints.put(readConstraintString(constraintString), cost);
 				}
 			}
 		}
@@ -103,7 +117,7 @@ public class DeclareModelUtils {
 		Pattern attributeDefPattern =  Pattern.compile("(.+): (.+)");
 		
 		while(sc.hasNextLine()) {
-			String line = sc.nextLine();
+			String line = sc.nextLine().split(";")[0];
 			if(line.startsWith("activity") && line.length() > 9) { //Activities
 				//Using constraints to detect the activities
 			} else if(line.startsWith("bind") && line.length() > 7 && line.substring(6).contains(":")) {
@@ -129,7 +143,7 @@ public class DeclareModelUtils {
 		return attributeTypeMap;
 	}
 
-	public static void updatePropositionData(List<DeclareConstraint> declareConstraints, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
+	public static void updatePropositionData(Set<DeclareConstraint> declareConstraints, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
 		for (DeclareConstraint declareConstraint : declareConstraints) {
 			
 			propositionData.addActivity(declareConstraint.getActivationActivity());
