@@ -36,6 +36,7 @@ public abstract class AbstractAttribute<T> {
 	public abstract String getPropositionName(T value);
 	public abstract Set<String> getAllPropositionNames();
 	public abstract Set<String> getMatchingPropositionNames(String singleEquality);
+	public abstract String getPropositionValue(int propositionId);
 	
 
 	@Override

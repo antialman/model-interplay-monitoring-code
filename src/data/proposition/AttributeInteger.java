@@ -1,5 +1,6 @@
 package data.proposition;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -101,6 +102,43 @@ public class AttributeInteger extends AbstractAttribute<Integer> {
 		}
 
 		return propositionNames;
+	}
+
+	@Override
+	public String getPropositionValue(int propositionId) {
+		if (propositionId == -1) {
+			return "!Z";
+		}
+		
+		if (propositionId == 0) {
+			return "(-inf," + conditionValues.first() + ")";
+		} else if (propositionId == conditionValues.size()*2) {
+			return "(" + conditionValues.last() + ",inf)";
+		} else {
+			boolean singleValueInterval = propositionId%2 != 0;
+			
+			if (singleValueInterval) {
+				int index = 1;
+				for (Integer conditionCalue : conditionValues) {
+					if (index == propositionId) {
+						return Integer.toString(conditionCalue);
+					}
+					index=index+2;
+				}
+			} else {
+				Iterator<Integer> it = conditionValues.iterator();
+				int index = 2;
+				while (it.hasNext()) {
+					Integer conditionValue = it.next();
+					if (index == propositionId) {
+						return "(" + conditionValue + "," + it.next() + ")";
+					}
+					index=index+2;
+				}
+			}
+		}
+		//propositionId should never be greater than conditionValues.size()*2 so the code should never reach here
+		return null;
 	}
 
 }

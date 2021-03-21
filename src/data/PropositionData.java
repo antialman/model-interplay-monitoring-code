@@ -154,7 +154,7 @@ public class PropositionData {
 				}
 				
 				if (propositionIdString.equals("x")) {
-					propositionId = Integer.valueOf(0);
+					propositionId = Integer.valueOf(-1);
 				} else {
 					propositionId = Integer.valueOf(propositionIdString);
 				}
@@ -167,7 +167,8 @@ public class PropositionData {
 			while (it.hasNext()) {
 				AbstractAttribute<?> attribute = it.next();
 				sb.append(attribute.getName()).append("=");
-				sb.append(attributePropositionMap.get(attribute.getId())); //TODO: Get the actual value range from proposition
+				String propositionValue = attribute.getPropositionValue(attributePropositionMap.get(attribute.getId()));
+				sb.append(propositionValue);
 				if (it.hasNext()) {
 					sb.append(";");
 				}

@@ -102,4 +102,21 @@ public class AttributeString extends AbstractAttribute<String> {
 		return propositionNames;
 	}
 
+	@Override
+	public String getPropositionValue(int propositionId) {
+		if (propositionId == -1) {
+			return "!(" + String.join(",", conditionValues) + ")";
+		} else {
+			int index = -1;
+			for (String conditionValue : conditionValues) {
+				index++;
+				if (index == propositionId) {
+					return conditionValue;
+				}
+			}
+		}
+		//propositionId should never be greater than the number of conditionValues so the code should never reach here
+		return null;
+	}
+
 }
