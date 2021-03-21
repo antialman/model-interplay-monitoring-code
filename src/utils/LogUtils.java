@@ -74,7 +74,7 @@ public class LogUtils {
 		Map<String, AbstractAttribute<?>> attributes = activity.getAttributes();
 
 		if (attributes.isEmpty()) {
-			System.out.println("\tNo related attributes based on the models");
+			System.out.println("\tNo related attributes based on the model");
 		}
 
 		for (String attributeName : attributes.keySet()) {

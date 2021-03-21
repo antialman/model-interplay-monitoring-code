@@ -1,0 +1,1751 @@
+Trace: Case No. 01
+===========================================
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	No related attributes based on the model
+Event proposition: act0
+
+Global state: S2
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: HPev[eval=positive]
+Option 2:
+	Event: VTst
+Option 3:
+	Event: WT
+Option 4:
+	Event: IntD[dec=anticoag]
+Option 5:
+	Event: AT
+Option 6:
+	Event: IntD[dec=mech]
+Option 7:
+	Event: IntD[dec=thromb]
+Option 8:
+	Event: GAR
+Option 9:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , IntD[dec=anticoag] , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 10:
+	Event: HPte
+Option 11:
+	Event: HPev[eval=negative]
+Stopping cost: 15
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	No related attributes based on the model
+Event proposition: act6
+
+Global state: S24
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: IntD[dec=thromb]
+Option 2:
+	Event: GAR
+Option 3:
+	Any event except: HPte , PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , AT , IntD[dec=anticoag] , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 4:
+	Event: HPev[eval=positive]
+Option 5:
+	Event: HPte
+Option 6:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 7:
+	Event: WT
+Option 8:
+	Event: HPev[eval=negative]
+Option 9:
+	Event: AT
+Option 10:
+	Event: IntD[dec=anticoag]
+Option 11:
+	Event: IntD[dec=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act1
+
+Global state: S112
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: IntD[dec=thromb]
+Option 2:
+	Event: GAR
+Option 3:
+	Event: HPev[eval=!(negative,positive)]
+Option 4:
+	Event: HPev[eval=positive]
+Option 5:
+	Any event except: PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , AT , IntD[dec=anticoag] , IntD[dec=mech] , IntD[dec=thromb] , GAR , HPev[eval=!(negative,positive)]
+Option 6:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 7:
+	Event: HPev[eval=negative]
+Option 8:
+	Event: WT
+Option 9:
+	Event: AT
+Option 10:
+	Event: IntD[dec=anticoag]
+Option 11:
+	Event: IntD[dec=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=eval, id=0, attributeType=STRING, conditionValues=[negative, positive]]
+	Log attribute: eval=positive
+	Attribute proposition: att0p1
+Event proposition: act2att0p1
+
+Global state: S426
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 8
+Option 1:
+	Event: HPev[eval=negative]
+Option 2:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 3:
+	Any event except: HPte , PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , VTst , WT , IntD[dec=anticoag] , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 4:
+	Event: AT
+Option 5:
+	Event: HPte
+Option 6:
+	Event: IntD[dec=mech]
+Option 7:
+	Event: IntD[dec=thromb]
+Option 8:
+	Event: GAR
+Stopping cost: 15
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=dec, id=0, attributeType=STRING, conditionValues=[anticoag, mech, thromb]]
+	Log attribute: dec=anticoag
+	Attribute proposition: att0p0
+Event proposition: act7att0p0
+
+Global state: S1243
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 7
+Option 1:
+	Event: HPev[eval=negative]
+Option 2:
+	Any event except: HPte , PUst , HPev[eval=negative] , VTst , WT , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 3:
+	Event: AT
+Option 4:
+	Event: HPte
+Option 5:
+	Event: IntD[dec=mech]
+Option 6:
+	Event: IntD[dec=thromb]
+Option 7:
+	Event: GAR
+Stopping cost: 15
+
+
+Next event in event log: AT
+-------------------------------------------
+eventToProposition: AT
+	No related attributes based on the model
+Event proposition: act3
+
+Global state: S2908
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 8
+Option 1:
+	Event: GAR
+Option 2:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , IntD[dec=mech] , IntD[dec=thromb] , PUev , GAR
+Option 3:
+	Event: HPev[eval=positive]
+Option 4:
+	Event: HPev[eval=negative]
+Option 5:
+	Event: IntD[dec=mech]
+Option 6:
+	Event: IntD[dec=thromb]
+Option 7:
+	Event: HPte
+Option 8:
+	Event: PUev
+Stopping cost: 15
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act5
+
+Global state: S5622
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 8
+Option 1:
+	Event: HPte
+Option 2:
+	Event: HPev[eval=negative]
+Option 3:
+	Event: AT
+Option 4:
+	Event: IntD[dec=mech]
+Option 5:
+	Event: IntD[dec=thromb]
+Option 6:
+	Event: HPev[eval=positive]
+Option 7:
+	Event: GAR
+Option 8:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Stopping cost: 5
+
+
+Final states at trace end
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	 Truth value: perm.viol
+Constraint: Not Co-Existence[AT, WT] | | |
+	 Truth value: perm.sat
+Constraint: Response[HPte, HPev] | | |
+	 Truth value: perm.sat
+Constraint: Response[VTst, IntD] | | |
+	 Truth value: perm.sat
+Constraint: Response[PUst, HPte] | | |
+	 Truth value: perm.sat
+Constraint: Response[GAR, PUev] | | |
+	 Truth value: perm.sat
+Constraint: Response[AT, PUev] | | |
+	 Truth value: perm.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	 Truth value: perm.sat
+Constraint: Exactly1[PUst] | |
+	 Truth value: perm.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	 Truth value: perm.sat
+Constraint: Exactly1[VTst] | |
+	 Truth value: perm.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	 Truth value: perm.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	 Truth value: perm.sat
+Global state: [S5622]
+	Truth value: perm.viol
+
+Trace: Case No. 02
+===========================================
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	No related attributes based on the model
+Event proposition: act0
+
+Global state: S2
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: HPev[eval=positive]
+Option 2:
+	Event: VTst
+Option 3:
+	Event: WT
+Option 4:
+	Event: IntD[dec=anticoag]
+Option 5:
+	Event: AT
+Option 6:
+	Event: IntD[dec=mech]
+Option 7:
+	Event: IntD[dec=thromb]
+Option 8:
+	Event: GAR
+Option 9:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , IntD[dec=anticoag] , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 10:
+	Event: HPte
+Option 11:
+	Event: HPev[eval=negative]
+Stopping cost: 15
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	No related attributes based on the model
+Event proposition: act6
+
+Global state: S24
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: IntD[dec=thromb]
+Option 2:
+	Event: GAR
+Option 3:
+	Any event except: HPte , PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , AT , IntD[dec=anticoag] , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 4:
+	Event: HPev[eval=positive]
+Option 5:
+	Event: HPte
+Option 6:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 7:
+	Event: WT
+Option 8:
+	Event: HPev[eval=negative]
+Option 9:
+	Event: AT
+Option 10:
+	Event: IntD[dec=anticoag]
+Option 11:
+	Event: IntD[dec=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act1
+
+Global state: S112
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: IntD[dec=thromb]
+Option 2:
+	Event: GAR
+Option 3:
+	Event: HPev[eval=!(negative,positive)]
+Option 4:
+	Event: HPev[eval=positive]
+Option 5:
+	Any event except: PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , AT , IntD[dec=anticoag] , IntD[dec=mech] , IntD[dec=thromb] , GAR , HPev[eval=!(negative,positive)]
+Option 6:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 7:
+	Event: HPev[eval=negative]
+Option 8:
+	Event: WT
+Option 9:
+	Event: AT
+Option 10:
+	Event: IntD[dec=anticoag]
+Option 11:
+	Event: IntD[dec=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=eval, id=0, attributeType=STRING, conditionValues=[negative, positive]]
+	Log attribute: eval=positive
+	Attribute proposition: att0p1
+Event proposition: act2att0p1
+
+Global state: S426
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 8
+Option 1:
+	Event: HPev[eval=negative]
+Option 2:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 3:
+	Any event except: HPte , PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , VTst , WT , IntD[dec=anticoag] , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 4:
+	Event: AT
+Option 5:
+	Event: HPte
+Option 6:
+	Event: IntD[dec=mech]
+Option 7:
+	Event: IntD[dec=thromb]
+Option 8:
+	Event: GAR
+Stopping cost: 15
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=dec, id=0, attributeType=STRING, conditionValues=[anticoag, mech, thromb]]
+	Log attribute: dec=anticoag
+	Attribute proposition: att0p0
+Event proposition: act7att0p0
+
+Global state: S1243
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 7
+Option 1:
+	Event: HPev[eval=negative]
+Option 2:
+	Any event except: HPte , PUst , HPev[eval=negative] , VTst , WT , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 3:
+	Event: AT
+Option 4:
+	Event: HPte
+Option 5:
+	Event: IntD[dec=mech]
+Option 6:
+	Event: IntD[dec=thromb]
+Option 7:
+	Event: GAR
+Stopping cost: 15
+
+
+Next event in event log: AT
+-------------------------------------------
+eventToProposition: AT
+	No related attributes based on the model
+Event proposition: act3
+
+Global state: S2908
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 8
+Option 1:
+	Event: GAR
+Option 2:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , IntD[dec=mech] , IntD[dec=thromb] , PUev , GAR
+Option 3:
+	Event: HPev[eval=positive]
+Option 4:
+	Event: HPev[eval=negative]
+Option 5:
+	Event: IntD[dec=mech]
+Option 6:
+	Event: IntD[dec=thromb]
+Option 7:
+	Event: HPte
+Option 8:
+	Event: PUev
+Stopping cost: 15
+
+
+Next event in event log: WT
+-------------------------------------------
+eventToProposition: WT
+	No related attributes based on the model
+Event proposition: act9
+
+Global state: S5581
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: perm.viol
+	Global colour: perm.viol
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 15
+Number of options for achieving the best cost: 9
+Option 1:
+	Event: GAR
+Option 2:
+	Event: IntD[dec=mech]
+Option 3:
+	Event: IntD[dec=thromb]
+Option 4:
+	Event: HPte
+Option 5:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , IntD[dec=anticoag] , IntD[dec=mech] , IntD[dec=thromb] , PUev , GAR
+Option 6:
+	Event: HPev[eval=negative]
+Option 7:
+	Event: HPev[eval=positive]
+Option 8:
+	Event: IntD[dec=anticoag]
+Option 9:
+	Event: PUev
+Stopping cost: 25
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act5
+
+Global state: S9109
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: perm.viol
+	Global colour: perm.viol
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 15
+Number of options for achieving the best cost: 9
+Option 1:
+	Event: HPev[eval=negative]
+Option 2:
+	Event: IntD[dec=anticoag]
+Option 3:
+	Event: GAR
+Option 4:
+	Event: HPev[eval=positive]
+Option 5:
+	Event: AT
+Option 6:
+	Event: IntD[dec=mech]
+Option 7:
+	Event: IntD[dec=thromb]
+Option 8:
+	Event: HPte
+Option 9:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , IntD[dec=anticoag] , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Stopping cost: 15
+
+
+Final states at trace end
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	 Truth value: perm.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	 Truth value: perm.viol
+Constraint: Response[HPte, HPev] | | |
+	 Truth value: perm.sat
+Constraint: Response[VTst, IntD] | | |
+	 Truth value: perm.sat
+Constraint: Response[PUst, HPte] | | |
+	 Truth value: perm.sat
+Constraint: Response[GAR, PUev] | | |
+	 Truth value: perm.sat
+Constraint: Response[AT, PUev] | | |
+	 Truth value: perm.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	 Truth value: perm.sat
+Constraint: Exactly1[PUst] | |
+	 Truth value: perm.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	 Truth value: perm.sat
+Constraint: Exactly1[VTst] | |
+	 Truth value: perm.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	 Truth value: perm.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	 Truth value: perm.sat
+Global state: [S9109]
+	Truth value: perm.viol
+
+Trace: Case No. 03
+===========================================
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	No related attributes based on the model
+Event proposition: act0
+
+Global state: S2
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: HPev[eval=positive]
+Option 2:
+	Event: VTst
+Option 3:
+	Event: WT
+Option 4:
+	Event: IntD[dec=anticoag]
+Option 5:
+	Event: AT
+Option 6:
+	Event: IntD[dec=mech]
+Option 7:
+	Event: IntD[dec=thromb]
+Option 8:
+	Event: GAR
+Option 9:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , IntD[dec=anticoag] , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 10:
+	Event: HPte
+Option 11:
+	Event: HPev[eval=negative]
+Stopping cost: 15
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	No related attributes based on the model
+Event proposition: act6
+
+Global state: S24
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: IntD[dec=thromb]
+Option 2:
+	Event: GAR
+Option 3:
+	Any event except: HPte , PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , AT , IntD[dec=anticoag] , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 4:
+	Event: HPev[eval=positive]
+Option 5:
+	Event: HPte
+Option 6:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 7:
+	Event: WT
+Option 8:
+	Event: HPev[eval=negative]
+Option 9:
+	Event: AT
+Option 10:
+	Event: IntD[dec=anticoag]
+Option 11:
+	Event: IntD[dec=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act1
+
+Global state: S112
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 11
+Option 1:
+	Event: IntD[dec=thromb]
+Option 2:
+	Event: GAR
+Option 3:
+	Event: HPev[eval=!(negative,positive)]
+Option 4:
+	Event: HPev[eval=positive]
+Option 5:
+	Any event except: PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , AT , IntD[dec=anticoag] , IntD[dec=mech] , IntD[dec=thromb] , GAR , HPev[eval=!(negative,positive)]
+Option 6:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 7:
+	Event: HPev[eval=negative]
+Option 8:
+	Event: WT
+Option 9:
+	Event: AT
+Option 10:
+	Event: IntD[dec=anticoag]
+Option 11:
+	Event: IntD[dec=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=eval, id=0, attributeType=STRING, conditionValues=[negative, positive]]
+	Log attribute: eval=positive
+	Attribute proposition: att0p1
+Event proposition: act2att0p1
+
+Global state: S426
+Global truth value: temp.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 8
+Option 1:
+	Event: HPev[eval=negative]
+Option 2:
+	Event: IntD[dec=!(anticoag,mech,thromb)]
+Option 3:
+	Any event except: HPte , PUst , IntD[dec=!(anticoag,mech,thromb)] , HPev[eval=negative] , VTst , WT , IntD[dec=anticoag] , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 4:
+	Event: AT
+Option 5:
+	Event: HPte
+Option 6:
+	Event: IntD[dec=mech]
+Option 7:
+	Event: IntD[dec=thromb]
+Option 8:
+	Event: GAR
+Stopping cost: 15
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=dec, id=0, attributeType=STRING, conditionValues=[anticoag, mech, thromb]]
+	Log attribute: dec=anticoag
+	Attribute proposition: att0p0
+Event proposition: act7att0p0
+
+Global state: S1243
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 7
+Option 1:
+	Event: HPev[eval=negative]
+Option 2:
+	Any event except: HPte , PUst , HPev[eval=negative] , VTst , WT , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Option 3:
+	Event: AT
+Option 4:
+	Event: HPte
+Option 5:
+	Event: IntD[dec=mech]
+Option 6:
+	Event: IntD[dec=thromb]
+Option 7:
+	Event: GAR
+Stopping cost: 15
+
+
+Next event in event log: AT
+-------------------------------------------
+eventToProposition: AT
+	No related attributes based on the model
+Event proposition: act3
+
+Global state: S2908
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 8
+Option 1:
+	Event: GAR
+Option 2:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , WT , IntD[dec=mech] , IntD[dec=thromb] , PUev , GAR
+Option 3:
+	Event: HPev[eval=positive]
+Option 4:
+	Event: HPev[eval=negative]
+Option 5:
+	Event: IntD[dec=mech]
+Option 6:
+	Event: IntD[dec=thromb]
+Option 7:
+	Event: HPte
+Option 8:
+	Event: PUev
+Stopping cost: 15
+
+
+Next event in event log: WT
+-------------------------------------------
+eventToProposition: WT
+	No related attributes based on the model
+Event proposition: act9
+
+Global state: S5581
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: perm.viol
+	Global colour: perm.viol
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.viol
+	Global colour: temp.viol
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 15
+Number of options for achieving the best cost: 9
+Option 1:
+	Event: GAR
+Option 2:
+	Event: IntD[dec=mech]
+Option 3:
+	Event: IntD[dec=thromb]
+Option 4:
+	Event: HPte
+Option 5:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , IntD[dec=anticoag] , IntD[dec=mech] , IntD[dec=thromb] , PUev , GAR
+Option 6:
+	Event: HPev[eval=negative]
+Option 7:
+	Event: HPev[eval=positive]
+Option 8:
+	Event: IntD[dec=anticoag]
+Option 9:
+	Event: PUev
+Stopping cost: 25
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act5
+
+Global state: S9109
+Global truth value: perm.viol
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	Truth value: perm.viol
+	Global colour: perm.viol
+Constraint: Response[HPte, HPev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[VTst, IntD] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[PUst, HPte] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[GAR, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[AT, PUev] | | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[PUst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Exactly1[VTst] | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	Truth value: temp.sat
+	Global colour: temp.sat
+---
+Best achievable cost from current state: 15
+Number of options for achieving the best cost: 9
+Option 1:
+	Event: HPev[eval=negative]
+Option 2:
+	Event: IntD[dec=anticoag]
+Option 3:
+	Event: GAR
+Option 4:
+	Event: HPev[eval=positive]
+Option 5:
+	Event: AT
+Option 6:
+	Event: IntD[dec=mech]
+Option 7:
+	Event: IntD[dec=thromb]
+Option 8:
+	Event: HPte
+Option 9:
+	Any event except: HPte , PUst , HPev[eval=negative] , HPev[eval=positive] , VTst , IntD[dec=anticoag] , AT , IntD[dec=mech] , IntD[dec=thromb] , GAR
+Stopping cost: 15
+
+
+Final states at trace end
+Constraint: Response[IntD, WT] |A.dec is anticoag | |
+	 Truth value: perm.sat
+Constraint: Not Co-Existence[AT, WT] | | |
+	 Truth value: perm.viol
+Constraint: Response[HPte, HPev] | | |
+	 Truth value: perm.sat
+Constraint: Response[VTst, IntD] | | |
+	 Truth value: perm.sat
+Constraint: Response[PUst, HPte] | | |
+	 Truth value: perm.sat
+Constraint: Response[GAR, PUev] | | |
+	 Truth value: perm.sat
+Constraint: Response[AT, PUev] | | |
+	 Truth value: perm.sat
+Constraint: Response[HPev, AT] |A.eval is positive | |
+	 Truth value: perm.sat
+Constraint: Exactly1[PUst] | |
+	 Truth value: perm.sat
+Constraint: Response[IntD, MI] |A.dec is mech | |
+	 Truth value: perm.sat
+Constraint: Exactly1[VTst] | |
+	 Truth value: perm.sat
+Constraint: Response[HPev, GAR] |A.eval is negative | |
+	 Truth value: perm.sat
+Constraint: Response[IntD, TT] |A.dec is thromb | |
+	 Truth value: perm.sat
+Global state: [S9109]
+	Truth value: perm.viol
+

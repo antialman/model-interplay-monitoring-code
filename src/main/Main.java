@@ -36,8 +36,8 @@ public class Main {
 //		String declareModelPath = cmd.getOptionValue("declareModel");
 //		String logPath = cmd.getOptionValue("log");
 
-		String declareModelPath = "input/DrivingTest-Model.decl";
-		String logPath = "input/DrivingTest-Log-Negative.xes";
+		String declareModelPath = "input/BPM2021/fullModel.decl";
+		String logPath = "input/BPM2021/eventLog.xes";
 
 
 		//Reading the data needed for propositionalization
@@ -57,9 +57,11 @@ public class Main {
 		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstrains, propositionData);
 
 		//Creates the individual automatons for each constraint
+		System.out.println("Creating the individual automata");
 		Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata = AutomatonUtils.createConstraintAutomata(ltlFormulaMap);
 
 		//Creates the global automaton
+		System.out.println("Creating the global automaton");
 		ExecutableAutomaton globalAutomaton = AutomatonUtils.createGlobalAutomaton(ltlFormulaMap);
 
 		//Colouring of the global automaton

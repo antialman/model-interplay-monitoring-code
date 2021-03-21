@@ -2,10 +2,10 @@ package utils.enums;
 
 public enum ConstraintState {
 	INIT("init"), //Initial state of the constraint automata, could probably be removed
-	SAT("sat"), //Permanently satisfied
-	VIOL("viol"), //Permanently violated
-	POSS_SAT("poss.sat"), //Possibly satisfied
-	POSS_VIOL("poss.viol"); //Possibly violated
+	SAT("perm.sat"), //Permanently satisfied
+	VIOL("perm.viol"), //Permanently violated
+	POSS_SAT("temp.sat"), //Possibly satisfied
+	POSS_VIOL("temp.viol"); //Possibly violated
 	
 	
 	private final String mobuconltlName;
