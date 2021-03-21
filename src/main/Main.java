@@ -133,10 +133,11 @@ public class Main {
 				System.out.println("Best achievable cost from current state: " + bestAchievableCost);
 				System.out.println("Number of options for achieving the best cost: " + bestNextTransitions.size());
 				int optionNr = 0;
+				//Considering each transition as a separate option
 				for (List<Transition> transitions : bestNextTransitions.values()) {
 					optionNr++;
 					System.out.println("Option " + optionNr + ":");
-					//TODO: Print events instead of propositions
+					//Printing all possible events that fit the given transition
 					for (Transition transition : transitions) {
 						if (transition.isPositive()) {
 							System.out.println("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel()));
