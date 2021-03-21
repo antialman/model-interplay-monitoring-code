@@ -3,6 +3,7 @@ package main;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -91,6 +92,10 @@ public class Main {
 			globalTruthValue = ConstraintState.INIT;
 
 			for (XEvent xevent : xtrace) {
+				String eventName = XConceptExtension.instance().extractName(xevent);
+				System.out.println("Next event in event log: " + eventName);
+				System.out.println("-------------------------------------------");
+				
 				String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
 
 				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton);
@@ -113,17 +118,46 @@ public class Main {
 				
 				//Getting the transitions that lead to best achievable cost from the current state
 				Integer bestAchievableCost = costBestMap.get(globalState);
-				List<Transition> bestNextTransitions = new ArrayList<Transition>();
+				Map<State, List<Transition>> bestNextTransitions = new HashMap<State, List<Transition>>();
 				for (Transition t : globalState.getOutput()) {
 					if (costBestMap.get(t.getTarget()).intValue() == bestAchievableCost.intValue()) {
-						//TODO: Translate transition labels (propositions) into corresponding activities with corresponding attribute value ranges
-						bestNextTransitions.add(t);
+						if (!bestNextTransitions.containsKey(t.getTarget())) {
+							bestNextTransitions.put(t.getTarget(), new ArrayList<Transition>());
+						}
+						bestNextTransitions.get(t.getTarget()).add(t);
 					}
 				}
-				System.out.println("Best achievable cost from current state: " + bestAchievableCost);
-				System.out.println("\twith transitions: " + bestNextTransitions);
-				System.out.println("\tstopping cost: " + costCurrMap.get(globalState));
 				
+				//Printing the recommendations for the next course of action
+				System.out.println("---");
+				System.out.println("Best achievable cost from current state: " + bestAchievableCost);
+				System.out.println("Number of options for achieving the best cost: " + bestNextTransitions.size());
+				int optionNr = 0;
+				for (List<Transition> transitions : bestNextTransitions.values()) {
+					optionNr++;
+					System.out.println("Option " + optionNr + ":");
+					//TODO: Print events instead of propositions
+					for (Transition transition : transitions) {
+						if (transition.isPositive()) {
+							System.out.println("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel()));
+						} else if (transition.isNegative()) {
+							System.out.print("\tAny event except: ");
+							Iterator<String> it = transition.getNegativeLabels().iterator();
+							while (it.hasNext()) {
+								System.out.print(propositionData.propositionToActivityString(it.next()));
+								if (it.hasNext()) {
+									System.out.print(" , ");
+								}
+							}
+							System.out.println();
+						} else {
+							System.out.println("\t-any evet-");
+						}
+					}
+				}
+				System.out.println("Stopping cost: " + costCurrMap.get(globalState));
+				
+				System.out.println();
 				System.out.println();
 			}
 
