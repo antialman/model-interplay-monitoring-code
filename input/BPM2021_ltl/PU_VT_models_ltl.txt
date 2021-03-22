@@ -1,0 +1,22 @@
+model PU;10
+activity PUst
+activity HPte
+activity HPev
+activity AT
+activity GAR
+activity PUev
+attribute HPev.eval:string
+formula <> (PUst  &&  ( <> ( HPte &&  ( <> (HPev && ( <>( ( AT ||  GAR)   && (<> PUev) )))))));
+formula [] ( (HPev ) -> ( X (<>AT) ) );HPev.eval is positive
+formula [] ( (HPev ) -> ( X (<>GAR) ) );HPev.eval is negative
+model VT;5
+activity VTst
+activity IntD
+activity MI
+activity WT
+activity TT
+attribute IntD.dec:string
+formula <> (VTst  &&  ( <> ( IntD &&  (  <> ( MI ||  WT || TT) ) ) ) );
+formula [] ( (IntD ) -> ( X (<>MI))  );IntD.dec is mech
+formula [] ( (IntD ) -> ( X (<>WT))  );IntD.dec is anticoag
+formula [] ( (IntD ) -> ( X (<>TT))  );IntD.dec is thromb

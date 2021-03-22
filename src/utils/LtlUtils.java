@@ -1,12 +1,22 @@
 package utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
+import org.processmining.ltl2automaton.plugins.automaton.Automaton;
+import org.processmining.plugins.declareminer.ExecutableAutomaton;
+
 import data.DeclareConstraint;
+import data.LtlModel;
 import data.PropositionData;
+import data.proposition.AttributeType;
 import utils.enums.DeclareTemplate;
 
 public class LtlUtils {
@@ -21,7 +31,7 @@ public class LtlUtils {
 			String ltlFormula = LtlUtils.getPropositionalizedLtlFormula(declareConstraint, propositionData);
 			System.out.println("Declare constraint: " + declareConstraint.toString());
 			System.out.println("Propositionalized formula: " + ltlFormula);
-			
+
 			propositionalizedLtlFormulas.put(declareConstraint, ltlFormula);
 		}
 		return propositionalizedLtlFormulas;
@@ -200,5 +210,126 @@ public class LtlUtils {
 			break;
 		}
 		return formula;
+	}
+
+	public static Map<String, AttributeType> addAttributeTypes(String ltlModelPath, Map<String, AttributeType> attributeTypeMap) throws FileNotFoundException {
+
+		return attributeTypeMap;
+	}
+
+	public static List<LtlModel> processLtlModelFile(String ltlModelPath, PropositionData propositionData) throws FileNotFoundException {
+		Scanner sc = new Scanner(new File(ltlModelPath));
+
+		Map<String, AttributeType> attributeTypeMap = new HashMap<String, AttributeType>();
+		
+		List<LtlModel> ltlModels = new ArrayList<LtlModel>();
+
+		while(sc.hasNextLine()) {
+			String line = sc.nextLine();
+			if (line.startsWith("model ")) {
+				String[] splitLine = line.substring(6).split(";");
+				Integer cost = Integer.valueOf(0);
+				if (splitLine.length>1) {
+					try {
+						cost = Integer.valueOf(splitLine[1]);
+					} catch (NumberFormatException e) {
+						System.out.println("Unable to parse cost on line: " + line);
+					}
+				} else {
+					System.out.println("Cost missing on line: " + line);
+				}
+				ltlModels.add(new LtlModel(splitLine[0], cost));
+			} else if (line.startsWith("activity ")) {
+				propositionData.addActivity(line.substring(9));
+			} else if (line.startsWith("attribute ") && line.contains(":")) {
+				String[] splitLine = line.substring(10).split(":");
+				String[] activityAttribute = splitLine[0].split("\\.");
+				if (activityAttribute.length > 1) {
+					if (splitLine[1].equals("integer")) {
+						propositionData.addAttribute(activityAttribute[0], activityAttribute[1], AttributeType.INTEGER);
+						attributeTypeMap.put(activityAttribute[0], AttributeType.INTEGER);
+					} else if(splitLine[1].equals("float")) {
+						propositionData.addAttribute(activityAttribute[0], activityAttribute[1], AttributeType.FLOAT);
+						attributeTypeMap.put(activityAttribute[0], AttributeType.FLOAT);
+					} else {
+						propositionData.addAttribute(activityAttribute[0], activityAttribute[1], AttributeType.STRING);
+						attributeTypeMap.put(activityAttribute[0], AttributeType.STRING);
+					}
+				} else {
+					System.out.println("Skipping attribute definition: " + line);
+				}
+
+			} else if (line.startsWith("formula ")) {
+				String[] splitLine = line.substring(8).split(";");
+				if (splitLine.length > 1) {
+					ltlModels.get(ltlModels.size()-1).addformula(splitLine[0], splitLine[1]);
+
+					for (String individualCondition : splitLine[1].split(" and | or ")) {
+						String[] splitCondition = individualCondition.split("<|<=|=|!=|>|>=| is | is not | in | not in ");
+						String[] activityAttribute = splitCondition[0].split("\\.");
+						if (attributeTypeMap.get(activityAttribute[0]) == AttributeType.INTEGER) {
+							propositionData.addAttributeValue(activityAttribute[0], activityAttribute[1], Integer.valueOf(splitCondition[1]));
+						} else if (attributeTypeMap.get(activityAttribute[0]) == AttributeType.FLOAT) {
+							propositionData.addAttributeValue(activityAttribute[0], activityAttribute[1], Float.valueOf(splitCondition[1]));
+						} else {
+							propositionData.addAttributeValue(activityAttribute[0], activityAttribute[1], splitCondition[1]);
+						}
+					}
+
+				} else {
+					ltlModels.get(ltlModels.size()-1).addformula(splitLine[0], null);
+				}
+			}
+		}
+
+		return ltlModels;
+	}
+
+	public static Map<LtlModel, String> getPropositionalizedLtlModelFormulaMap(List<LtlModel> ltlModels, PropositionData propositionData) {
+		Map<LtlModel, String> ltlModelFormulaMap = new HashMap<LtlModel, String>();
+		if (ltlModels == null) {
+			return ltlModelFormulaMap;
+		}
+		for (LtlModel ltlModel : ltlModels) {
+			List<String> propositionalizedFormulas = new ArrayList<String>();
+			for (String ltlModelFormula : ltlModel.getFormulas().keySet()) {
+				String propositionalizedFormula = ltlModelFormula;
+				
+				if (ltlModel.getFormulas().get(ltlModelFormula) != null) {
+					String[] split = ltlModel.getFormulas().get(ltlModelFormula).split("\\.");
+					String activity = split[0];
+					String activityCondition = split[1]; //TODO: Support for operators 'and', 'or'
+					if (activityCondition.contains(" and ") || activityCondition.contains(" or ")) {
+						activityCondition =  activityCondition.substring(0, split[1].indexOf(" and | or "));
+					}
+					Set<String> activityPropositions = propositionData.getMatchingPropositions(split[0], "A." + activityCondition);
+					
+					propositionalizedFormula = propositionalizedFormula.replace(activity, "( " + String.join(" \\/ ", activityPropositions) + " )");
+					
+				}
+				
+				
+				for (String activityName : propositionData.getActivityNames()) {
+					propositionalizedFormula = propositionalizedFormula.replace(activityName, "( " + String.join(" \\/ ", propositionData.getAllActivityPropositions(activityName)) + " )");
+				}
+				
+				propositionalizedFormulas.add(propositionalizedFormula.replace("p-1", "px"));
+			}
+			
+			StringBuilder ltlModelFormula = new StringBuilder("(");
+			Iterator<String> it = propositionalizedFormulas.iterator();
+			while (it.hasNext()) {
+				ltlModelFormula.append(it.next());
+				if (it.hasNext()) {
+					ltlModelFormula.append(")&&(");
+				} else {
+					ltlModelFormula.append(")");
+				}
+			}
+			
+			ltlModelFormulaMap.put(ltlModel, ltlModelFormula.toString());
+			
+		}
+		return ltlModelFormulaMap;
 	}
 }

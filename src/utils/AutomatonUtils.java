@@ -1,7 +1,11 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import org.processmining.ltl2automaton.plugins.automaton.Automaton;
@@ -20,6 +24,8 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import org.processmining.plugins.declareminer.PossibleNodes;
 
 import data.DeclareConstraint;
+import data.LtlModel;
+import data.PropositionData;
 import utils.enums.ConstraintState;
 
 public class AutomatonUtils {
@@ -41,7 +47,7 @@ public class AutomatonUtils {
 		return constraintAutomatons;
 	}
 
-	public static ExecutableAutomaton createGlobalAutomaton(Map<DeclareConstraint, String> ltlFormulaMap) {
+	public static ExecutableAutomaton createGlobalAutomaton(Map<DeclareConstraint, String> ltlFormulaMap, Map<LtlModel, String> ltlModelFormulaMap) {
 		Automaton globalAutomaton = null;
 
 		for (String ltlFormula : ltlFormulaMap.values()) {
@@ -53,6 +59,16 @@ public class AutomatonUtils {
 				globalAutomaton = globalAutomaton.op.intersect(individualAutomaton);
 			}			
 		}
+		
+		for (String ltlModelFormula : ltlModelFormulaMap.values()) {
+			Automaton individualAutomaton = createAutomatonForLTLFormula(ltlModelFormula);
+			if (globalAutomaton==null && individualAutomaton != null) {
+				globalAutomaton = individualAutomaton;
+			} else if (individualAutomaton != null) {
+				globalAutomaton = globalAutomaton.op.intersect(individualAutomaton);
+			}
+		}
+		
 		if (globalAutomaton != null) {
 			globalAutomaton = globalAutomaton.op.determinize().op.complete();
 			return new ExecutableAutomaton(globalAutomaton);
@@ -111,7 +127,7 @@ public class AutomatonUtils {
 		return newTruthValue;
 	}
 
-	public static Map<State, Map<ExecutableAutomaton, ConstraintState>> getGlobalAutomatonColours(ExecutableAutomaton globalAutomaton, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
+	public static Map<State, Map<ExecutableAutomaton, ConstraintState>> getGlobalAutomatonColours(ExecutableAutomaton globalAutomaton, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata, Map<ExecutableAutomaton, LtlModel> ltlModelAutomata) {
 		Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = new HashMap<State, Map<ExecutableAutomaton, ConstraintState>>();
 		boolean visited[] = new boolean[globalAutomaton.stateCount()];
 
@@ -119,17 +135,20 @@ public class AutomatonUtils {
 		for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
 			executableAutomaton.ini();
 		}
+		for (ExecutableAutomaton executableAutomaton : ltlModelAutomata.keySet()) {
+			executableAutomaton.ini();
+		}
 		globalAutomaton.ini();
 
 		for (State state : globalAutomaton.currentState()) {
 			Stack<String> executedPropositions = new Stack<String>();
-			colourGlobalAutomatonState(state, visited, constraintAutomata, globalAutomatonColours, executedPropositions);
+			colourGlobalAutomatonState(state, visited, constraintAutomata, ltlModelAutomata, globalAutomatonColours, executedPropositions);
 		}
 
 		return globalAutomatonColours;
 	}
 
-	private static void colourGlobalAutomatonState(State state, boolean[] visited, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Stack<String> executedPropositions) {
+	private static void colourGlobalAutomatonState(State state, boolean[] visited, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata, Map<ExecutableAutomaton, LtlModel> ltlModelAutomata, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Stack<String> executedPropositions) {
 		visited[state.getId()] = true;
 		System.out.println("Global state colours " + state.toString());
 		HashMap<ExecutableAutomaton, ConstraintState> globalStateColours = new HashMap<ExecutableAutomaton, ConstraintState>();
@@ -146,18 +165,31 @@ public class AutomatonUtils {
 			System.out.println("\t" + truthValue + ": " + constraintAutomata.get(executableAutomaton).getConstraintString());
 		}
 		globalAutomatonColours.put(state, globalStateColours);
+		
+		for (ExecutableAutomaton executableAutomaton : ltlModelAutomata.keySet()) {
+			if (!executedPropositions.empty()) {
+				executableAutomaton.ini();
+				for (String executedProposition : executedPropositions) {
+					executableAutomaton.next(executedProposition);
+				}
+			}
+			ConstraintState truthValue = checkTruthValue(executableAutomaton.currentState());
+			globalStateColours.put(executableAutomaton, truthValue);
+			System.out.println("\t" + truthValue + ": " + ltlModelAutomata.get(executableAutomaton).getName());
+		}
+		globalAutomatonColours.put(state, globalStateColours);
 
 
 		for (Transition t : state.getOutput()) {
 			if (!visited[t.getTarget().getId()]) {
 				executedPropositions.push(t.getPositiveLabel()); //Returns a label even if the transition is negative which is useful in this case
-				colourGlobalAutomatonState(t.getTarget(), visited, constraintAutomata, globalAutomatonColours, executedPropositions);
+				colourGlobalAutomatonState(t.getTarget(), visited, constraintAutomata, ltlModelAutomata, globalAutomatonColours, executedPropositions);
 				executedPropositions.pop();
 			}
 		}
 	}
 
-	public static Map<State, Integer> getCostCurrMap(ExecutableAutomaton globalAutomaton, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
+	public static Map<State, Integer> getCostCurrMap(ExecutableAutomaton globalAutomaton, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata, Map<ExecutableAutomaton, LtlModel> ltlModelAutomata) {
 		Map<State, Integer> costCurrMap = new HashMap<State, Integer>();
 		boolean visited[] = new boolean[globalAutomaton.stateCount()];
 
@@ -165,7 +197,7 @@ public class AutomatonUtils {
 		globalAutomaton.ini();
 
 		for (State state : globalAutomaton.currentState()) {
-			calculateCostCurrForState(state, visited, costCurrMap, globalAutomaton, globalAutomatonColours, constraintAutomata);
+			calculateCostCurrForState(state, visited, costCurrMap, globalAutomaton, globalAutomatonColours, constraintAutomata, ltlModelAutomata);
 		}
 		for (State state : costCurrMap.keySet()) {
 			System.out.println("cost_cur for state " + state.toString() + ": " + costCurrMap.get(state));
@@ -176,21 +208,25 @@ public class AutomatonUtils {
 		return costCurrMap;
 	}
 
-	private static void calculateCostCurrForState(State state, boolean[] visited, Map<State, Integer> costCurrMap, ExecutableAutomaton globalAutomaton, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata) {
+	private static void calculateCostCurrForState(State state, boolean[] visited, Map<State, Integer> costCurrMap, ExecutableAutomaton globalAutomaton, Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours, Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata, Map<ExecutableAutomaton, LtlModel> ltlModelAutomata) {
 		visited[state.getId()] = true;
 		int costCurr = 0;
 
 		for (ExecutableAutomaton executableAutomaton : globalAutomatonColours.get(state).keySet()) {
 			ConstraintState constraintState = globalAutomatonColours.get(state).get(executableAutomaton);
 			if (constraintState == ConstraintState.VIOL || constraintState == ConstraintState.POSS_VIOL) {
-				costCurr = costCurr + constraintAutomata.get(executableAutomaton).getViolationCost();
+				if (constraintAutomata.get(executableAutomaton) != null) {
+					costCurr = costCurr + constraintAutomata.get(executableAutomaton).getViolationCost();
+				} else {
+					costCurr = costCurr + ltlModelAutomata.get(executableAutomaton).getViolationCost();
+				}
 			}
 		}
 		costCurrMap.put(state, Integer.valueOf(costCurr));
 
 		for (Transition t : state.getOutput()) {
 			if (!visited[t.getTarget().getId()]) {
-				calculateCostCurrForState(t.getTarget(), visited, costCurrMap, globalAutomaton, globalAutomatonColours, constraintAutomata);
+				calculateCostCurrForState(t.getTarget(), visited, costCurrMap, globalAutomaton, globalAutomatonColours, constraintAutomata, ltlModelAutomata);
 			}
 		}
 
@@ -264,6 +300,16 @@ public class AutomatonUtils {
 		
 		
 		return valueChanged;
+	}
+
+	public static Map<ExecutableAutomaton, LtlModel> createLtlModelAutomata(Map<LtlModel, String> ltlModelFormulaMap) {
+		Map<ExecutableAutomaton, LtlModel> ltlModelAutomata = new HashMap<ExecutableAutomaton, LtlModel>();
+		
+		for (LtlModel ltlModel : ltlModelFormulaMap.keySet()) {
+			Automaton aut = createAutomatonForLTLFormula(ltlModelFormulaMap.get(ltlModel));
+			ltlModelAutomata.put(new ExecutableAutomaton(aut), ltlModel);
+		}
+		return ltlModelAutomata;
 	}
 
 

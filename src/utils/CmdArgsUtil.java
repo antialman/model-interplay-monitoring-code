@@ -21,11 +21,11 @@ public class CmdArgsUtil {
 		declareParam.setRequired(true);
 		options.addOption(declareParam);
 		
-		Option petrinetParam = new Option("p", "petrinetModel", true, "Petrinet model path");
+		Option petrinetParam = new Option("l", "ltlModel", false, "Text file containing the ltl formulas that represent the petrinets");
 		petrinetParam.setRequired(true);
 		options.addOption(petrinetParam);
 
-		Option logParam = new Option("l", "log", true, "input event log path");
+		Option logParam = new Option("e", "eventLog", true, "Input event log path");
 		logParam.setRequired(true);
 		options.addOption(logParam);
 

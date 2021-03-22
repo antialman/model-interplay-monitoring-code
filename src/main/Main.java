@@ -15,6 +15,7 @@ import org.processmining.ltl2automaton.plugins.automaton.State;
 import org.processmining.ltl2automaton.plugins.automaton.Transition;
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import data.DeclareConstraint;
+import data.LtlModel;
 import data.PropositionData;
 import data.proposition.AttributeType;
 import utils.AutomatonUtils;
@@ -29,15 +30,18 @@ public class Main {
 
 	private static List<DeclareConstraint> declareConstrains;
 	private static Map<String, AttributeType> attributeTypeMap;
+	private static List<LtlModel> ltlModels;
 
 	public static void main(String[] args) {
 		//TODO Uncomment and review after the code is done
 //		CommandLine cmd = CmdArgsUtil.handleArgs(args);
 //		String declareModelPath = cmd.getOptionValue("declareModel");
-//		String logPath = cmd.getOptionValue("log");
+//		String ltlModelPath = cmd.getOptionValue("ltlModel");
+//		String eventLogPath = cmd.getOptionValue("eventLog");
 
-		String declareModelPath = "input/BPM2021/fullModel.decl";
-		String logPath = "input/BPM2021/eventLog.xes";
+		String declareModelPath = "input/BPM2021_ltl/notCoexistence_AT-WT.decl";
+		String ltlModelPath = "input/BPM2021_ltl/PU_VT_models_ltl.txt";
+		String eventLogPath = "input/BPM2021_ltl/eventLog.xes";
 
 
 		//Reading the data needed for propositionalization
@@ -52,23 +56,38 @@ public class Main {
 
 		//Populates the data structure that is used for propositionalization of constraints and also events
 		DeclareModelUtils.updatePropositionData(declareConstrains, attributeTypeMap, propositionData);
+		
+		if (ltlModelPath != null) {
+			try {
+				ltlModels = LtlUtils.processLtlModelFile(ltlModelPath, propositionData);
+			} catch (FileNotFoundException e) {
+				System.out.println("Unable to open LTL model file: " + ltlModelPath);
+				System.out.println("Continuing with only the Declare model");
+				e.printStackTrace();
+			}
+		}
+		
 
 		//Creating propositionalized ltl formulas for each declare constraint 
 		Map<DeclareConstraint, String> ltlFormulaMap = LtlUtils.getPropositionalizedLtlFormulaMap(declareConstrains, propositionData);
+		
+		Map<LtlModel, String> ltlModelFormulaMap = LtlUtils.getPropositionalizedLtlModelFormulaMap(ltlModels, propositionData);
 
 		//Creates the individual automatons for each constraint
 		System.out.println("Creating the individual automata");
 		Map<ExecutableAutomaton, DeclareConstraint> constraintAutomata = AutomatonUtils.createConstraintAutomata(ltlFormulaMap);
+		
+		Map<ExecutableAutomaton, LtlModel> ltlModelAutomata = AutomatonUtils.createLtlModelAutomata(ltlModelFormulaMap);
 
 		//Creates the global automaton
 		System.out.println("Creating the global automaton");
-		ExecutableAutomaton globalAutomaton = AutomatonUtils.createGlobalAutomaton(ltlFormulaMap);
+		ExecutableAutomaton globalAutomaton = AutomatonUtils.createGlobalAutomaton(ltlFormulaMap, ltlModelFormulaMap);
 
 		//Colouring of the global automaton
-		Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(globalAutomaton, constraintAutomata);
+		Map<State, Map<ExecutableAutomaton, ConstraintState>> globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(globalAutomaton, constraintAutomata, ltlModelAutomata);
 
 		//Calculating the current cost for each node in the global automaton (cost_curr values)
-		Map<State, Integer> costCurrMap = AutomatonUtils.getCostCurrMap(globalAutomaton, globalAutomatonColours, constraintAutomata);
+		Map<State, Integer> costCurrMap = AutomatonUtils.getCostCurrMap(globalAutomaton, globalAutomatonColours, constraintAutomata, ltlModelAutomata);
 		
 		//Calculating the best cost for each node in the global automaton (cost_best values)
 		Map<State, Integer> costBestMap = AutomatonUtils.getCostBestMap(globalAutomaton, costCurrMap);
@@ -79,7 +98,7 @@ public class Main {
 
 		//Replaying the event log
 		System.out.println("Replaying the event log");
-		XLog xlog = LogUtils.convertToXlog(logPath);
+		XLog xlog = LogUtils.convertToXlog(eventLogPath);
 		for (XTrace xtrace : xlog) {
 			String traceName = XConceptExtension.instance().extractName(xtrace);
 			System.out.println("Trace: " + traceName);
@@ -87,6 +106,10 @@ public class Main {
 
 			//Initialising the automata at the start of each trace
 			for (ExecutableAutomaton executableAutomaton : constraintAutomata.keySet()) {
+				executableAutomaton.ini();
+				truthValues.put(executableAutomaton, ConstraintState.INIT);
+			}
+			for (ExecutableAutomaton executableAutomaton : ltlModelAutomata.keySet()) {
 				executableAutomaton.ini();
 				truthValues.put(executableAutomaton, ConstraintState.INIT);
 			}
@@ -110,6 +133,17 @@ public class Main {
 					ConstraintState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton);
 					truthValues.put(executableAutomaton, newTruthValue);				
 					System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton).getConstraintString());
+					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
+					System.out.println("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(executableAutomaton));
+					if (!truthValues.get(executableAutomaton).equals(globalAutomatonColours.get(globalState).get(executableAutomaton))) {
+						//If this happens then there must be a mistake in either creating or colouring the global automaton
+						System.err.println("Global colour does not match truth value, something is wrong!");
+					}
+				}
+				for (ExecutableAutomaton executableAutomaton : ltlModelAutomata.keySet()) {
+					ConstraintState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton);
+					truthValues.put(executableAutomaton, newTruthValue);				
+					System.out.println("Model: " + ltlModelAutomata.get(executableAutomaton).getName());
 					System.out.println("\tTruth value: " + truthValues.get(executableAutomaton));
 					System.out.println("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(executableAutomaton));
 					if (!truthValues.get(executableAutomaton).equals(globalAutomatonColours.get(globalState).get(executableAutomaton))) {
@@ -173,6 +207,15 @@ public class Main {
 					truthValues.put(executableAutomaton, ConstraintState.VIOL);
 				}
 				System.out.println("Constraint: " + constraintAutomata.get(executableAutomaton).getConstraintString());
+				System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
+			}
+			for (ExecutableAutomaton executableAutomaton : ltlModelAutomata.keySet()) {
+				if (globalAutomatonColours.get(globalState).get(executableAutomaton).equals(ConstraintState.POSS_SAT)) {
+					truthValues.put(executableAutomaton, ConstraintState.SAT);
+				} else if(globalAutomatonColours.get(globalState).get(executableAutomaton).equals(ConstraintState.POSS_VIOL)) {
+					truthValues.put(executableAutomaton, ConstraintState.VIOL);
+				}
+				System.out.println("Model: " + ltlModelAutomata.get(executableAutomaton).getName());
 				System.out.println("\t Truth value: " + truthValues.get(executableAutomaton));
 			}
 
