@@ -280,8 +280,8 @@ public class AutomatonUtils {
 		Integer costBest = costBestMap.get(state);
 		
 		for (Transition t : state.getOutput()) {
-			//t.getTarget() != state excludes self loops
-			if (t.getTarget() != state && costBest.intValue() > costBestMap.get(t.getTarget()).intValue()) {
+			//If we want to exclude self-loop then we should add a condition t.getTarget() != state
+			if (costBest.intValue() > costBestMap.get(t.getTarget()).intValue()) {
 				costBest = costBestMap.get(t.getTarget());
 				valueChanged = true;
 			}
