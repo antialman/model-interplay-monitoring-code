@@ -77,7 +77,7 @@ public class AutomatonUtils {
 		}
 	}
 
-	private static Automaton createAutomatonForLTLFormula(String ltlFormula) {
+	public static Automaton createAutomatonForLTLFormula(String ltlFormula) {
 		Automaton aut = null;
 
 		//Parsing the ltl formula
