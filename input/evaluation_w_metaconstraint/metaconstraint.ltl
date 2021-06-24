@@ -1,1 +1,1 @@
-( []( ( AT_start -> <>( [] ( WT_start -> !( <> ( AT_complete ) ) ) ) ) )) && ( []( ( WT_start -> <>( [] ( AT_start -> !( <> ( WT_complete ) ) ) ) ) ))
+( [](AT_start ->  (  !(WT_start) U AT_complete ))) && ( [](WT_start ->  (  !(AT_start) U WT_complete )))
