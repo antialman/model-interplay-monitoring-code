@@ -1,3 +1,11 @@
-# Code for the BPM2021 Model interplay monitoring paper
-This repository contains the implementation of the approach proposed in BPMN2021 paper about monitoring the interplay of Workflow nets and Declare constraints
+# Code for the conference paper "Monitoring Hybrid Process Specifications with Conflict Management"
+
+Paper authors:
+* Anti Alman
+* Fabrizio Maria Maggi
+* Marco Montali
+* Fabio Patrizi
+* Andrey Rivkin
+
+Implementation by: Anti Alman
 
