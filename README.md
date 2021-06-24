@@ -1,4 +1,6 @@
-# Code for the conference paper "Monitoring Hybrid Process Specifications with Conflict Management"
+# Model interplay monitor
+
+Code for the conference paper "Monitoring Hybrid Process Specifications with Conflict Management"
 
 Paper authors:
 * Anti Alman
