@@ -1,5 +1,7 @@
 
 
+	costModel.txt - violation costs of the input models
+	
 	notCoexistence_AT-WT.decl - Declare model specifying that activities amoxicillin therapy (AT) and warfarin therapy (WT) cannot coexist in the same trace
 	
 	PU_DPN_Editor_String.txt - String for creating the DPN of the PU guideline using the ProM plugin DPNTextEditor 
