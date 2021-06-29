@@ -1,1 +1,5 @@
+activity AT_start
+activity WT_start
+activity AT_complete
+activity WT_complete
 ( [](AT_start ->  (  !(WT_start) U AT_complete ))) && ( [](WT_start ->  (  !(AT_start) U WT_complete )))
