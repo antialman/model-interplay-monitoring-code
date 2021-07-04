@@ -1,9 +1,11 @@
-package data.proposition;
+package data.proposition_old;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import proposition.attribute.AttributeType;
 
 public class AttributeString extends AbstractAttribute<String> {
 
@@ -103,7 +105,7 @@ public class AttributeString extends AbstractAttribute<String> {
 	}
 
 	@Override
-	public String getPropositionValue(int propositionId) {
+	public String getPropositionValue(int propositionId) { //From old implementation, can probably be improved
 		if (propositionId == -1) {
 			return "!(" + String.join(",", conditionValues) + ")";
 		} else {

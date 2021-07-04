@@ -86,7 +86,7 @@
                <fill color="#FFFFFF"/>
             </graphics>
          </transition>
-         <transition guard="((result==&#34;positive&#34;)||(result==&#34;negative&#34;))" id="n8">
+         <transition guard="((result==&#34;positive&#34;)&amp;&amp;(test&gt;2)||(result==&#34;negative&#34;)&amp;&amp;(test&gt;1))" id="n8">
             <name>
                <text>HPev</text>
             </name>
@@ -98,8 +98,9 @@
                <fill color="#FFFFFF"/>
             </graphics>
             <writeVariable>result</writeVariable>
+			<writeVariable>test</writeVariable>
          </transition>
-         <transition id="n9">
+         <transition guard="(result==&#34;positive&#34;)" id="n9">
             <name>
                <text>AT_start</text>
             </name>
@@ -283,6 +284,11 @@
       <variables>
          <variable type="java.lang.String">
             <name>result</name>
+            <position x="0" y="0"/>
+            <dimension height="50" width="50"/>
+         </variable>
+		 <variable type="java.lang.Long">
+            <name>test</name>
             <position x="0" y="0"/>
             <dimension height="50" width="50"/>
          </variable>

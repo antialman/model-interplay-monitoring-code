@@ -8,22 +8,18 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 public class CmdArgsUtil {
-	
+
 	private CmdArgsUtil() {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
-	
+
 	//Handling cmd arguments
 	public static CommandLine handleArgs(String[] args) {
 		//TODO Review after implementation is done
 		Options options = new Options();
-		Option declareParam = new Option("d", "declareModel", true, "Declare model path. Constraint costs should be written on the same line with the constraint. Semicolon is used as the separator. For example: Init[DrivingLesson] | |;2");
+		Option declareParam = new Option("c", "costsFile", true, "Input model files and violation costs. Model and correcponding violation cost separated by comma. Each model on separate line. File extension defines the model type (decl - Declare; pnml - Data Petri Net; ltl - same format as decl file, but using raw formulas instead of Declare templates) ");
 		declareParam.setRequired(true);
 		options.addOption(declareParam);
-		
-		Option petrinetParam = new Option("l", "ltlModel", false, "Text file containing the ltl formulas that represent the petrinets");
-		petrinetParam.setRequired(true);
-		options.addOption(petrinetParam);
 
 		Option logParam = new Option("e", "eventLog", true, "Input event log path");
 		logParam.setRequired(true);

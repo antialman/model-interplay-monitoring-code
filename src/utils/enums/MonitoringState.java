@@ -1,6 +1,6 @@
 package utils.enums;
 
-public enum ConstraintState {
+public enum MonitoringState {
 	INIT("init"), //Initial state of the constraint automata, could probably be removed
 	SAT("perm.sat"), //Permanently satisfied
 	VIOL("perm.viol"), //Permanently violated
@@ -10,7 +10,7 @@ public enum ConstraintState {
 	
 	private final String mobuconltlName;
 	
-	private ConstraintState(String mobuconltlName) {
+	private MonitoringState(String mobuconltlName) {
 		this.mobuconltlName=mobuconltlName;
 	}
 	

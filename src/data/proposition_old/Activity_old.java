@@ -1,4 +1,4 @@
-package data.proposition;
+package data.proposition_old;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -6,13 +6,13 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class Activity {
+public class Activity_old {
 	private String name;
 	private int id;
 	
 	private Map<String, AbstractAttribute<?>> attributes = new TreeMap<String, AbstractAttribute<?>>();
 
-	public Activity(String name, int id) {
+	public Activity_old(String name, int id) {
 		this.name=name;
 		this.id=id;
 	}

@@ -1,0 +1,12 @@
+activity VTst
+activity IntD
+bind IntD: dec
+activity MI
+activity WT
+activity TT
+dec: mech, anticoag, thromb
+Exactly1[VTst] | |
+Response[VTst, IntD] | | |
+Response[IntD, MI] |A.dec is mech | |
+Response[IntD, WT] |A.dec is anticoag | |
+Response[IntD, TT] |A.dec is thromb | |

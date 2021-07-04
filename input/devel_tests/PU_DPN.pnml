@@ -99,7 +99,7 @@
             </graphics>
             <writeVariable>result</writeVariable>
          </transition>
-         <transition id="n9">
+         <transition guard="(result==&#34;positive&#34;)" id="n9">
             <name>
                <text>AT_start</text>
             </name>

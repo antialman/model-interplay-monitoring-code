@@ -1,29 +1,24 @@
-package data;
+package data.proposition_old;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import data.proposition.AbstractAttribute;
-import data.proposition.Activity;
-import data.proposition.AttributeFloat;
-import data.proposition.AttributeInteger;
-import data.proposition.AttributeString;
-import data.proposition.AttributeType;
+import proposition.attribute.AttributeType;
 
-public class PropositionData {
+public class PropositionData_old {
 	//For looking up activities based on activity name
-	private Map<String, Activity> activityMap = new HashMap<String, Activity>();
+	private Map<String, Activity_old> activityMap = new HashMap<String, Activity_old>();
 
 	//For looking up activities based on activity id
-	private Map<Integer, Activity> activityIdMap = new HashMap<Integer, Activity>();
+	private Map<Integer, Activity_old> activityIdMap = new HashMap<Integer, Activity_old>();
 
 
 	//Should be called for each activity in the models
 	public void addActivity(String activityName) {
 		if (!activityMap.containsKey(activityName)) {
-			Activity activity = new Activity(activityName, activityMap.values().size());
+			Activity_old activity = new Activity_old(activityName, activityMap.values().size());
 			activityMap.put(activityName, activity);
 			activityIdMap.put(Integer.valueOf(activity.getId()), activity);
 		}
@@ -115,7 +110,7 @@ public class PropositionData {
 		attribute.addConditionValue(attributeValue);
 	}
 
-	public Activity getActivity(String activityName) {
+	public Activity_old getActivity(String activityName) {
 		return activityMap.get(activityName);
 	}
 
@@ -139,7 +134,7 @@ public class PropositionData {
 			return activityIdMap.get(activityId).getName();
 		} else {
 			Integer activityId = Integer.valueOf(proposition.substring(3, attIndex));
-			Activity recommendedActivity = activityIdMap.get(activityId);
+			Activity_old recommendedActivity = activityIdMap.get(activityId);
 			
 			Map<Integer, Integer> attributePropositionMap = new HashMap<Integer, Integer>();
 			while (attIndex != -1) {

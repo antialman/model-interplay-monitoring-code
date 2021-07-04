@@ -1,4 +1,4 @@
-package data;
+package data.proposition_old;
 
 import java.util.HashMap;
 import java.util.Map;

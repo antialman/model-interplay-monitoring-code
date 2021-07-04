@@ -1,8 +1,10 @@
-package data.proposition;
+package data.proposition_old;
 
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+
+import proposition.attribute.AttributeType;
 
 public class AttributeInteger extends AbstractAttribute<Integer> {
 

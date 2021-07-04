@@ -10,14 +10,14 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import data.proposition.AttributeType;
+import data.proposition_old.DeclareConstraint;
+import data.proposition_old.PropositionData_old;
+import proposition.attribute.AttributeType;
 import utils.enums.DeclareTemplate;
-import data.DeclareConstraint;
-import data.PropositionData;
 
-public class DeclareModelUtils {
+public class ModelUtils_old {
 
-	private DeclareModelUtils() {
+	private ModelUtils_old() {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
 
@@ -145,7 +145,7 @@ public class DeclareModelUtils {
 		return attributeTypeMap;
 	}
 
-	public static void updatePropositionData(List<DeclareConstraint> declareConstraints, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
+	public static void updatePropositionData(List<DeclareConstraint> declareConstraints, Map<String, AttributeType> attributeTypeMap, PropositionData_old propositionData) {
 		for (DeclareConstraint declareConstraint : declareConstraints) {
 			
 			propositionData.addActivity(declareConstraint.getActivationActivity());
@@ -164,7 +164,7 @@ public class DeclareModelUtils {
 		}
 	}
 
-	private static void processConstraintCondition(DeclareConstraint declareConstraint, String conditionString, Map<String, AttributeType> attributeTypeMap, PropositionData propositionData) {
+	private static void processConstraintCondition(DeclareConstraint declareConstraint, String conditionString, Map<String, AttributeType> attributeTypeMap, PropositionData_old propositionData) {
 		String[] individualConditions = conditionString.split(" and | or "); //TODO: Should add code for handling parenthesis
 		String activityName = "";
 		for (int i = 0; i < individualConditions.length; i++) {

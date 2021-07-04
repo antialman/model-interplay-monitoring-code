@@ -1,4 +1,4 @@
-package data.proposition;
+package proposition.attribute;
 
 public enum AttributeType {
 	INTEGER,

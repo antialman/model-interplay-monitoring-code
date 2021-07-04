@@ -1,8 +1,10 @@
-package data.proposition;
+package data.proposition_old;
 
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import proposition.attribute.AttributeType;
 
 public abstract class AbstractAttribute<T> {
 	private String name;

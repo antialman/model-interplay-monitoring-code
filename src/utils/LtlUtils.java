@@ -10,13 +10,10 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import org.processmining.ltl2automaton.plugins.automaton.Automaton;
-import org.processmining.plugins.declareminer.ExecutableAutomaton;
-
-import data.DeclareConstraint;
-import data.LtlModel;
-import data.PropositionData;
-import data.proposition.AttributeType;
+import data.proposition_old.DeclareConstraint;
+import data.proposition_old.LtlModel;
+import data.proposition_old.PropositionData_old;
+import proposition.attribute.AttributeType;
 import utils.enums.DeclareTemplate;
 
 public class LtlUtils {
@@ -24,8 +21,17 @@ public class LtlUtils {
 	private LtlUtils() {
 		//Private constructor to avoid unnecessary instantiation of the class
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//old methods
 
-	public static Map<DeclareConstraint, String> getPropositionalizedLtlFormulaMap(List<DeclareConstraint> declareConstraints, PropositionData propositionData) {
+	public static Map<DeclareConstraint, String> getPropositionalizedLtlFormulaMap(List<DeclareConstraint> declareConstraints, PropositionData_old propositionData) {
 		Map<DeclareConstraint, String> propositionalizedLtlFormulas = new HashMap<DeclareConstraint, String>();
 		for (DeclareConstraint declareConstraint : declareConstraints) {
 			String ltlFormula = LtlUtils.getPropositionalizedLtlFormula(declareConstraint, propositionData);
@@ -37,9 +43,9 @@ public class LtlUtils {
 		return propositionalizedLtlFormulas;
 	}
 
-	private static String getPropositionalizedLtlFormula(DeclareConstraint declareConstraint, PropositionData propositionData) {
+	private static String getPropositionalizedLtlFormula(DeclareConstraint declareConstraint, PropositionData_old propositionData) {
 		//This method can be simplified by a lot if it turns out that activation condition can not refer to target activity and vice versa
-		String ltlFormula = getGeneralLtlFormula(declareConstraint.getTemplate());
+		String ltlFormula = AutomatonUtils.getGenericLtlFormula(declareConstraint.getTemplate());
 		String condition = declareConstraint.getActivationCondition();
 
 		if (declareConstraint.getTargetCondition() != null) {
@@ -110,114 +116,14 @@ public class LtlUtils {
 		}
 	}
 
-	private static String getGeneralLtlFormula(DeclareTemplate declareTemplate) {
-		String formula = "";
-		switch (declareTemplate) {
-		case Absence:
-			formula = "!( <> ( \"A\" ) )";
-			break;
-		case Absence2:
-			formula = "! ( <> ( ( \"A\" /\\ X(<>(\"A\")) ) ) )";
-			break;
-		case Absence3:
-			formula = "! ( <> ( ( \"A\" /\\  X ( <> ((\"A\" /\\  X ( <> ( \"A\" ) )) ) ) ) ))";
-			break;
-		case Alternate_Precedence:
-			formula = "(((( !(\"B\") U \"A\") \\/ []( !(\"B\"))) /\\ []((\"B\" ->( (!(X(\"A\")) /\\ !(X(!(\"A\"))) ) \\/ X((( !(\"B\") U \"A\") \\/ []( !(\"B\")))))))) /\\ (  ! (\"B\" ) \\/ (!(X(\"A\")) /\\ !(X(!(\"A\"))) ) ))";
-			break;
-		case Alternate_Response:
-			formula = "( []( ( \"A\" -> X(( (! ( \"A\" )) U \"B\" ) )) ) )";
-			break;
-		case Alternate_Succession:
-			formula = "( []((\"A\" -> X(( !(\"A\") U \"B\")))) /\\ (((( !(\"B\") U \"A\") \\/ []( !(\"B\"))) /\\ []((\"B\" ->( (!(X(\"A\")) /\\ !(X(!(\"A\"))) ) \\/ X((( !(\"B\") U \"A\") \\/ []( !(\"B\")))))))) /\\ (  ! (\"B\" ) \\/ (!(X(\"A\")) /\\ !(X(!(\"A\"))) ) )))";
-			break;
-		case Chain_Precedence:
-			formula = "[]( ( X( \"B\" ) -> \"A\") )/\\ (  ! (\"B\" ) \\/ (!(X(\"A\")) /\\ !(X(!(\"A\"))) ) )";
-			break;
-		case Chain_Response:
-			formula = "[] ( ( \"A\" -> X( \"B\" ) ) )";
-			break;
-		case Chain_Succession:
-			formula = "([]( ( \"A\" -> X( \"B\" ) ) )) /\\ ([]( ( X( \"B\" ) ->  \"A\") ) /\\ (  ! (\"B\" ) \\/ (!(X(\"A\")) /\\ !(X(!(\"A\"))) ) ))";
-			break;
-		case Choice:
-			formula = "(  <> ( \"A\" ) \\/ <>( \"B\" )  )";
-			break;
-		case CoExistence:
-			formula = "( ( <>(\"A\") -> <>( \"B\" ) ) /\\ ( <>(\"B\") -> <>( \"A\" ) )  )";
-			break;
-		case End:
-			formula = "(\"A\") && !X (true)";
-			break;
-		case Exactly1:
-			formula = "(  <> (\"A\") /\\ ! ( <> ( ( \"A\" /\\ X(<>(\"A\")) ) ) ) )";
-			break;
-		case Exactly2:
-			formula = "( <> (\"A\" /\\ (\"A\" -> (X(<>(\"A\"))))) /\\  ! ( <>( \"A\" /\\ (\"A\" -> X( <>( \"A\" /\\ (\"A\" -> X ( <> ( \"A\" ) ))) ) ) ) ) )";
-			break;
-		case Exclusive_Choice:
-			formula = "(  ( <>( \"A\" ) \\/ <>( \"B\" )  )  /\\ !( (  <>( \"A\" ) /\\ <>( \"B\" ) ) ) )";
-			break;
-		case Existence:
-			formula = "( <> ( \"A\" ) )";
-			break;
-		case Existence2:
-			formula = "<> ( ( \"A\" /\\ X(<>(\"A\")) ) )";
-			break;
-		case Existence3:
-			formula = "<>( \"A\" /\\ X(  <>( \"A\" /\\ X( <> \"A\" )) ))";
-			break;
-		case Init:
-			formula = "( \"A\" )";
-			break;
-		case Not_Chain_Precedence:
-			formula = "[] ( \"A\" -> !( X ( \"B\" ) ) )";
-			break;
-		case Not_Chain_Response:
-			formula = "[] ( \"A\" -> !( X ( \"B\" ) ) )";
-			break;
-		case Not_Chain_Succession:
-			formula = "[]( ( \"A\" -> !(X( \"B\" ) ) ))";
-			break;
-		case Not_CoExistence:
-			formula = "(<>( \"A\" )) -> (!(<>( \"B\" )))";
-			break;
-		case Not_Precedence:
-			formula = "[] ( \"A\" -> !( <> ( \"B\" ) ) )";
-			break;
-		case Not_Responded_Existence:
-			formula = "(<>( \"A\" )) -> (!(<>( \"B\" )))";
-			break;
-		case Not_Response:
-			formula = "[] ( \"A\" -> !( <> ( \"B\" ) ) )";
-			break;
-		case Not_Succession:
-			formula = "[]( ( \"A\" -> !(<>( \"B\" ) ) ))";
-			break;
-		case Precedence:
-			formula = "( ! (\"B\" ) U \"A\" ) \\/ ([](!(\"B\"))) /\\ (  ! (\"B\" ) \\/ (!(X(\"A\")) /\\ !(X(!(\"A\"))) ) )";
-			break;
-		case Responded_Existence:
-			formula = "(( ( <>( \"A\" ) -> (<>( \"B\" ) )) ))";
-			break;
-		case Response:
-			formula = "( []( ( \"A\" -> <>( \"B\" ) ) ))";
-			break;
-		case Succession:
-			formula = "(( []( ( \"A\" -> <>( \"B\" ) ) ))) /\\ (( ! (\"B\" ) U \"A\" ) \\/ ([](!(\"B\"))) /\\ (  ! (\"B\" ) \\/ (!(X(\"A\")) /\\ !(X(!(\"A\"))) ) )   )";
-			break;
-		default:
-			break;
-		}
-		return formula;
-	}
+	
 
 	public static Map<String, AttributeType> addAttributeTypes(String ltlModelPath, Map<String, AttributeType> attributeTypeMap) throws FileNotFoundException {
 
 		return attributeTypeMap;
 	}
 
-	public static List<LtlModel> processLtlModelFile(String ltlModelPath, PropositionData propositionData) throws FileNotFoundException {
+	public static List<LtlModel> processLtlModelFile(String ltlModelPath, PropositionData_old propositionData) throws FileNotFoundException {
 		Scanner sc = new Scanner(new File(ltlModelPath));
 
 		Map<String, AttributeType> attributeTypeMap = new HashMap<String, AttributeType>();
@@ -285,7 +191,7 @@ public class LtlUtils {
 		return ltlModels;
 	}
 
-	public static Map<LtlModel, String> getPropositionalizedLtlModelFormulaMap(List<LtlModel> ltlModels, PropositionData propositionData) {
+	public static Map<LtlModel, String> getPropositionalizedLtlModelFormulaMap(List<LtlModel> ltlModels, PropositionData_old propositionData) {
 		Map<LtlModel, String> ltlModelFormulaMap = new HashMap<LtlModel, String>();
 		if (ltlModels == null) {
 			return ltlModelFormulaMap;

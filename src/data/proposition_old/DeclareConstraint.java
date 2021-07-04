@@ -1,4 +1,4 @@
-package data;
+package data.proposition_old;
 
 import utils.enums.DeclareTemplate;
 
