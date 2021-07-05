@@ -118,7 +118,7 @@ public class Main {
 
 				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton);
 				State globalState = globalAutomaton.currentState().get(0);
-				System.out.println("Global state: " + globalState);
+				System.out.println("Reached state: " + globalState);
 				System.out.println("Global truth value: " + globalTruthValue);
 
 				//Using individual automata to double-check global automata correctness (functionally not needed)
@@ -150,14 +150,12 @@ public class Main {
 				//Printing the recommendations for the next course of action
 				System.out.println("---");
 				System.out.println("Best achievable cost from current state: " + bestAchievableCost);
-				System.out.println("Number of options for achieving the best cost: " + bestNextTransitions.size());
-				int optionNr = 0;
+				System.out.println("Number of next states that can lead to the best cost: " + bestNextTransitions.size());
 				//Considering each transition as a separate option
 				for (List<Transition> transitions : bestNextTransitions.values()) {
-					optionNr++;
-					System.out.println("Option " + optionNr + ":");
 					//Printing all possible events that fit the given transition
 					for (Transition transition : transitions) {
+						System.out.println("Next state " + transition.getTarget() + " is reached with:");
 						if (transition.isPositive()) {
 							System.out.println("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel()));
 						} else if (transition.isNegative()) {
