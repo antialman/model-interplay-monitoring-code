@@ -1,21 +1,19 @@
 [NAME]
-"DPN of PU guideline (metaconstraint compatible)"
+"DPN of PU guideline"
 
 [PLACES]
 PUst -> HPte
 p2 -> HPev
-p3 -> AT_start
-p4 -> AT_complete
+p3 -> AT
 p3 -> GAR
-p5 -> PUev
+p4 -> PUev
 
 [TRANSITIONS]
 HPte -> p2
 HPev -> p3
-AT_start -> p4
-AT_complete -> p5
-GAR -> p5
-PUev -> p6
+AT -> p4
+GAR -> p4
+PUev -> p5
 
 [VARIABLES]
 result [LITERAL]
@@ -25,11 +23,11 @@ HPev [result]
 
 [GUARDS]
 HPev ["result==\"positive\" || result==\"negative\""]
-AT_start ["result==\"positive\""]
+AT ["result==\"positive\""]
 GAR ["result==\"negative\""]
 
 [INITIAL]
 PUst [1]
 
 [FINAL]
-p6 [1]
+p5 [1]

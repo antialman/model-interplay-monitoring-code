@@ -1,19 +1,17 @@
 [NAME]
-"DPN of VT guideline (metaconstraint compatible)"
+"DPN of VT guideline"
 
 [PLACES]
 VTst -> IntD
 p2 -> MI
-p2 -> WT_start
-p3 -> WT_complete
+p2 -> WT
 p2 -> TT
 
 [TRANSITIONS]
 IntD -> p2
-MI -> p4
-WT_start -> p3
-WT_complete -> p4
-TT -> p4
+MI -> p3
+WT -> p3
+TT -> p3
 
 [VARIABLES]
 type [LITERAL]
@@ -24,11 +22,11 @@ IntD [type]
 [GUARDS]
 IntD ["type==\"mech\" || type==\"anticoag\" || type==\"thromb\""]
 MI ["type==\"mech\""]
-WT_start ["type==\"anticoag\""]
+WT ["type==\"anticoag\""]
 TT ["type==\"thromb\""]
 
 [INITIAL]
 VTst [1]
 
 [FINAL]
-p4 [1]
+p3 [1]

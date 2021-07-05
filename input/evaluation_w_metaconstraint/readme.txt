@@ -4,7 +4,7 @@
 	
 	eventlog.xes - input event log
 	
-	metaconstraint.ltl - metaconstraint specifying that amoxicillin therapy (AT) and warfarin therapy (WT) cannot be performed in paralel in the same trace
+	metaconstraint.ltl - metaconstraint specifying that if amoxicillin therapy (AT) and warfarin therapy (WT) coexist, then amoxicillin therapy (AT) should occur first
 	
 	notCoexistence_AT-WT.decl - Declare model specifying that activities amoxicillin therapy (AT) and warfarin therapy (WT) cannot coexist in the same trace
 	
