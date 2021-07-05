@@ -1,0 +1,779 @@
+Start: Handling parameters
+Done: Handling parameters
+
+PROCESSING INPUT MODELS
+======================================================
+Start: Loading input models
+Done: Loading input models
+
+Start: Populating propositionalization data structure
+Done: Populating propositionalization data structure
+
+Start: Creating a propositionalized automaton of each input model
+	Automata created for model: notCoexistence_AT-WT.decl
+	Automata created for model: PU_DPN.pnml
+	Automata created for model: VT_DPN.pnml
+	Automata created for model: metaconstraint.ltl
+Done: Creating a propositionalized automaton of each input model
+
+Start: Creating the global automaton
+Done: Creating the global automaton
+
+Start: Calculating colors for each state of the global automaton
+Done: Calculating colors for each state of the global automaton
+
+Start: Calculating cost_curr and cost_best values for each state of the global automaton
+Done: Calculating cost_curr and cost_best values for each state of the global automaton
+
+
+
+
+
+===========================================
+Replaying trace: Case No. 01
+===========================================
+
+
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	Activity not found in proposition data, adding: PUst
+	No related attributes based on the model
+Event proposition: act11
+
+Global state: S0
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 5
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: HPte
+Option 3:
+	Event: IntD[type=thromb]
+Option 4:
+	Event: IntD[type=anticoag]
+Option 5:
+	Event: IntD[type=mech]
+Stopping cost: 15
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	Activity not found in proposition data, adding: VTst
+	No related attributes based on the model
+Event proposition: act12
+
+Global state: S0
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 5
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: HPte
+Option 3:
+	Event: IntD[type=thromb]
+Option 4:
+	Event: IntD[type=anticoag]
+Option 5:
+	Event: IntD[type=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act4
+
+Global state: S1
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 6
+Option 1:
+	Event: IntD[type=thromb]
+Option 2:
+	Event: IntD[type=anticoag]
+Option 3:
+	Event: IntD[type=mech]
+Option 4:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 5:
+	Event: HPev[result=positive]
+Option 6:
+	Event: HPev[result=negative]
+Stopping cost: 15
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
+	Log attribute: result=positive
+	Attribute proposition: att0p1
+Event proposition: act5att0p1
+
+Global state: S5
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 4
+Option 1:
+	Event: IntD[type=thromb]
+Option 2:
+	Event: IntD[type=mech]
+Option 3:
+	Event: AT_start
+Option 4:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Log attribute: type=anticoag
+	Attribute proposition: att1p0
+Event proposition: act8att1p0
+
+Global state: S14
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 2
+Option 1:
+	Event: AT_start
+Option 2:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Next event in event log: AT_start
+-------------------------------------------
+eventToProposition: AT_start
+	No related attributes based on the model
+Event proposition: act0
+
+Global state: S29
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.viol
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 2
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: AT_complete
+Stopping cost: 18
+
+
+Next event in event log: AT_complete
+-------------------------------------------
+eventToProposition: AT_complete
+	No related attributes based on the model
+Event proposition: act2
+
+Global state: S49
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 2
+Option 1:
+	Event: PUev
+Option 2:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act3
+
+Global state: S72
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.sat
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 1
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 5
+
+
+Final states at trace end
+Global state: S72
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.sat
+	Model PU_DPN.pnml: perm.sat
+	Model VT_DPN.pnml: perm.viol
+	Model metaconstraint.ltl: perm.sat
+
+
+
+
+===========================================
+Replaying trace: Case No. 02
+===========================================
+
+
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	No related attributes based on the model
+Event proposition: act11
+
+Global state: S0
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 5
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: HPte
+Option 3:
+	Event: IntD[type=thromb]
+Option 4:
+	Event: IntD[type=anticoag]
+Option 5:
+	Event: IntD[type=mech]
+Stopping cost: 15
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	No related attributes based on the model
+Event proposition: act12
+
+Global state: S0
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 5
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: HPte
+Option 3:
+	Event: IntD[type=thromb]
+Option 4:
+	Event: IntD[type=anticoag]
+Option 5:
+	Event: IntD[type=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act4
+
+Global state: S1
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 6
+Option 1:
+	Event: IntD[type=thromb]
+Option 2:
+	Event: IntD[type=anticoag]
+Option 3:
+	Event: IntD[type=mech]
+Option 4:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 5:
+	Event: HPev[result=positive]
+Option 6:
+	Event: HPev[result=negative]
+Stopping cost: 15
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
+	Log attribute: result=positive
+	Attribute proposition: att0p1
+Event proposition: act5att0p1
+
+Global state: S5
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 4
+Option 1:
+	Event: IntD[type=thromb]
+Option 2:
+	Event: IntD[type=mech]
+Option 3:
+	Event: AT_start
+Option 4:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Log attribute: type=anticoag
+	Attribute proposition: att1p0
+Event proposition: act8att1p0
+
+Global state: S14
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 2
+Option 1:
+	Event: AT_start
+Option 2:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Next event in event log: AT_start
+-------------------------------------------
+eventToProposition: AT_start
+	No related attributes based on the model
+Event proposition: act0
+
+Global state: S29
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.viol
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 2
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: AT_complete
+Stopping cost: 18
+
+
+Next event in event log: AT_complete
+-------------------------------------------
+eventToProposition: AT_complete
+	No related attributes based on the model
+Event proposition: act2
+
+Global state: S49
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 2
+Option 1:
+	Event: PUev
+Option 2:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Next event in event log: WT_start
+-------------------------------------------
+eventToProposition: WT_start
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Attribute proposition: att1px
+Event proposition: act1att1px
+
+Global state: S73
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.viol
+---
+Best achievable cost from current state: 15
+Number of options for achieving the best cost: 3
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , AT_complete , WT_start[type=anticoag] , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , GAR[result=negative] , WT_start[type=mech] , MI[type=anticoag] , WT_start[type=thromb] , GAR[result=positive] , WT_start[type=!(anticoag,mech,thromb)] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: WT_complete
+Option 3:
+	Event: PUev
+Stopping cost: 33
+
+
+Next event in event log: WT_complete
+-------------------------------------------
+eventToProposition: WT_complete
+	No related attributes based on the model
+Event proposition: act9
+
+Global state: S90
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.sat
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 15
+Number of options for achieving the best cost: 2
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , AT_complete , WT_start[type=anticoag] , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , GAR[result=negative] , WT_start[type=mech] , MI[type=anticoag] , WT_start[type=thromb] , GAR[result=positive] , WT_start[type=!(anticoag,mech,thromb)] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: PUev
+Stopping cost: 25
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act3
+
+Global state: S102
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: temp.sat
+	Model VT_DPN.pnml: temp.sat
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 15
+Number of options for achieving the best cost: 1
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , AT_complete , WT_start[type=anticoag] , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , GAR[result=negative] , WT_start[type=mech] , MI[type=anticoag] , WT_start[type=thromb] , GAR[result=positive] , WT_start[type=!(anticoag,mech,thromb)] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Final states at trace end
+Global state: S102
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: perm.sat
+	Model VT_DPN.pnml: perm.sat
+	Model metaconstraint.ltl: perm.sat
+
+
+
+
+===========================================
+Replaying trace: Case No. 03
+===========================================
+
+
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	No related attributes based on the model
+Event proposition: act11
+
+Global state: S0
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 5
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: HPte
+Option 3:
+	Event: IntD[type=thromb]
+Option 4:
+	Event: IntD[type=anticoag]
+Option 5:
+	Event: IntD[type=mech]
+Stopping cost: 15
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	No related attributes based on the model
+Event proposition: act12
+
+Global state: S0
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 5
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: HPte
+Option 3:
+	Event: IntD[type=thromb]
+Option 4:
+	Event: IntD[type=anticoag]
+Option 5:
+	Event: IntD[type=mech]
+Stopping cost: 15
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act4
+
+Global state: S1
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 6
+Option 1:
+	Event: IntD[type=thromb]
+Option 2:
+	Event: IntD[type=anticoag]
+Option 3:
+	Event: IntD[type=mech]
+Option 4:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 5:
+	Event: HPev[result=positive]
+Option 6:
+	Event: HPev[result=negative]
+Stopping cost: 15
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
+	Log attribute: result=positive
+	Attribute proposition: att0p1
+Event proposition: act5att0p1
+
+Global state: S5
+Global truth value: temp.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 0
+Number of options for achieving the best cost: 4
+Option 1:
+	Event: IntD[type=thromb]
+Option 2:
+	Event: IntD[type=mech]
+Option 3:
+	Event: AT_start
+Option 4:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Log attribute: type=anticoag
+	Attribute proposition: att1p0
+Event proposition: act8att1p0
+
+Global state: S14
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.sat
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 2
+Option 1:
+	Event: AT_start
+Option 2:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 15
+
+
+Next event in event log: AT_start
+-------------------------------------------
+eventToProposition: AT_start
+	No related attributes based on the model
+Event proposition: act0
+
+Global state: S29
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: temp.sat
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: temp.viol
+---
+Best achievable cost from current state: 5
+Number of options for achieving the best cost: 2
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , WT_start[type=anticoag] , AT_complete , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , WT_start[type=mech] , GAR[result=negative] , MI[type=anticoag] , WT_start[type=thromb] , WT_start[type=!(anticoag,mech,thromb)] , GAR[result=positive] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: AT_complete
+Stopping cost: 18
+
+
+Next event in event log: WT_start
+-------------------------------------------
+eventToProposition: WT_start
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Attribute proposition: att1px
+Event proposition: act1att1px
+
+Global state: S48
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: perm.viol
+---
+Best achievable cost from current state: 18
+Number of options for achieving the best cost: 3
+Option 1:
+	Event: AT_complete
+Option 2:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , AT_complete , WT_start[type=anticoag] , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , GAR[result=negative] , WT_start[type=mech] , MI[type=anticoag] , WT_start[type=thromb] , GAR[result=positive] , WT_start[type=!(anticoag,mech,thromb)] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 3:
+	Event: WT_complete
+Stopping cost: 33
+
+
+Next event in event log: AT_complete
+-------------------------------------------
+eventToProposition: AT_complete
+	No related attributes based on the model
+Event proposition: act2
+
+Global state: S71
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.viol
+	Model metaconstraint.ltl: perm.viol
+---
+Best achievable cost from current state: 18
+Number of options for achieving the best cost: 3
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , AT_complete , WT_start[type=anticoag] , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , GAR[result=negative] , WT_start[type=mech] , MI[type=anticoag] , WT_start[type=thromb] , GAR[result=positive] , WT_start[type=!(anticoag,mech,thromb)] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Option 2:
+	Event: WT_complete
+Option 3:
+	Event: PUev
+Stopping cost: 33
+
+
+Next event in event log: WT_complete
+-------------------------------------------
+eventToProposition: WT_complete
+	No related attributes based on the model
+Event proposition: act9
+
+Global state: S91
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: temp.viol
+	Model VT_DPN.pnml: temp.sat
+	Model metaconstraint.ltl: perm.viol
+---
+Best achievable cost from current state: 18
+Number of options for achieving the best cost: 2
+Option 1:
+	Event: PUev
+Option 2:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , AT_complete , WT_start[type=anticoag] , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , GAR[result=negative] , WT_start[type=mech] , MI[type=anticoag] , WT_start[type=thromb] , GAR[result=positive] , WT_start[type=!(anticoag,mech,thromb)] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 28
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act3
+
+Global state: S103
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: temp.sat
+	Model VT_DPN.pnml: temp.sat
+	Model metaconstraint.ltl: perm.viol
+---
+Best achievable cost from current state: 18
+Number of options for achieving the best cost: 1
+Option 1:
+	Any event except: HPev[result=!(negative,positive)] , HPev[result=positive] , HPev[result=negative] , WT_complete , PUev , AT_complete , WT_start[type=anticoag] , HPte , IntD[type=!(anticoag,mech,thromb)] , MI[type=thromb] , MI[type=mech] , GAR[result=negative] , WT_start[type=mech] , MI[type=anticoag] , WT_start[type=thromb] , GAR[result=positive] , WT_start[type=!(anticoag,mech,thromb)] , IntD[type=thromb] , IntD[type=anticoag] , IntD[type=mech] , GAR[result=!(negative,positive)] , MI[type=!(anticoag,mech,thromb)] , AT_start , TT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , TT[type=mech] , TT[type=thromb]
+Stopping cost: 18
+
+
+Final states at trace end
+Global state: S103
+Global truth value: perm.viol
+	Model notCoexistence_AT-WT.decl: perm.viol
+	Model PU_DPN.pnml: perm.sat
+	Model VT_DPN.pnml: perm.sat
+	Model metaconstraint.ltl: perm.viol
