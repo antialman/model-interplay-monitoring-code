@@ -1,7 +1,6 @@
 package utils;
 
 import org.processmining.models.graphbased.directed.petrinet.elements.Transition;
-import org.processmining.models.graphbased.directed.petrinetwithdata.newImpl.DataElement;
 import org.processmining.models.graphbased.directed.petrinetwithdata.newImpl.PNWDTransition;
 
 import model.DeclareModel;

@@ -131,7 +131,7 @@ public class Main {
 					//System.out.println("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(processModel));
 					if (!truthValues.get(processModel).equals(globalAutomatonColours.get(globalState).get(processModel))) {
 						//If this happens then there must be a mistake in either creating or colouring the global automaton
-						System.err.println("Global colour does not match truth value, something is wrong!");
+						System.err.println("Global colour does not match truth value, something is wrong with the cross-product!");
 					}
 				}
 
