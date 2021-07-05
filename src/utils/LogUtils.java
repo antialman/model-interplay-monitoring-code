@@ -113,13 +113,14 @@ public class LogUtils {
 				}
 				break;
 			default:
+				System.err.println("Possible attribute type mismatch between model and log, using px as the proposition: " + activityName);
+				proposition = attribute.getId() + "px";
 				break;
 
 			}
 
 			if (proposition.isBlank()) {
-				//TODO: This error will also be caused by DPN read guards (should not cause any issues), should look for a way to improve it
-				System.err.println("Possible attribute type mismatch between model and log, using px as the proposition: " + activityName);
+				//If the activity-attribute connection is a result of a read guard of a DPN, then proposition will be blank here
 				proposition = attribute.getId() + "px";
 			}
 			
