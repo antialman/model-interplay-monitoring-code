@@ -10,7 +10,6 @@ import java.util.Stack;
 
 import org.processmining.datapetrinets.DataPetriNetsWithMarkings;
 import org.processmining.ltl2automaton.plugins.automaton.DefaultAutomatonFactory;
-import org.processmining.ltl2automaton.plugins.automaton.DeterministicAutomaton;
 import org.processmining.ltl2automaton.plugins.automaton.State;
 import org.processmining.models.graphbased.directed.petrinet.Petrinet;
 import org.processmining.models.graphbased.directed.petrinet.elements.Transition;
@@ -68,12 +67,16 @@ public class DpnModel extends AbstractModel {
 			}
 		}
 
-		//Adding a negative self-loop to each state of the automaton (matches all propositions that are not part of the alphabet of this DPN and that are not already handled by existing outgoing transitions)
+		//Creating fail state and self loops
+		State failState = new State(automatonFactory.getAutomaton().getStateCount());
+		automatonFactory.addState(failState);
+		automatonFactory.addAllTransition(failState, failState);
 		Set<String> modelPropositions = new HashSet<String>();
 		for (String activityName : getActivityNames()) {
 			modelPropositions.addAll(propositionData.getAllActivityPropositions(activityName));
 		}
 		for (DpnState dpnState : visitedDpnStates) {
+			//Adding a transition from current state to fail state for each proposition that is unhandled by existing outgoing transitions 
 			Set<String> outgoingPropositions = new HashSet<String>();
 			for (org.processmining.ltl2automaton.plugins.automaton.Transition transition : dpnState.getAutomatonState().getOutput()) {
 				outgoingPropositions.add(transition.getPositiveLabel());
@@ -81,11 +84,16 @@ public class DpnModel extends AbstractModel {
 			Set<String> unhandeledPropositions = new HashSet<String>();
 			unhandeledPropositions.addAll(modelPropositions);
 			unhandeledPropositions.removeAll(outgoingPropositions);
-			automatonFactory.addNegativePropositionsTransition(dpnState.getAutomatonState(), dpnState.getAutomatonState(), unhandeledPropositions);
+			for (String unhandeledProposition : unhandeledPropositions) {
+				automatonFactory.addPropositionTransition(dpnState.getAutomatonState(), failState, unhandeledProposition);
+			}
+			
+			//Adding a self-loop to each state of the automaton (matches all propositions that are not part of the alphabet of this DPN)
+			automatonFactory.addNegativePropositionsTransition(dpnState.getAutomatonState(), dpnState.getAutomatonState(), modelPropositions);
 		}
 
 		//Setting the automaton state ids and creating the executable automaton
-		automaton = new DeterministicAutomaton(automatonFactory.getAutomaton().op.renumber(), false); //NB! Calling .op.determinize() would add incorrect transitions
+		automaton = automatonFactory.getAutomaton().op.determinize().op.complete().op.renumber().op.minimize();
 		executableAutomaton = new ExecutableAutomaton(automaton);
 		System.out.println("\tAutomata created for model: " + getModelName());
 	}
