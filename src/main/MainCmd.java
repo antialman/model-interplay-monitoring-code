@@ -21,7 +21,7 @@ import utils.LogUtils;
 import utils.ModelUtils;
 import utils.enums.MonitoringState;
 
-public class Main {
+public class MainCmd {
 
 	public static void main(String[] args) {
 		//Data structures
@@ -135,11 +135,11 @@ public class Main {
 					}
 				}
 
-				//Getting the transitions that lead to best achievable cost from the current state
+				//Getting the transitions that lead to best achievable cost from the current state (excluding self loops)
 				Integer bestAchievableCost = costBestMap.get(globalState);
 				Map<State, List<Transition>> bestNextTransitions = new HashMap<State, List<Transition>>();
 				for (Transition t : globalState.getOutput()) {
-					if (costBestMap.get(t.getTarget()).intValue() == bestAchievableCost.intValue()) {
+					if (costBestMap.get(t.getTarget()).intValue() == bestAchievableCost.intValue() && t.getSource() != t.getTarget()) {
 						if (!bestNextTransitions.containsKey(t.getTarget())) {
 							bestNextTransitions.put(t.getTarget(), new ArrayList<Transition>());
 						}

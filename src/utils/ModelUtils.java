@@ -24,6 +24,7 @@ import org.processmining.datapetrinets.io.DataPetriNetImporter;
 import org.processmining.models.graphbased.directed.petrinet.elements.Transition;
 import org.processmining.models.graphbased.directed.petrinetwithdata.newImpl.DataElement;
 import org.processmining.models.graphbased.directed.petrinetwithdata.newImpl.PNWDTransition;
+
 import model.AbstractModel;
 import model.DeclareModel;
 import model.DpnModel;
@@ -56,8 +57,8 @@ public class ModelUtils {
 				String modelName = splitLine[0];
 				Integer violationCost = Integer.valueOf(splitLine[1]);
 				Path modelPath = Paths.get(parentPath, modelName);
-				String modelExtension = modelName.split("\\.")[1];
 				try {
+					String modelExtension = modelName.substring(modelName.lastIndexOf(".")+1);
 					if ("decl".equalsIgnoreCase(modelExtension)) {
 						processModels.add(loadDeclareModel(modelPath, modelName, violationCost));
 					} else if ("ltl".equalsIgnoreCase(modelExtension)) {
@@ -67,7 +68,7 @@ public class ModelUtils {
 					} else {
 						System.err.println("Skipping model of unknown type: " + modelExtension);
 					}
-				} catch (DPNIOException | IOException e) {
+				} catch (DPNIOException | IOException | IndexOutOfBoundsException e) {
 					System.err.println("Unable to load the model specified on line: " + line);
 					e.printStackTrace();
 				}
@@ -89,7 +90,7 @@ public class ModelUtils {
 
 
 	//Handles loading of a Declare model
-	private static DeclareModel loadDeclareModel(Path modelPath, String modelName, Integer violationCost) throws IOException {
+	public static DeclareModel loadDeclareModel(Path modelPath, String modelName, int violationCost) throws IOException {
 		Set<String> activityNames = createActivityNamesSet(modelPath);
 		List<DeclareConstraint> declareConstrains = readConstraints(modelPath);		
 		Map<String, AttributeType> attributeTypeMap = createAttributeTypeMap(modelPath);
@@ -178,7 +179,7 @@ public class ModelUtils {
 
 
 	//Handles loading of an LTL model
-	private static LtlModel loadLtlModel(Path modelPath, String modelName, Integer violationCost) throws IOException {
+	public static LtlModel loadLtlModel(Path modelPath, String modelName, Integer violationCost) throws IOException {
 		Set<String> activityNames = createActivityNamesSet(modelPath);
 		List<LtlConstraint> ltlFormulas = readLtlFormulas(modelPath);
 		Map<String, AttributeType> attributeTypeMap = createAttributeTypeMap(modelPath);
@@ -273,7 +274,7 @@ public class ModelUtils {
 
 
 	//Handles loading of a DPN model
-	private static DpnModel loadDpnModel(Path modelPath, String modelName, Integer violationCost) throws FileNotFoundException, DPNIOException {
+	public static DpnModel loadDpnModel(Path modelPath, String modelName, Integer violationCost) throws FileNotFoundException, DPNIOException {
 		DataPetriNetImporter dataPetriNetImporter = new DataPetriNetImporter();
 		InputStream inputStream = new BufferedInputStream(new FileInputStream(modelPath.toString()));
 		DataPetriNetsWithMarkings dataPetriNet = dataPetriNetImporter.importFromStream(inputStream).getDPN();

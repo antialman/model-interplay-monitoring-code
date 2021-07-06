@@ -17,6 +17,31 @@
        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
        <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.3.0"/>
        
+       <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+		<dependency org="org.openjfx" name="javafx-controls" rev="16">
+			<artifact name="javafx-controls" classifier="win"/>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
+		<dependency org="org.openjfx" name="javafx-base" rev="16">
+			<artifact name="javafx-base" classifier="win"/>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+		<dependency org="org.openjfx" name="javafx-fxml" rev="16">
+			<artifact name="javafx-fxml" classifier="win"/>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+		<dependency org="org.openjfx" name="javafx-graphics" rev="16">
+			<artifact name="javafx-graphics" classifier="win"/>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
+		<dependency org="org.openjfx" name="javafx-media" rev="16">
+			<artifact name="javafx-media" classifier="win"/>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
+		<dependency org="org.openjfx" name="javafx-web" rev="16">
+			<artifact name="javafx-web" classifier="win"/>
+		</dependency>
+       
        <dependency org="prom" name="DataPetriNetsLGPL" rev="latest" changing="true" transitive="true" />
     </dependencies>
 </ivy-module>

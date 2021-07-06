@@ -49,17 +49,15 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 5
-Next state S0 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S1 is reached with:
-	Event: HPte
-Next state S2 is reached with:
-	Event: IntD[type=anticoag]
-Next state S3 is reached with:
+Number of next states that can lead to the best cost: 4
+Next state S7 is reached with:
 	Event: IntD[type=mech]
-Next state S4 is reached with:
+Next state S8 is reached with:
 	Event: IntD[type=thromb]
+Next state S3 is reached with:
+	Event: HPte
+Next state S6 is reached with:
+	Event: IntD[type=anticoag]
 Stopping cost: 15
 
 
@@ -78,17 +76,15 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 5
-Next state S0 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S1 is reached with:
-	Event: HPte
-Next state S2 is reached with:
-	Event: IntD[type=anticoag]
-Next state S3 is reached with:
+Number of next states that can lead to the best cost: 4
+Next state S7 is reached with:
 	Event: IntD[type=mech]
-Next state S4 is reached with:
+Next state S8 is reached with:
 	Event: IntD[type=thromb]
+Next state S3 is reached with:
+	Event: HPte
+Next state S6 is reached with:
+	Event: IntD[type=anticoag]
 Stopping cost: 15
 
 
@@ -98,7 +94,7 @@ eventToProposition: HPte
 	No related attributes based on the model
 Event proposition: act3
 
-Reached state: S1
+Reached state: S3
 Global truth value: temp.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -106,18 +102,16 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 6
-Next state S7 is reached with:
+Number of next states that can lead to the best cost: 5
+Next state S23 is reached with:
 	Event: IntD[type=anticoag]
-Next state S8 is reached with:
+Next state S24 is reached with:
 	Event: IntD[type=mech]
-Next state S9 is reached with:
+Next state S25 is reached with:
 	Event: IntD[type=thromb]
-Next state S1 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S5 is reached with:
+Next state S21 is reached with:
 	Event: HPev[result=negative]
-Next state S6 is reached with:
+Next state S22 is reached with:
 	Event: HPev[result=positive]
 Stopping cost: 15
 
@@ -130,7 +124,7 @@ eventToProposition: HPev
 	Attribute proposition: att0p1
 Event proposition: act4att0p1
 
-Reached state: S6
+Reached state: S22
 Global truth value: temp.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -138,19 +132,17 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 4
-Next state S17 is reached with:
+Number of next states that can lead to the best cost: 3
+Next state S42 is reached with:
 	Event: AT[result=!(negative,positive)]
-Next state S17 is reached with:
+Next state S42 is reached with:
 	Event: AT[result=negative]
-Next state S17 is reached with:
+Next state S42 is reached with:
 	Event: AT[result=positive]
-Next state S19 is reached with:
+Next state S44 is reached with:
 	Event: IntD[type=mech]
-Next state S20 is reached with:
+Next state S45 is reached with:
 	Event: IntD[type=thromb]
-Next state S6 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , AT[result=positive] , WT[type=mech] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
 Stopping cost: 15
 
 
@@ -162,7 +154,7 @@ eventToProposition: IntD
 	Attribute proposition: att1p0
 Event proposition: act7att1p0
 
-Reached state: S18
+Reached state: S43
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -171,14 +163,36 @@ Global truth value: perm.viol
 ---
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 2
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=!(negative,positive)]
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=negative]
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=positive]
-Next state S18 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Next state S37 is reached with:
+	Event: MI[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: TT[type=mech]
+Next state S37 is reached with:
+	Event: TT[type=anticoag]
+Next state S37 is reached with:
+	Event: MI[type=thromb]
+Next state S37 is reached with:
+	Event: TT[type=thromb]
+Next state S37 is reached with:
+	Event: MI[type=anticoag]
+Next state S37 is reached with:
+	Event: MI[type=mech]
+Next state S37 is reached with:
+	Event: TT[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: IntD[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: IntD[type=anticoag]
+Next state S37 is reached with:
+	Event: IntD[type=mech]
+Next state S37 is reached with:
+	Event: IntD[type=thromb]
 Stopping cost: 15
 
 
@@ -189,7 +203,7 @@ eventToProposition: AT
 	Attribute proposition: att0px
 Event proposition: act0att0px
 
-Reached state: S32
+Reached state: S62
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -198,10 +212,32 @@ Global truth value: perm.viol
 ---
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 2
-Next state S44 is reached with:
+Next state S77 is reached with:
 	Event: PUev
-Next state S32 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Next state S53 is reached with:
+	Event: MI[type=!(anticoag,mech,thromb)]
+Next state S53 is reached with:
+	Event: TT[type=mech]
+Next state S53 is reached with:
+	Event: TT[type=anticoag]
+Next state S53 is reached with:
+	Event: MI[type=thromb]
+Next state S53 is reached with:
+	Event: TT[type=thromb]
+Next state S53 is reached with:
+	Event: MI[type=anticoag]
+Next state S53 is reached with:
+	Event: MI[type=mech]
+Next state S53 is reached with:
+	Event: TT[type=!(anticoag,mech,thromb)]
+Next state S53 is reached with:
+	Event: IntD[type=!(anticoag,mech,thromb)]
+Next state S53 is reached with:
+	Event: IntD[type=anticoag]
+Next state S53 is reached with:
+	Event: IntD[type=mech]
+Next state S53 is reached with:
+	Event: IntD[type=thromb]
 Stopping cost: 15
 
 
@@ -211,7 +247,7 @@ eventToProposition: PUev
 	No related attributes based on the model
 Event proposition: act2
 
-Reached state: S44
+Reached state: S77
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.sat
@@ -220,13 +256,35 @@ Global truth value: perm.viol
 ---
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 1
-Next state S44 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Next state S70 is reached with:
+	Event: MI[type=!(anticoag,mech,thromb)]
+Next state S70 is reached with:
+	Event: TT[type=mech]
+Next state S70 is reached with:
+	Event: TT[type=anticoag]
+Next state S70 is reached with:
+	Event: MI[type=thromb]
+Next state S70 is reached with:
+	Event: TT[type=thromb]
+Next state S70 is reached with:
+	Event: MI[type=anticoag]
+Next state S70 is reached with:
+	Event: MI[type=mech]
+Next state S70 is reached with:
+	Event: TT[type=!(anticoag,mech,thromb)]
+Next state S70 is reached with:
+	Event: IntD[type=!(anticoag,mech,thromb)]
+Next state S70 is reached with:
+	Event: IntD[type=anticoag]
+Next state S70 is reached with:
+	Event: IntD[type=mech]
+Next state S70 is reached with:
+	Event: IntD[type=thromb]
 Stopping cost: 5
 
 
 Final states at trace end
-Global state: S44
+Global state: S77
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: perm.sat
 	Model PU_DPN.pnml: perm.sat
@@ -255,17 +313,15 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 5
-Next state S0 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S1 is reached with:
-	Event: HPte
-Next state S2 is reached with:
-	Event: IntD[type=anticoag]
-Next state S3 is reached with:
+Number of next states that can lead to the best cost: 4
+Next state S7 is reached with:
 	Event: IntD[type=mech]
-Next state S4 is reached with:
+Next state S8 is reached with:
 	Event: IntD[type=thromb]
+Next state S3 is reached with:
+	Event: HPte
+Next state S6 is reached with:
+	Event: IntD[type=anticoag]
 Stopping cost: 15
 
 
@@ -283,17 +339,15 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 5
-Next state S0 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S1 is reached with:
-	Event: HPte
-Next state S2 is reached with:
-	Event: IntD[type=anticoag]
-Next state S3 is reached with:
+Number of next states that can lead to the best cost: 4
+Next state S7 is reached with:
 	Event: IntD[type=mech]
-Next state S4 is reached with:
+Next state S8 is reached with:
 	Event: IntD[type=thromb]
+Next state S3 is reached with:
+	Event: HPte
+Next state S6 is reached with:
+	Event: IntD[type=anticoag]
 Stopping cost: 15
 
 
@@ -303,7 +357,7 @@ eventToProposition: HPte
 	No related attributes based on the model
 Event proposition: act3
 
-Reached state: S1
+Reached state: S3
 Global truth value: temp.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -311,18 +365,16 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 6
-Next state S7 is reached with:
+Number of next states that can lead to the best cost: 5
+Next state S23 is reached with:
 	Event: IntD[type=anticoag]
-Next state S8 is reached with:
+Next state S24 is reached with:
 	Event: IntD[type=mech]
-Next state S9 is reached with:
+Next state S25 is reached with:
 	Event: IntD[type=thromb]
-Next state S1 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S5 is reached with:
+Next state S21 is reached with:
 	Event: HPev[result=negative]
-Next state S6 is reached with:
+Next state S22 is reached with:
 	Event: HPev[result=positive]
 Stopping cost: 15
 
@@ -335,7 +387,7 @@ eventToProposition: HPev
 	Attribute proposition: att0p1
 Event proposition: act4att0p1
 
-Reached state: S6
+Reached state: S22
 Global truth value: temp.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -343,19 +395,17 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 4
-Next state S17 is reached with:
+Number of next states that can lead to the best cost: 3
+Next state S42 is reached with:
 	Event: AT[result=!(negative,positive)]
-Next state S17 is reached with:
+Next state S42 is reached with:
 	Event: AT[result=negative]
-Next state S17 is reached with:
+Next state S42 is reached with:
 	Event: AT[result=positive]
-Next state S19 is reached with:
+Next state S44 is reached with:
 	Event: IntD[type=mech]
-Next state S20 is reached with:
+Next state S45 is reached with:
 	Event: IntD[type=thromb]
-Next state S6 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , AT[result=positive] , WT[type=mech] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
 Stopping cost: 15
 
 
@@ -367,7 +417,7 @@ eventToProposition: IntD
 	Attribute proposition: att1p0
 Event proposition: act7att1p0
 
-Reached state: S18
+Reached state: S43
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -376,14 +426,36 @@ Global truth value: perm.viol
 ---
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 2
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=!(negative,positive)]
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=negative]
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=positive]
-Next state S18 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Next state S37 is reached with:
+	Event: MI[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: TT[type=mech]
+Next state S37 is reached with:
+	Event: TT[type=anticoag]
+Next state S37 is reached with:
+	Event: MI[type=thromb]
+Next state S37 is reached with:
+	Event: TT[type=thromb]
+Next state S37 is reached with:
+	Event: MI[type=anticoag]
+Next state S37 is reached with:
+	Event: MI[type=mech]
+Next state S37 is reached with:
+	Event: TT[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: IntD[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: IntD[type=anticoag]
+Next state S37 is reached with:
+	Event: IntD[type=mech]
+Next state S37 is reached with:
+	Event: IntD[type=thromb]
 Stopping cost: 15
 
 
@@ -394,7 +466,7 @@ eventToProposition: AT
 	Attribute proposition: att0px
 Event proposition: act0att0px
 
-Reached state: S32
+Reached state: S62
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -403,10 +475,32 @@ Global truth value: perm.viol
 ---
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 2
-Next state S44 is reached with:
+Next state S77 is reached with:
 	Event: PUev
-Next state S32 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Next state S53 is reached with:
+	Event: MI[type=!(anticoag,mech,thromb)]
+Next state S53 is reached with:
+	Event: TT[type=mech]
+Next state S53 is reached with:
+	Event: TT[type=anticoag]
+Next state S53 is reached with:
+	Event: MI[type=thromb]
+Next state S53 is reached with:
+	Event: TT[type=thromb]
+Next state S53 is reached with:
+	Event: MI[type=anticoag]
+Next state S53 is reached with:
+	Event: MI[type=mech]
+Next state S53 is reached with:
+	Event: TT[type=!(anticoag,mech,thromb)]
+Next state S53 is reached with:
+	Event: IntD[type=!(anticoag,mech,thromb)]
+Next state S53 is reached with:
+	Event: IntD[type=anticoag]
+Next state S53 is reached with:
+	Event: IntD[type=mech]
+Next state S53 is reached with:
+	Event: IntD[type=thromb]
 Stopping cost: 15
 
 
@@ -417,7 +511,7 @@ eventToProposition: WT
 	Attribute proposition: att1px
 Event proposition: act1att1px
 
-Reached state: S47
+Reached state: S80
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: perm.viol
 	Model PU_DPN.pnml: temp.viol
@@ -425,10 +519,8 @@ Global truth value: perm.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 15
-Number of next states that can lead to the best cost: 2
-Next state S47 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , PUev , WT[type=anticoag] , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , AT[result=positive] , WT[type=mech] , WT[type=thromb] , TT[type=mech] , TT[type=anticoag] , WT[type=!(anticoag,mech,thromb)] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S54 is reached with:
+Number of next states that can lead to the best cost: 1
+Next state S85 is reached with:
 	Event: PUev
 Stopping cost: 25
 
@@ -439,7 +531,7 @@ eventToProposition: PUev
 	No related attributes based on the model
 Event proposition: act2
 
-Reached state: S54
+Reached state: S85
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: perm.viol
 	Model PU_DPN.pnml: temp.sat
@@ -447,14 +539,12 @@ Global truth value: perm.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 15
-Number of next states that can lead to the best cost: 1
-Next state S54 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , PUev , WT[type=anticoag] , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , AT[result=positive] , WT[type=mech] , WT[type=thromb] , TT[type=mech] , TT[type=anticoag] , WT[type=!(anticoag,mech,thromb)] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Number of next states that can lead to the best cost: 0
 Stopping cost: 15
 
 
 Final states at trace end
-Global state: S54
+Global state: S85
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: perm.viol
 	Model PU_DPN.pnml: perm.sat
@@ -483,17 +573,15 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 5
-Next state S0 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S1 is reached with:
-	Event: HPte
-Next state S2 is reached with:
-	Event: IntD[type=anticoag]
-Next state S3 is reached with:
+Number of next states that can lead to the best cost: 4
+Next state S7 is reached with:
 	Event: IntD[type=mech]
-Next state S4 is reached with:
+Next state S8 is reached with:
 	Event: IntD[type=thromb]
+Next state S3 is reached with:
+	Event: HPte
+Next state S6 is reached with:
+	Event: IntD[type=anticoag]
 Stopping cost: 15
 
 
@@ -511,17 +599,15 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 5
-Next state S0 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S1 is reached with:
-	Event: HPte
-Next state S2 is reached with:
-	Event: IntD[type=anticoag]
-Next state S3 is reached with:
+Number of next states that can lead to the best cost: 4
+Next state S7 is reached with:
 	Event: IntD[type=mech]
-Next state S4 is reached with:
+Next state S8 is reached with:
 	Event: IntD[type=thromb]
+Next state S3 is reached with:
+	Event: HPte
+Next state S6 is reached with:
+	Event: IntD[type=anticoag]
 Stopping cost: 15
 
 
@@ -531,7 +617,7 @@ eventToProposition: HPte
 	No related attributes based on the model
 Event proposition: act3
 
-Reached state: S1
+Reached state: S3
 Global truth value: temp.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -539,18 +625,16 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 6
-Next state S7 is reached with:
+Number of next states that can lead to the best cost: 5
+Next state S23 is reached with:
 	Event: IntD[type=anticoag]
-Next state S8 is reached with:
+Next state S24 is reached with:
 	Event: IntD[type=mech]
-Next state S9 is reached with:
+Next state S25 is reached with:
 	Event: IntD[type=thromb]
-Next state S1 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
-Next state S5 is reached with:
+Next state S21 is reached with:
 	Event: HPev[result=negative]
-Next state S6 is reached with:
+Next state S22 is reached with:
 	Event: HPev[result=positive]
 Stopping cost: 15
 
@@ -563,7 +647,7 @@ eventToProposition: HPev
 	Attribute proposition: att0p1
 Event proposition: act4att0p1
 
-Reached state: S6
+Reached state: S22
 Global truth value: temp.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -571,19 +655,17 @@ Global truth value: temp.viol
 	Model metaconstraint.ltl: temp.sat
 ---
 Best achievable cost from current state: 0
-Number of next states that can lead to the best cost: 4
-Next state S17 is reached with:
+Number of next states that can lead to the best cost: 3
+Next state S42 is reached with:
 	Event: AT[result=!(negative,positive)]
-Next state S17 is reached with:
+Next state S42 is reached with:
 	Event: AT[result=negative]
-Next state S17 is reached with:
+Next state S42 is reached with:
 	Event: AT[result=positive]
-Next state S19 is reached with:
+Next state S44 is reached with:
 	Event: IntD[type=mech]
-Next state S20 is reached with:
+Next state S45 is reached with:
 	Event: IntD[type=thromb]
-Next state S6 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , AT[result=positive] , WT[type=mech] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
 Stopping cost: 15
 
 
@@ -595,7 +677,7 @@ eventToProposition: IntD
 	Attribute proposition: att1p0
 Event proposition: act7att1p0
 
-Reached state: S18
+Reached state: S43
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -604,14 +686,36 @@ Global truth value: perm.viol
 ---
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 2
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=!(negative,positive)]
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=negative]
-Next state S32 is reached with:
+Next state S62 is reached with:
 	Event: AT[result=positive]
-Next state S18 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , WT[type=anticoag] , PUev , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , WT[type=mech] , AT[result=positive] , WT[type=thromb] , TT[type=mech] , WT[type=!(anticoag,mech,thromb)] , TT[type=anticoag] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Next state S37 is reached with:
+	Event: MI[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: TT[type=mech]
+Next state S37 is reached with:
+	Event: TT[type=anticoag]
+Next state S37 is reached with:
+	Event: MI[type=thromb]
+Next state S37 is reached with:
+	Event: TT[type=thromb]
+Next state S37 is reached with:
+	Event: MI[type=anticoag]
+Next state S37 is reached with:
+	Event: MI[type=mech]
+Next state S37 is reached with:
+	Event: TT[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: IntD[type=!(anticoag,mech,thromb)]
+Next state S37 is reached with:
+	Event: IntD[type=anticoag]
+Next state S37 is reached with:
+	Event: IntD[type=mech]
+Next state S37 is reached with:
+	Event: IntD[type=thromb]
 Stopping cost: 15
 
 
@@ -622,7 +726,7 @@ eventToProposition: WT
 	Attribute proposition: att1px
 Event proposition: act1att1px
 
-Reached state: S35
+Reached state: S65
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: temp.sat
 	Model PU_DPN.pnml: temp.viol
@@ -631,8 +735,22 @@ Global truth value: perm.viol
 ---
 Best achievable cost from current state: 10
 Number of next states that can lead to the best cost: 1
-Next state S35 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , PUev , WT[type=anticoag] , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , AT[result=positive] , WT[type=mech] , WT[type=thromb] , TT[type=mech] , TT[type=anticoag] , WT[type=!(anticoag,mech,thromb)] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Next state S29 is reached with:
+	Event: GAR[result=!(negative,positive)]
+Next state S29 is reached with:
+	Event: GAR[result=positive]
+Next state S29 is reached with:
+	Event: GAR[result=negative]
+Next state S29 is reached with:
+	Event: HPte
+Next state S29 is reached with:
+	Event: PUev
+Next state S29 is reached with:
+	Event: HPev[result=negative]
+Next state S29 is reached with:
+	Event: HPev[result=positive]
+Next state S29 is reached with:
+	Event: HPev[result=!(negative,positive)]
 Stopping cost: 10
 
 
@@ -643,7 +761,7 @@ eventToProposition: AT
 	Attribute proposition: att0px
 Event proposition: act0att0px
 
-Reached state: S50
+Reached state: S82
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: perm.viol
 	Model PU_DPN.pnml: temp.viol
@@ -651,11 +769,9 @@ Global truth value: perm.viol
 	Model metaconstraint.ltl: perm.viol
 ---
 Best achievable cost from current state: 18
-Number of next states that can lead to the best cost: 2
-Next state S57 is reached with:
+Number of next states that can lead to the best cost: 1
+Next state S87 is reached with:
 	Event: PUev
-Next state S50 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , PUev , WT[type=anticoag] , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , AT[result=positive] , WT[type=mech] , WT[type=thromb] , TT[type=mech] , TT[type=anticoag] , WT[type=!(anticoag,mech,thromb)] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
 Stopping cost: 28
 
 
@@ -665,7 +781,7 @@ eventToProposition: PUev
 	No related attributes based on the model
 Event proposition: act2
 
-Reached state: S57
+Reached state: S87
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: perm.viol
 	Model PU_DPN.pnml: temp.sat
@@ -673,14 +789,12 @@ Global truth value: perm.viol
 	Model metaconstraint.ltl: perm.viol
 ---
 Best achievable cost from current state: 18
-Number of next states that can lead to the best cost: 1
-Next state S57 is reached with:
-	Any event except: GAR[result=!(negative,positive)] , GAR[result=positive] , AT[result=!(negative,positive)] , GAR[result=negative] , HPte , PUev , WT[type=anticoag] , MI[type=!(anticoag,mech,thromb)] , AT[result=negative] , AT[result=positive] , WT[type=mech] , WT[type=thromb] , TT[type=mech] , TT[type=anticoag] , WT[type=!(anticoag,mech,thromb)] , MI[type=thromb] , TT[type=thromb] , MI[type=anticoag] , MI[type=mech] , TT[type=!(anticoag,mech,thromb)] , HPev[result=negative] , HPev[result=positive] , HPev[result=!(negative,positive)] , IntD[type=!(anticoag,mech,thromb)] , IntD[type=anticoag] , IntD[type=mech] , IntD[type=thromb]
+Number of next states that can lead to the best cost: 0
 Stopping cost: 18
 
 
 Final states at trace end
-Global state: S57
+Global state: S87
 Global truth value: perm.viol
 	Model notCoexistence_AT-WT.decl: perm.viol
 	Model PU_DPN.pnml: perm.sat

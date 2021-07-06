@@ -6,13 +6,15 @@ import java.util.Set;
 import org.processmining.ltl2automaton.plugins.automaton.DeterministicAutomaton;
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import proposition.PropositionData;
 import proposition.attribute.AttributeType;
 
 public abstract class AbstractModel {
 	private String modelName;
 	private ModelType modelType;
-	private int violationCost;
+	private IntegerProperty violationCost = new SimpleIntegerProperty();
 	private Set<String> activityNames;
 	private Map<String, AttributeType> attributeTypeMap;
 	protected DeterministicAutomaton automaton;
@@ -21,7 +23,7 @@ public abstract class AbstractModel {
 	public AbstractModel(String modelName, ModelType modelType, int violationCost, Set<String> activityNames, Map<String, AttributeType> attributeTypeMap) {
 		this.modelName = modelName;
 		this.modelType = modelType;
-		this.violationCost = violationCost;
+		this.setViolationCost(violationCost);
 		this.activityNames = activityNames;
 		this.attributeTypeMap = attributeTypeMap;
 	}
@@ -35,7 +37,15 @@ public abstract class AbstractModel {
 	}
 	
 	public int getViolationCost() {
-		return violationCost;
+		return this.violationCostProperty().get();
+	}
+	
+	public void setViolationCost(int violationCost) {
+		 this.violationCostProperty().set(violationCost);
+	}
+	
+	public IntegerProperty violationCostProperty() { //For modifying the violation cost trough GUI
+		return this.violationCost;
 	}
 	
 	public Set<String> getActivityNames() {
@@ -62,5 +72,7 @@ public abstract class AbstractModel {
 		return "AbstractModel [modelName=" + modelName + ", modelType=" + modelType + ", violationCost=" + violationCost
 				+ "]";
 	}
+
+	
 	
 }

@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -65,6 +64,7 @@ public class DpnModel extends AbstractModel {
 		for (Marking marking : dataPetriNet.getFinalMarkings()) {
 			for (State state : dpnMarkingToAutomatonStates.get(marking)) {
 				automatonFactory.updateState(state, state.getId(), true);
+				//automatonFactory.addAllTransition(state, state); //This would mean that DPN is considered permanently satisfied once the final marking has been reached
 			}
 		}
 
@@ -102,7 +102,6 @@ public class DpnModel extends AbstractModel {
 	private void visitNextState(PetrinetSemantics petrinetSemantics, Stack<DpnState> currentDpnStatePath, DefaultAutomatonFactory automatonFactory, List<DpnState> visitedDpnStates, Map<Marking, List<State>> dpnMarkingToAutomatonStates, PropositionData propositionData) {
 		DpnState currentDpnState = currentDpnStatePath.peek();
 
-		Collection<Transition> a = petrinetSemantics.getExecutableTransitions();
 		for (Transition transition : petrinetSemantics.getExecutableTransitions()) {
 			if (transition.isInvisible()) { //TODO: Silent transitions
 				continue;
