@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -101,6 +102,7 @@ public class DpnModel extends AbstractModel {
 	private void visitNextState(PetrinetSemantics petrinetSemantics, Stack<DpnState> currentDpnStatePath, DefaultAutomatonFactory automatonFactory, List<DpnState> visitedDpnStates, Map<Marking, List<State>> dpnMarkingToAutomatonStates, PropositionData propositionData) {
 		DpnState currentDpnState = currentDpnStatePath.peek();
 
+		Collection<Transition> a = petrinetSemantics.getExecutableTransitions();
 		for (Transition transition : petrinetSemantics.getExecutableTransitions()) {
 			if (transition.isInvisible()) { //TODO: Silent transitions
 				continue;
@@ -229,8 +231,6 @@ public class DpnModel extends AbstractModel {
 							System.err.println(e.getMessage());
 						}
 
-
-
 					}
 				}
 
@@ -240,16 +240,35 @@ public class DpnModel extends AbstractModel {
 				allActivityPropositions = propositionData.getAllActivityPropositions(transition.getLabel());
 				//However, an arc can be created only if the last written propositions match the read condition
 				Set<String> matchingActivityPropositions = propositionData.getMatchingActivityPropositions(transition.getLabel(), dataCondition);
+				
 				boolean isValidForData = true;
-				for (String activityProposition : matchingActivityPropositions) {
-					for (String attributeName : currentDpnState.getWrittenPropositions().keySet()) {
-						String attributeId = propositionData.getAttributeId(attributeName);
-						if (activityProposition.contains(attributeId) && !activityProposition.contains(currentDpnState.getWrittenPropositions().get(attributeName))) {
-							isValidForData = false;
+				for (String attributeName : currentDpnState.getWrittenPropositions().keySet()) {
+					String attributeId = propositionData.getAttributeId(attributeName);
+					boolean isValidForAttribute = false;
+					for (String activityProposition : matchingActivityPropositions) {
+						if ((!activityProposition.contains(attributeId)) || (activityProposition.contains(attributeId) && activityProposition.contains(currentDpnState.getWrittenPropositions().get(attributeName)))) {
+							isValidForAttribute = true;
 							break;
 						}
 					}
+					if (!isValidForAttribute) {
+						isValidForData = false;
+						break;
+					}
 				}
+				
+				
+//				for (String activityProposition : matchingActivityPropositions) {
+//					
+//					boolean isValidForAttribute = true;
+//					for (String attributeName : currentDpnState.getWrittenPropositions().keySet()) {
+//						String attributeId = propositionData.getAttributeId(attributeName);
+//						if (activityProposition.contains(attributeId) && !activityProposition.contains(currentDpnState.getWrittenPropositions().get(attributeName))) {
+//							isValidForAttribute = false;
+//							break;
+//						}
+//					}
+//				}
 				if (isValidForData) {
 					try {
 						petrinetSemantics.setCurrentState(currentDpnState.getDpnMarking());

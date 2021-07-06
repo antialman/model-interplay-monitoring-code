@@ -21,8 +21,8 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import org.processmining.plugins.declareminer.PossibleNodes;
 
 import model.AbstractModel;
-import utils.enums.MonitoringState;
 import utils.enums.DeclareTemplate;
+import utils.enums.MonitoringState;
 
 public class AutomatonUtils {
 

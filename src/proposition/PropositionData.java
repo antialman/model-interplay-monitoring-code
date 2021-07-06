@@ -146,10 +146,14 @@ public class PropositionData {
 		return attributeNameToAttribute.get(attributeName).getId();
 	}
 
+	public Set<String> getAllAttributePropositions(String attributeName) {
+		return attributeNameToAttribute.get(attributeName).getAllPropositionNames();
+	}
+	
 	public Set<String> getMatchingAttributePropositions(String attributeName, String atomicCondition) {
 		return attributeNameToAttribute.get(attributeName).getMatchingPropositionNames(atomicCondition);
 	}
-
+	
 	//Methods used for log replay
 	public Activity getActivity(String activityName) {
 		return activityNameToActivity.get(activityName);
