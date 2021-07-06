@@ -1,5 +1,6 @@
 package task;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,9 +13,11 @@ import org.deckfour.xes.model.XTrace;
 import org.processmining.ltl2automaton.plugins.automaton.Transition;
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
 
+import controller.TraceVisualisationController;
 import javafx.concurrent.Task;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
+import main.MainGui;
 import model.AbstractModel;
 import proposition.PropositionData;
 import utils.AutomatonUtils;
@@ -31,8 +34,11 @@ public class MonitoringTask extends Task<VBox> {
 	private Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costCurrMap;
 	private Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costBestMap;
 	
-	Map<AbstractModel, MonitoringState> truthValues; //Truth value of each model
-	MonitoringState globalTruthValue; //Global truth value
+	private Map<AbstractModel, MonitoringState> truthValues; //Truth value of each model
+	private MonitoringState globalTruthValue; //Global truth value
+	
+	private VBox resultsVbox;
+	private TraceVisualisationController traceVisualisationController;
 	
 	public MonitoringTask(XTrace xtrace, List<AbstractModel> processModels, PropositionData propositionData, ExecutableAutomaton globalAutomaton, Map<org.processmining.ltl2automaton.plugins.automaton.State, Map<AbstractModel, MonitoringState>> globalAutomatonColours, Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costCurrMap, Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costBestMap) {
 		super();
@@ -49,14 +55,15 @@ public class MonitoringTask extends Task<VBox> {
 
 	@Override
 	protected VBox call() throws Exception {
-		VBox resultsVbox = new VBox();
+		loadTraceVisualisation();
+		traceVisualisationController.setModels(processModels);
 		
 		String traceName = XConceptExtension.instance().extractName(xtrace);
-		processResultString("\n\n\n", resultsVbox);
-		processResultString("===========================================", resultsVbox);
-		processResultString("Replaying trace: " + traceName, resultsVbox);
-		processResultString("===========================================", resultsVbox);
-		processResultString("\n", resultsVbox);
+		writeDebugMessage("\n\n\n");
+		writeDebugMessage("===========================================");
+		writeDebugMessage("Replaying trace: " + traceName);
+		writeDebugMessage("===========================================");
+		writeDebugMessage("\n");
 
 		//Initialising the automata at the start of each trace
 		for (AbstractModel processModel : processModels) {
@@ -68,22 +75,25 @@ public class MonitoringTask extends Task<VBox> {
 
 		for (XEvent xevent : xtrace) {
 			String eventName = XConceptExtension.instance().extractName(xevent);
-			processResultString("Next event in event log: " + eventName, resultsVbox);
-			processResultString("-------------------------------------------", resultsVbox);
+			writeDebugMessage("Next event in event log: " + eventName);
+			writeDebugMessage("-------------------------------------------");
 
 			String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
+			traceVisualisationController.addEventLabel(propositionData.propositionToActivityString(eventProposition, true));
 
 			globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton);
 			org.processmining.ltl2automaton.plugins.automaton.State globalState = globalAutomaton.currentState().get(0);
-			processResultString("Reached state: " + globalState, resultsVbox);
-			processResultString("Global truth value: " + globalTruthValue, resultsVbox);
+			writeDebugMessage("Reached state: " + globalState);
+			writeDebugMessage("Global truth value: " + globalTruthValue);
+			traceVisualisationController.addGlobalState(globalTruthValue);
 
 			//Using individual automata to double-check global automata correctness (functionally not needed)
 			for (AbstractModel processModel : processModels) {
 				ExecutableAutomaton executableAutomaton = processModel.getExecutableAutomaton();
 				MonitoringState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton);
 				truthValues.put(processModel, newTruthValue);				
-				processResultString("\tModel " + processModel.getModelName() + ": " + globalAutomatonColours.get(globalState).get(processModel), resultsVbox);
+				writeDebugMessage("\tModel " + processModel.getModelName() + ": " + globalAutomatonColours.get(globalState).get(processModel));
+				traceVisualisationController.addModelState(processModel, globalAutomatonColours.get(globalState).get(processModel));
 				//processResultString("\tTruth value: " + truthValues.get(processModel));
 				//processResultString("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(processModel));
 				if (!truthValues.get(processModel).equals(globalAutomatonColours.get(globalState).get(processModel))) {
@@ -105,67 +115,82 @@ public class MonitoringTask extends Task<VBox> {
 			}
 
 			//Printing the recommendations for the next course of action
-			processResultString("---", resultsVbox);
-			processResultString("Best achievable cost from current state: " + bestAchievableCost, resultsVbox);
-			processResultString("Number of next states that can lead to the best cost: " + bestNextTransitions.size(), resultsVbox);
+			writeDebugMessage("---");
+			writeDebugMessage("Best achievable cost from current state: " + bestAchievableCost);
+			traceVisualisationController.addCostBestValue(bestAchievableCost);
+			writeDebugMessage("Number of next states that can lead to the best cost: " + bestNextTransitions.size());
 			//Considering each transition as a separate option
 			for (List<Transition> transitions : bestNextTransitions.values()) {
 				//Printing all possible events that fit the given transition
 				for (Transition transition : transitions) {
-					processResultString("Next state " + transition.getTarget() + " is reached with:", resultsVbox);
+					writeDebugMessage("Next state " + transition.getTarget() + " is reached with:");
 					if (transition.isPositive()) {
-						processResultString("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel()), resultsVbox);
+						writeDebugMessage("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel(), false));
 					} else if (transition.isNegative()) {
 						String anyEventString = "\tAny event except: ";
 						Iterator<String> it = transition.getNegativeLabels().iterator();
 						while (it.hasNext()) {
-							anyEventString = anyEventString + propositionData.propositionToActivityString(it.next());
+							anyEventString = anyEventString + propositionData.propositionToActivityString(it.next(), false);
 							if (it.hasNext()) {
 								anyEventString = anyEventString + " , ";
 							}
 						}
-						processResultString(anyEventString, resultsVbox);
+						writeDebugMessage(anyEventString);
 					} else {
-						processResultString("\t-any evet-", resultsVbox);
+						writeDebugMessage("\t-any evet-");
 					}
 				}
 			}
-			processResultString("Stopping cost: " + costCurrMap.get(globalState), resultsVbox);
+			writeDebugMessage("Stopping cost: " + costCurrMap.get(globalState));
+			traceVisualisationController.addCostCurrValue(costCurrMap.get(globalState));
 
-			processResultString("", resultsVbox);
-			processResultString("", resultsVbox);
+			writeDebugMessage("");
+			writeDebugMessage("");
 		}
 
 		
-		processResultString("Final states at trace end", resultsVbox);
+		writeDebugMessage("Final states at trace end");
 		org.processmining.ltl2automaton.plugins.automaton.State globalState = globalAutomaton.currentState().get(0);
-		processResultString("Global state: " + globalState, resultsVbox);
+		writeDebugMessage("Global state: " + globalState);
 		if (globalTruthValue.equals(MonitoringState.POSS_SAT)) {
-			processResultString("Global truth value: " + MonitoringState.SAT, resultsVbox);
+			writeDebugMessage("Global truth value: " + MonitoringState.SAT);
+			traceVisualisationController.addGlobalState(MonitoringState.SAT);
 		} else if (globalTruthValue.equals(MonitoringState.POSS_VIOL)) {
-			processResultString("Global truth value: " + MonitoringState.VIOL, resultsVbox);
+			writeDebugMessage("Global truth value: " + MonitoringState.VIOL);
+			traceVisualisationController.addGlobalState(MonitoringState.VIOL);
 		} else {
-			processResultString("Global truth value: " + globalTruthValue, resultsVbox);
+			writeDebugMessage("Global truth value: " + globalTruthValue);
+			traceVisualisationController.addGlobalState(globalTruthValue);
 		}
 		
 		for (AbstractModel processModel : processModels) {
 			if (globalAutomatonColours.get(globalState).get(processModel).equals(MonitoringState.POSS_SAT)) {
-				processResultString("\tModel " + processModel.getModelName() + ": " + MonitoringState.SAT, resultsVbox);
+				writeDebugMessage("\tModel " + processModel.getModelName() + ": " + MonitoringState.SAT);
+				traceVisualisationController.addModelState(processModel, MonitoringState.SAT);
 			} else if(globalAutomatonColours.get(globalState).get(processModel).equals(MonitoringState.POSS_VIOL)) {
-				processResultString("\tModel " + processModel.getModelName() + ": " + MonitoringState.VIOL, resultsVbox);
+				writeDebugMessage("\tModel " + processModel.getModelName() + ": " + MonitoringState.VIOL);
+				traceVisualisationController.addModelState(processModel, MonitoringState.VIOL);
 			} else {
-				processResultString("\tModel " + processModel.getModelName() + ": " + globalAutomatonColours.get(globalState).get(processModel), resultsVbox);
+				writeDebugMessage("\tModel " + processModel.getModelName() + ": " + globalAutomatonColours.get(globalState).get(processModel));
+				traceVisualisationController.addModelState(processModel, globalAutomatonColours.get(globalState).get(processModel));
 			}
 		}
+		traceVisualisationController.addEventLabel("(complete)");
 		
 		
 		return resultsVbox;
 	}
-	
-	private void processResultString(String resultString, VBox resultsVbox) {
-		Label resultLabel = new Label(resultString);
-		resultsVbox.getChildren().add(resultLabel);
-		System.out.println(resultString);
+
+	private void loadTraceVisualisation() throws IOException {
+		String fxmlPath = "fxml/TraceVisualisation.fxml";
+		FXMLLoader fxmlLoader = new FXMLLoader(MainGui.class.getClassLoader().getResource(fxmlPath));
+		resultsVbox = fxmlLoader.load();
+		traceVisualisationController = (TraceVisualisationController)fxmlLoader.getController();
+	}
+
+	private void writeDebugMessage(String debugMessage) {
+		traceVisualisationController.addDebugMessage(debugMessage);
+		System.out.println(debugMessage);
 	}
 
 }

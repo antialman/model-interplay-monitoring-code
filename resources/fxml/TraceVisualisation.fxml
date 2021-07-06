@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="monitor-root" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TraceVisualisationController">
+   <children>
+      <VBox>
+         <children>
+            <Label styleClass="monitor-label" text="Stopping cost (cost_curr)" />
+            <HBox fx:id="costCurrHbox">
+               <children>
+                  <Label styleClass="monitor-cost" text="5" />
+                  <Label layoutX="10.0" layoutY="10.0" styleClass="monitor-cost" text="5" />
+                  <Label layoutX="10.0" layoutY="10.0" styleClass="monitor-cost" text="15" />
+                  <Label layoutX="60.0" layoutY="10.0" styleClass="monitor-cost" text="15" />
+               </children>
+            </HBox>
+            <Label styleClass="monitor-label" text="Best reachable cost (cost_best)" />
+            <HBox fx:id="costBestHbox" layoutX="10.0" layoutY="27.0">
+               <children>
+                  <Label styleClass="monitor-cost" text="0" />
+                  <Label layoutX="10.0" layoutY="10.0" styleClass="monitor-cost" text="0" />
+                  <Label layoutX="10.0" layoutY="10.0" styleClass="monitor-cost" text="5" />
+                  <Label layoutX="60.0" layoutY="10.0" styleClass="monitor-cost" text="5" />
+               </children>
+            </HBox>
+            <Label styleClass="monitor-label" text="Global state" />
+            <HBox fx:id="globalStateHbox">
+               <children>
+                  <Label text="poss.viol">
+                     <styleClass>
+                        <String fx:value="monitor-tile" />
+                        <String fx:value="monitor-tile__poss-viol" />
+                     </styleClass>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="10.0">
+                     <styleClass>
+                        <String fx:value="monitor-tile" />
+                        <String fx:value="monitor-tile__poss-viol" />
+                     </styleClass>
+                  </Label>
+                  <Label text="perm.viol">
+                     <styleClass>
+                        <String fx:value="monitor-tile" />
+                        <String fx:value="monitor-tile__perm-viol" />
+                     </styleClass>
+                  </Label>
+                  <Label layoutX="110.0" layoutY="10.0">
+                     <styleClass>
+                        <String fx:value="monitor-tile" />
+                        <String fx:value="monitor-tile__perm-viol" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox fx:id="modelsMonitoringVbox">
+               <children>
+                  <Label styleClass="monitor-label" text="PU_DPN.pnml" />
+                  <HBox>
+                     <children>
+                        <Label text="poss.sat">
+                           <styleClass>
+                              <String fx:value="monitor-tile" />
+                              <String fx:value="monitor-tile__poss-sat" />
+                           </styleClass>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0">
+                           <styleClass>
+                              <String fx:value="monitor-tile" />
+                              <String fx:value="monitor-tile__poss-sat" />
+                           </styleClass>
+                        </Label>
+                        <Label text="perm.sat">
+                           <styleClass>
+                              <String fx:value="monitor-tile" />
+                              <String fx:value="monitor-tile__perm-sat" />
+                           </styleClass>
+                        </Label>
+                        <Label layoutX="110.0" layoutY="10.0">
+                           <styleClass>
+                              <String fx:value="monitor-tile" />
+                              <String fx:value="monitor-tile__perm-sat" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <HBox fx:id="eventLabelHbox">
+         <children>
+            <Group>
+               <children>
+                  <Label styleClass="monitor-event-name" text="IntD[type=anticoag]" />
+               </children>
+            </Group>
+            <Group layoutX="-33.0" layoutY="53.0">
+               <children>
+                  <Label styleClass="monitor-event-name" text="AT" />
+               </children>
+            </Group>
+            <Group layoutX="142.0" layoutY="53.0">
+               <children>
+                  <Label styleClass="monitor-event-name" text="WT" />
+               </children>
+            </Group>
+            <Group layoutX="167.0" layoutY="53.0">
+               <children>
+                  <Label styleClass="monitor-event-name" text="PUev" />
+               </children>
+            </Group>
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <Label styleClass="monitor-label" text="Debug information" />
+      <VBox fx:id="debugVbox" VBox.vgrow="ALWAYS">
+         <children>
+            <Label text="[output]" />
+         </children>
+      </VBox>
+   </children>
+</VBox>

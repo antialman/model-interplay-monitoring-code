@@ -18,6 +18,8 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -29,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import main.MainGui;
 import model.AbstractModel;
 import proposition.PropositionData;
 import task.MonitoringTask;
@@ -183,6 +186,7 @@ public class MonitoringViewController {
 				monitorNextTrace();
 			});
 			executorService.execute(monitoringTask);
+
 		} else {
 			settingsPanel.setDisable(false);
 		}

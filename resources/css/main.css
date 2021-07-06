@@ -1,0 +1,57 @@
+.monitor-root {
+	-fx-background-color: #ffffff;
+	-fx-padding: 10 20 10 20;
+}
+
+
+.monitor-label {
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+	-fx-padding: 5 0 0 0;
+}
+
+.monitor-tile {
+	-fx-font-weight: bold;
+	-fx-max-height: 30;
+	-fx-pref-height: 30;
+	-fx-min-height: 30;
+	-fx-max-width: 60;
+	-fx-pref-width: 60;
+	-fx-min-width: 60;
+}
+
+.monitor-cost {
+	-fx-alignment: center;
+	-fx-max-height: 15;
+	-fx-pref-height: 15;
+	-fx-min-height: 15;
+	-fx-max-width: 60;
+	-fx-pref-width: 60;
+	-fx-min-width: 60;
+}
+
+.monitor-event-name {
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+	-fx-padding: 0 25 0 5;
+	-fx-max-height: 60;
+	-fx-pref-height: 60;
+	-fx-min-height: 60;
+	-fx-rotate: 90;
+}
+
+.monitor-tile__poss-viol {
+	-fx-background-color: #ffd700;
+}
+
+.monitor-tile__perm-viol {
+	-fx-background-color: #d44942;
+}
+
+.monitor-tile__poss-sat {
+	-fx-background-color: #79a888;
+}
+
+.monitor-tile__perm-sat {
+	-fx-background-color: #66ccff;
+}

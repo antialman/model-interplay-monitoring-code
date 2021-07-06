@@ -166,7 +166,7 @@ public class PropositionData {
 			activityIdToActivity.put(activityId, activity);
 		}
 	}
-	public String propositionToActivityString(String proposition) {
+	public String propositionToActivityString(String proposition, boolean ignorePx) {
 		int attIndex = proposition.indexOf("att");
 		if (attIndex == -1) {
 			return activityIdToActivity.get(proposition).getName();
@@ -195,22 +195,29 @@ public class PropositionData {
 				} else {
 					propositionId = Integer.valueOf(propositionIdString);
 				}
-				attributePropositionMap.put(attributeId, propositionId);
+				
+				if (propositionId != -1 || !ignorePx) {
+					attributePropositionMap.put(attributeId, propositionId);
+				}
 			}
 
 			StringBuilder sb = new StringBuilder(recommendedActivity.getName());
-			sb.append("[");
-			Iterator<AbstractAttribute<?>> it = recommendedActivity.getAttributes().values().iterator();
-			while (it.hasNext()) {
-				AbstractAttribute<?> attribute = it.next();
-				sb.append(attribute.getName()).append("=");
-				String propositionValue = attribute.getPropositionValue(attributePropositionMap.get(attribute.getId()));
-				sb.append(propositionValue);
-				if (it.hasNext()) {
-					sb.append(";");
+			if (!attributePropositionMap.isEmpty()) {
+				sb.append(" [");
+				Iterator<AbstractAttribute<?>> it = recommendedActivity.getAttributes().values().iterator();
+				while (it.hasNext()) {
+					AbstractAttribute<?> attribute = it.next();
+					if (attributePropositionMap.containsKey(attribute.getId())) {
+						sb.append(attribute.getName()).append("=");
+						String propositionValue = attribute.getPropositionValue(attributePropositionMap.get(attribute.getId()));
+						sb.append(propositionValue);
+						if (it.hasNext()) {
+							sb.append(";");
+						}
+					}
 				}
+				sb.append("]");
 			}
-			sb.append("]");
 			return sb.toString();
 		}
 	}

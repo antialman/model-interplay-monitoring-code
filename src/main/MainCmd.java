@@ -157,12 +157,12 @@ public class MainCmd {
 					for (Transition transition : transitions) {
 						System.out.println("Next state " + transition.getTarget() + " is reached with:");
 						if (transition.isPositive()) {
-							System.out.println("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel()));
+							System.out.println("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel(), false));
 						} else if (transition.isNegative()) {
 							System.out.print("\tAny event except: ");
 							Iterator<String> it = transition.getNegativeLabels().iterator();
 							while (it.hasNext()) {
-								System.out.print(propositionData.propositionToActivityString(it.next()));
+								System.out.print(propositionData.propositionToActivityString(it.next(), false));
 								if (it.hasNext()) {
 									System.out.print(" , ");
 								}
