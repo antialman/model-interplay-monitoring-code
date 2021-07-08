@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox styleClass="monitor-root" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TraceVisualisationController">
    <children>
@@ -97,26 +98,48 @@
          <children>
             <Group>
                <children>
-                  <Label styleClass="monitor-event-name" text="IntD[type=anticoag]" />
+                  <VBox layoutX="52.52880859375" layoutY="-52.52880859375" minHeight="60.0" prefHeight="60.0" styleClass="monitor-event-vbox">
+                     <children>
+                        <Label styleClass="monitor-event-name" text="IntD" />
+                        <Label styleClass="monitor-event-attribute" text="[type=anticoag]" />
+                     </children>
+                  </VBox>
                </children>
             </Group>
             <Group layoutX="-33.0" layoutY="53.0">
                <children>
-                  <Label styleClass="monitor-event-name" text="AT" />
+                  <VBox minHeight="60.0" prefHeight="60.0" styleClass="monitor-event-vbox">
+                     <children>
+                        <Label styleClass="monitor-event-name" text="AT" />
+                     </children>
+                  </VBox>
                </children>
             </Group>
             <Group layoutX="142.0" layoutY="53.0">
                <children>
-                  <Label styleClass="monitor-event-name" text="WT" />
+                  <VBox minHeight="60.0" prefHeight="60.0" styleClass="monitor-event-vbox">
+                     <children>
+                        <Label styleClass="monitor-event-name" text="WT" />
+                     </children>
+                  </VBox>
                </children>
             </Group>
             <Group layoutX="167.0" layoutY="53.0">
                <children>
-                  <Label styleClass="monitor-event-name" text="PUev" />
+                  <VBox minHeight="60.0" prefHeight="60.0" styleClass="monitor-event-vbox">
+                     <children>
+                        <Label styleClass="monitor-event-name" text="PUev" />
+                     </children>
+                  </VBox>
                </children>
             </Group>
          </children>
       </HBox>
+      <Label text="Hover over event name to see the set of next recommended events">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
       <Separator prefWidth="200.0" />
       <Label styleClass="monitor-label" text="Debug information" />
       <VBox fx:id="debugVbox" VBox.vgrow="ALWAYS">

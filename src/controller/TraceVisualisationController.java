@@ -7,8 +7,10 @@ import java.util.Map;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.AbstractModel;
 import utils.enums.MonitoringState;
 
@@ -120,10 +122,42 @@ public class TraceVisualisationController {
 		globalStateHbox.getChildren().add(monitoringTile);
 	}
 	
-	public void addEventLabel(String eventString) {
-		Label eventLabel = new Label(eventString);
-		eventLabel.getStyleClass().add("monitor-event-name");
-		eventLabelHbox.getChildren().add(new Group(eventLabel));
+	public void addEventLabel(String eventString, String recommendationString) {
+		VBox eventLabelVbox = new VBox();
+		eventLabelVbox.getStyleClass().add("monitor-event-vbox");
+		Label eventLabel = new Label();
+		
+		if (eventString.contains(" [") && eventString.contains("=") && eventString.contains("]")) {
+			int attStartIndex = eventString.indexOf(" [");
+			
+			eventLabel.setText(eventString.substring(0, attStartIndex));
+			eventLabel.getStyleClass().add("monitor-event-name");
+			eventLabelVbox.getChildren().add(eventLabel);
+			
+			Label attributeLabel = new Label(eventString.substring(attStartIndex+1));
+			attributeLabel.getStyleClass().add("monitor-event-attribute");
+			eventLabelVbox.getChildren().add(attributeLabel);
+		} else {
+			eventLabel.setText(eventString);
+			eventLabel.getStyleClass().add("monitor-event-name");
+			eventLabelVbox.getChildren().add(eventLabel);
+		}
+		if (recommendationString!=null) {
+			Tooltip recommendationTooltip = new Tooltip();
+			recommendationTooltip.setShowDelay(Duration.INDEFINITE);
+			recommendationTooltip.setHideDelay(Duration.INDEFINITE);
+			recommendationTooltip.setText(recommendationString);
+			Tooltip.install(eventLabel, recommendationTooltip);
+			eventLabel.setOnMouseEntered(event -> {
+				recommendationTooltip.show(eventLabel, event.getScreenX()+35, event.getScreenY()+35);
+			});
+			eventLabel.setOnMouseExited(event -> {
+				recommendationTooltip.hide();
+			});
+		}
+		
+		Group eventLabelGroup = new Group(eventLabelVbox);
+		eventLabelHbox.getChildren().add(eventLabelGroup);
 	}
 
 	public void addDebugMessage (String message) {

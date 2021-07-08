@@ -5,19 +5,20 @@
 
 
 .monitor-label {
-	-fx-font-size: 14px;
+	-fx-font-size: 13px;
 	-fx-font-weight: bold;
-	-fx-padding: 5 0 0 0;
+	-fx-padding: 3 0 0 0;
 }
 
 .monitor-tile {
 	-fx-font-weight: bold;
-	-fx-max-height: 30;
-	-fx-pref-height: 30;
-	-fx-min-height: 30;
+	-fx-max-height: 28;
+	-fx-pref-height: 28;
+	-fx-min-height: 28;
 	-fx-max-width: 60;
 	-fx-pref-width: 60;
 	-fx-min-width: 60;
+	-fx-padding: 0 0 0 4;
 }
 
 .monitor-cost {
@@ -30,15 +31,26 @@
 	-fx-min-width: 60;
 }
 
-.monitor-event-name {
-	-fx-font-size: 14px;
-	-fx-font-weight: bold;
+.monitor-event-vbox {
 	-fx-padding: 0 25 0 5;
 	-fx-max-height: 60;
 	-fx-pref-height: 60;
 	-fx-min-height: 60;
 	-fx-rotate: 90;
+	-fx-alignment: center_left;
 }
+
+.monitor-event-name {
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+}
+
+.monitor-event-attribute {
+	-fx-font-size: 14px;
+	-fx-padding: 0 0 0 8;
+}
+
+
 
 .monitor-tile__poss-viol {
 	-fx-background-color: #ffd700;

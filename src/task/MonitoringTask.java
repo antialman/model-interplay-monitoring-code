@@ -25,7 +25,7 @@ import utils.LogUtils;
 import utils.enums.MonitoringState;
 
 public class MonitoringTask extends Task<VBox> {
-	
+
 	private XTrace xtrace;
 	private List<AbstractModel> processModels;
 	private PropositionData propositionData;
@@ -33,13 +33,13 @@ public class MonitoringTask extends Task<VBox> {
 	private Map<org.processmining.ltl2automaton.plugins.automaton.State, Map<AbstractModel, MonitoringState>> globalAutomatonColours;
 	private Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costCurrMap;
 	private Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costBestMap;
-	
+
 	private Map<AbstractModel, MonitoringState> truthValues; //Truth value of each model
 	private MonitoringState globalTruthValue; //Global truth value
-	
+
 	private VBox resultsVbox;
 	private TraceVisualisationController traceVisualisationController;
-	
+
 	public MonitoringTask(XTrace xtrace, List<AbstractModel> processModels, PropositionData propositionData, ExecutableAutomaton globalAutomaton, Map<org.processmining.ltl2automaton.plugins.automaton.State, Map<AbstractModel, MonitoringState>> globalAutomatonColours, Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costCurrMap, Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costBestMap) {
 		super();
 		this.xtrace = xtrace;
@@ -49,7 +49,7 @@ public class MonitoringTask extends Task<VBox> {
 		this.globalAutomatonColours = globalAutomatonColours;
 		this.costCurrMap = costCurrMap;
 		this.costBestMap = costBestMap;
-		
+
 		truthValues = new HashMap<AbstractModel, MonitoringState>(processModels.size());
 	}
 
@@ -57,7 +57,7 @@ public class MonitoringTask extends Task<VBox> {
 	protected VBox call() throws Exception {
 		loadTraceVisualisation();
 		traceVisualisationController.setModels(processModels);
-		
+
 		String traceName = XConceptExtension.instance().extractName(xtrace);
 		writeDebugMessage("\n\n\n");
 		writeDebugMessage("===========================================");
@@ -79,7 +79,6 @@ public class MonitoringTask extends Task<VBox> {
 			writeDebugMessage("-------------------------------------------");
 
 			String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
-			traceVisualisationController.addEventLabel(propositionData.propositionToActivityString(eventProposition, true));
 
 			globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton);
 			org.processmining.ltl2automaton.plugins.automaton.State globalState = globalAutomaton.currentState().get(0);
@@ -118,14 +117,18 @@ public class MonitoringTask extends Task<VBox> {
 			writeDebugMessage("---");
 			writeDebugMessage("Best achievable cost from current state: " + bestAchievableCost);
 			traceVisualisationController.addCostBestValue(bestAchievableCost);
-			writeDebugMessage("Number of next states that can lead to the best cost: " + bestNextTransitions.size());
+			StringBuilder recommendationSb = new StringBuilder("Number of next transitions that can lead to the best cost: ").append(bestNextTransitions.size()).append("\n\n");
+			writeDebugMessage("Number of next transitions that can lead to the best cost: " + bestNextTransitions.size());
+			
 			//Considering each transition as a separate option
 			for (List<Transition> transitions : bestNextTransitions.values()) {
 				//Printing all possible events that fit the given transition
 				for (Transition transition : transitions) {
-					writeDebugMessage("Next state " + transition.getTarget() + " is reached with:");
+					writeDebugMessage("\tNext state " + transition.getTarget() + " is reached with:");
+					recommendationSb.append(transition.getTarget()).append(" is reached with:").append("\n");
 					if (transition.isPositive()) {
 						writeDebugMessage("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel(), false));
+						recommendationSb.append("\tEvent: ").append(propositionData.propositionToActivityString(transition.getPositiveLabel(), false)).append("\n");
 					} else if (transition.isNegative()) {
 						String anyEventString = "\tAny event except: ";
 						Iterator<String> it = transition.getNegativeLabels().iterator();
@@ -136,11 +139,16 @@ public class MonitoringTask extends Task<VBox> {
 							}
 						}
 						writeDebugMessage(anyEventString);
+						recommendationSb.append(anyEventString).append("\n");
 					} else {
 						writeDebugMessage("\t-any evet-");
+						recommendationSb.append("\t-any evet-").append("\n");
 					}
 				}
 			}
+
+			String activityString = propositionData.propositionToActivityString(eventProposition, true);
+			traceVisualisationController.addEventLabel(activityString, recommendationSb.toString());
 			writeDebugMessage("Stopping cost: " + costCurrMap.get(globalState));
 			traceVisualisationController.addCostCurrValue(costCurrMap.get(globalState));
 
@@ -148,7 +156,7 @@ public class MonitoringTask extends Task<VBox> {
 			writeDebugMessage("");
 		}
 
-		
+
 		writeDebugMessage("Final states at trace end");
 		org.processmining.ltl2automaton.plugins.automaton.State globalState = globalAutomaton.currentState().get(0);
 		writeDebugMessage("Global state: " + globalState);
@@ -162,7 +170,7 @@ public class MonitoringTask extends Task<VBox> {
 			writeDebugMessage("Global truth value: " + globalTruthValue);
 			traceVisualisationController.addGlobalState(globalTruthValue);
 		}
-		
+
 		for (AbstractModel processModel : processModels) {
 			if (globalAutomatonColours.get(globalState).get(processModel).equals(MonitoringState.POSS_SAT)) {
 				writeDebugMessage("\tModel " + processModel.getModelName() + ": " + MonitoringState.SAT);
@@ -175,9 +183,9 @@ public class MonitoringTask extends Task<VBox> {
 				traceVisualisationController.addModelState(processModel, globalAutomatonColours.get(globalState).get(processModel));
 			}
 		}
-		traceVisualisationController.addEventLabel("(complete)");
-		
-		
+		traceVisualisationController.addEventLabel("(complete)", null);
+
+
 		return resultsVbox;
 	}
 
