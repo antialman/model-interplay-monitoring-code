@@ -40,9 +40,11 @@ Command: `java -jar .\model-interplay.jar --cmd -c ..\input\costModel.txt -e ..\
 * An event log in XES or MXML format
 * Declare models in .decl format (as produced by RuM: https://rulemining.org/)
 * LTL formulas is custom format
-  * Activities and attributes must be defined the same way as in .decl file
+* Activities and attributes must be defined the same way as in .decl file
   * Each LTL formula on a separate line followed by `|` and optional data conditions for each activity (spearated by `|`)
     * _For example: (  <> ( A ) \/ <>( B )  ) |A.x>5 and A.x<9 |B.y=4 or B.z<10_
+* Data Petri Nets (as produced by ProM: https://www.promtools.org/doku.php?id=prom69)
+  * Plugin "Create DPN (Text language based)" by F.Mannhardt 
 
 
 ## Limitations
