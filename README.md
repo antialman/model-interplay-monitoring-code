@@ -2,6 +2,8 @@
 
 Code for the conference paper "Monitoring Hybrid Process Specifications with Conflict Management"
 
+A demonstration video is available at: https://youtu.be/sjWdOcBVsw4
+
 ## Running the application
 
 The application is currently compiled as a single fatjar. Java 11 JDK must be installed in order to run it: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html.
