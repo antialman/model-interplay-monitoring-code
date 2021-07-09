@@ -21,7 +21,7 @@ public class CmdArgsUtil {
 		declareParam.setRequired(true);
 		options.addOption(declareParam);
 
-		Option logParam = new Option("e", "eventLog", true, "Input event log path");
+		Option logParam = new Option("l", "eventLog", true, "Input event log path");
 		logParam.setRequired(true);
 		options.addOption(logParam);
 
@@ -30,7 +30,7 @@ public class CmdArgsUtil {
 		CommandLine cmd = null;
 
 		try {
-			cmd = parser.parse(options, args);
+			cmd = parser.parse(options, args, true);
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
 			formatter.printHelp("java -jar .\\InterplayMonitor.jar ", options);

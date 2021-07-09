@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.cli.CommandLine;
 import org.deckfour.xes.extension.std.XConceptExtension;
 import org.deckfour.xes.model.XEvent;
 import org.deckfour.xes.model.XLog;
@@ -17,6 +18,7 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import model.AbstractModel;
 import proposition.PropositionData;
 import utils.AutomatonUtils;
+import utils.CmdArgsUtil;
 import utils.LogUtils;
 import utils.ModelUtils;
 import utils.enums.MonitoringState;
@@ -34,15 +36,12 @@ public class MainCmd {
 
 
 		System.out.println("Start: Handling parameters");
-		//TODO Uncomment and review after the code is done
-		//CommandLine cmd = CmdArgsUtil.handleArgs(args);
-		//String costsFilePath = cmd.getOptionValue("costsFile");
-		//String eventLogPath = cmd.getOptionValue("eventLog");
+		CommandLine cmd = CmdArgsUtil.handleArgs(args);
+		String costsFilePath = cmd.getOptionValue("costsFile");
+		String eventLogPath = cmd.getOptionValue("eventLog");
 
-		String costsFilePath = "input/evaluation_w_metaconstraint/costModel.txt";
-		String eventLogPath = "input/evaluation_w_metaconstraint/eventlog.xes";
-		//String costsFilePath = "input/devel_tests/costModel.txt";
-		//String eventLogPath = "input/devel_tests/eventlog.xes";
+		//String costsFilePath = "input/costModel.txt";
+		//String eventLogPath = "input/eventlog.xes";
 		System.out.println("Done: Handling parameters\n");
 
 
