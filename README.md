@@ -14,6 +14,7 @@ It is possible to use both the graphical user interface or the command line inte
 Graphical user interface allows to select the input event log and process specifications as well as editing the violation cost of each model. The results can be visualised on a trace-by trace basis.
 
 Command: `java -jar .\model-interplay.jar`
+* _If there are other versions of Java installed on the same computer then it may be necessary to use the command: `java -Djava.library.path=. -jar .\model-interplay.jar`_
 
 User interface elements:
 1. Button for selecting the input event log
@@ -49,8 +50,9 @@ Command: `java -jar .\model-interplay.jar --cmd -c ..\input\costModel.txt -e ..\
 
 ## Limitations
 
-Parentheses are currently not supported in conditions.
-Only variable to constant comparisons (x>5, y<=3, z=="a" etc.) are supported.
+* Parentheses are currently not supported in conditions.
+* Only variable to constant comparisons (x>5, y<=3, z=="a" etc.) are supported.
+* Implementation has been tested only on Windows 10
 
 ## Authors
 
