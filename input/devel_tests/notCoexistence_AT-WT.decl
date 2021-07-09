@@ -1,7 +1,0 @@
-activity AT_start
-activity WT_start
-bind WT_start: test, test2
-test: integer between 0 and 5
-test2: a, b, c
-Not Co-Existence[AT_start, WT_start] |A.test=2 |T.test2 in (a,b) and T.test=4 |
-Not Co-Existence[WT_start, AT_start] |A.test=2 |T.test2 in (a,b) and T.test=4 |

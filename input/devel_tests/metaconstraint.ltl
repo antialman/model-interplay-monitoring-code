@@ -1,9 +1,0 @@
-activity AT_start
-activity WT_start
-bind WT_start: test
-bind AT_start: test
-test: integer between 0 and 5
-activity AT_complete
-activity WT_complete
-[](AT_start ->  (  !(WT_start) U AT_complete )) |WT_start.test>1 |AT_start.test=5
-[](WT_start ->  (  !(AT_start) U WT_complete )) |WT_start.test>1 |AT_start.test=5
