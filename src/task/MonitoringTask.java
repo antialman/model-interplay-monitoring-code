@@ -117,18 +117,20 @@ public class MonitoringTask extends Task<VBox> {
 			writeDebugMessage("---");
 			writeDebugMessage("Best achievable cost from current state: " + bestAchievableCost);
 			traceVisualisationController.addCostBestValue(bestAchievableCost);
-			StringBuilder recommendationSb = new StringBuilder("Number of next transitions that can lead to the best cost: ").append(bestNextTransitions.size()).append("\n\n");
-			writeDebugMessage("Number of next transitions that can lead to the best cost: " + bestNextTransitions.size());
+			StringBuilder recommendationSb = new StringBuilder("Number of next states that can lead to the best cost: ").append(bestNextTransitions.size()).append("\n\n");
+			writeDebugMessage("Number of next states that can lead to the best cost: " + bestNextTransitions.size());
 			
 			//Considering each transition as a separate option
+			Map<String, List<String>> stateToOption = new HashMap<String, List<String>>(); //Gathering all the options per each immediate successor state
 			for (List<Transition> transitions : bestNextTransitions.values()) {
-				//Printing all possible events that fit the given transition
 				for (Transition transition : transitions) {
-					writeDebugMessage("\tNext state " + transition.getTarget() + " is reached with:");
-					recommendationSb.append(transition.getTarget()).append(" is reached with:").append("\n");
+					String targetStateString = transition.getTarget().toString();
+					if (!stateToOption.containsKey(targetStateString)) {
+						stateToOption.put(targetStateString, new ArrayList<String>());
+					}
+					
 					if (transition.isPositive()) {
-						writeDebugMessage("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel(), false));
-						recommendationSb.append("\tEvent: ").append(propositionData.propositionToActivityString(transition.getPositiveLabel(), false)).append("\n");
+						stateToOption.get(targetStateString).add("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel(), false));
 					} else if (transition.isNegative()) {
 						String anyEventString = "\tAny event except: ";
 						Iterator<String> it = transition.getNegativeLabels().iterator();
@@ -138,14 +140,54 @@ public class MonitoringTask extends Task<VBox> {
 								anyEventString = anyEventString + " , ";
 							}
 						}
-						writeDebugMessage(anyEventString);
-						recommendationSb.append(anyEventString).append("\n");
+						stateToOption.get(targetStateString).add(anyEventString);
 					} else {
-						writeDebugMessage("\t-any evet-");
-						recommendationSb.append("\t-any evet-").append("\n");
+						stateToOption.get(targetStateString).add("\t-any evet-");
 					}
 				}
 			}
+			
+			
+			for (String targetStateString : stateToOption.keySet()) {
+				writeDebugMessage("Next state " + targetStateString + " is reached with:");
+				recommendationSb.append(targetStateString).append(" is reached with:").append("\n");
+				
+				for (String option : stateToOption.get(targetStateString)) {
+					writeDebugMessage(option);
+					recommendationSb.append(option).append("\n");
+				}
+			}
+			
+			
+			
+			
+			
+			
+//			for (List<Transition> transitions : bestNextTransitions.values()) {
+//				//Printing all possible events that fit the given transition
+//				for (Transition transition : transitions) {
+//					writeDebugMessage("\tNext state " + transition.getTarget() + " is reached with:");
+//					recommendationSb.append(transition.getTarget()).append(" is reached with:").append("\n");
+//					if (transition.isPositive()) {
+//						writeDebugMessage("\tEvent: " + propositionData.propositionToActivityString(transition.getPositiveLabel(), false));
+//						recommendationSb.append("\tEvent: ").append(propositionData.propositionToActivityString(transition.getPositiveLabel(), false)).append("\n");
+//					} else if (transition.isNegative()) {
+//						String anyEventString = "\tAny event except: ";
+//						Iterator<String> it = transition.getNegativeLabels().iterator();
+//						while (it.hasNext()) {
+//							anyEventString = anyEventString + propositionData.propositionToActivityString(it.next(), false);
+//							if (it.hasNext()) {
+//								anyEventString = anyEventString + " , ";
+//							}
+//						}
+//						writeDebugMessage(anyEventString);
+//						recommendationSb.append(anyEventString).append("\n");
+//					} else {
+//						writeDebugMessage("\t-any evet-");
+//						recommendationSb.append("\t-any evet-").append("\n");
+//					}
+//				}
+//			}
 
 			String activityString = propositionData.propositionToActivityString(eventProposition, true);
 			traceVisualisationController.addEventLabel(activityString, recommendationSb.toString());
