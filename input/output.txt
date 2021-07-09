@@ -51,13 +51,13 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 4
 Next state S7 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S8 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S3 is reached with:
 	Event: HPte
 Next state S6 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Stopping cost: 15
 
 
@@ -78,13 +78,13 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 4
 Next state S7 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S8 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S3 is reached with:
 	Event: HPte
 Next state S6 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Stopping cost: 15
 
 
@@ -104,23 +104,23 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 5
 Next state S23 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S24 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S25 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S21 is reached with:
-	Event: HPev[result=negative]
+	Event: HPev [result=neg]
 Next state S22 is reached with:
-	Event: HPev[result=positive]
+	Event: HPev [result=pos]
 Stopping cost: 15
 
 
 Next event in event log: HPev
 -------------------------------------------
 eventToProposition: HPev
-	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
-	Log attribute: result=positive
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Log attribute: result=pos
 	Attribute proposition: att0p1
 Event proposition: act4att0p1
 
@@ -134,15 +134,15 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 3
 Next state S42 is reached with:
-	Event: AT[result=!(negative,positive)]
+	Event: AT [result=!(neg,pos)]
 Next state S42 is reached with:
-	Event: AT[result=negative]
+	Event: AT [result=neg]
 Next state S42 is reached with:
-	Event: AT[result=positive]
+	Event: AT [result=pos]
 Next state S44 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S45 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 15
 
 
@@ -164,42 +164,42 @@ Global truth value: perm.viol
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 2
 Next state S62 is reached with:
-	Event: AT[result=!(negative,positive)]
+	Event: AT [result=!(neg,pos)]
 Next state S62 is reached with:
-	Event: AT[result=negative]
+	Event: AT [result=neg]
 Next state S62 is reached with:
-	Event: AT[result=positive]
+	Event: AT [result=pos]
 Next state S37 is reached with:
-	Event: MI[type=!(anticoag,mech,thromb)]
+	Event: MI [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: TT[type=mech]
+	Event: TT [type=mech]
 Next state S37 is reached with:
-	Event: TT[type=anticoag]
+	Event: TT [type=anticoag]
 Next state S37 is reached with:
-	Event: MI[type=thromb]
+	Event: MI [type=thromb]
 Next state S37 is reached with:
-	Event: TT[type=thromb]
+	Event: TT [type=thromb]
 Next state S37 is reached with:
-	Event: MI[type=anticoag]
+	Event: MI [type=anticoag]
 Next state S37 is reached with:
-	Event: MI[type=mech]
+	Event: MI [type=mech]
 Next state S37 is reached with:
-	Event: TT[type=!(anticoag,mech,thromb)]
+	Event: TT [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: IntD[type=!(anticoag,mech,thromb)]
+	Event: IntD [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S37 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S37 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 15
 
 
 Next event in event log: AT
 -------------------------------------------
 eventToProposition: AT
-	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
 	Attribute proposition: att0px
 Event proposition: act0att0px
 
@@ -215,29 +215,29 @@ Number of next states that can lead to the best cost: 2
 Next state S77 is reached with:
 	Event: PUev
 Next state S53 is reached with:
-	Event: MI[type=!(anticoag,mech,thromb)]
+	Event: MI [type=!(anticoag,mech,thromb)]
 Next state S53 is reached with:
-	Event: TT[type=mech]
+	Event: TT [type=mech]
 Next state S53 is reached with:
-	Event: TT[type=anticoag]
+	Event: TT [type=anticoag]
 Next state S53 is reached with:
-	Event: MI[type=thromb]
+	Event: MI [type=thromb]
 Next state S53 is reached with:
-	Event: TT[type=thromb]
+	Event: TT [type=thromb]
 Next state S53 is reached with:
-	Event: MI[type=anticoag]
+	Event: MI [type=anticoag]
 Next state S53 is reached with:
-	Event: MI[type=mech]
+	Event: MI [type=mech]
 Next state S53 is reached with:
-	Event: TT[type=!(anticoag,mech,thromb)]
+	Event: TT [type=!(anticoag,mech,thromb)]
 Next state S53 is reached with:
-	Event: IntD[type=!(anticoag,mech,thromb)]
+	Event: IntD [type=!(anticoag,mech,thromb)]
 Next state S53 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S53 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S53 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 15
 
 
@@ -257,29 +257,29 @@ Global truth value: perm.viol
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 1
 Next state S70 is reached with:
-	Event: MI[type=!(anticoag,mech,thromb)]
+	Event: MI [type=!(anticoag,mech,thromb)]
 Next state S70 is reached with:
-	Event: TT[type=mech]
+	Event: TT [type=mech]
 Next state S70 is reached with:
-	Event: TT[type=anticoag]
+	Event: TT [type=anticoag]
 Next state S70 is reached with:
-	Event: MI[type=thromb]
+	Event: MI [type=thromb]
 Next state S70 is reached with:
-	Event: TT[type=thromb]
+	Event: TT [type=thromb]
 Next state S70 is reached with:
-	Event: MI[type=anticoag]
+	Event: MI [type=anticoag]
 Next state S70 is reached with:
-	Event: MI[type=mech]
+	Event: MI [type=mech]
 Next state S70 is reached with:
-	Event: TT[type=!(anticoag,mech,thromb)]
+	Event: TT [type=!(anticoag,mech,thromb)]
 Next state S70 is reached with:
-	Event: IntD[type=!(anticoag,mech,thromb)]
+	Event: IntD [type=!(anticoag,mech,thromb)]
 Next state S70 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S70 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S70 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 5
 
 
@@ -315,13 +315,13 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 4
 Next state S7 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S8 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S3 is reached with:
 	Event: HPte
 Next state S6 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Stopping cost: 15
 
 
@@ -341,13 +341,13 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 4
 Next state S7 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S8 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S3 is reached with:
 	Event: HPte
 Next state S6 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Stopping cost: 15
 
 
@@ -367,23 +367,23 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 5
 Next state S23 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S24 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S25 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S21 is reached with:
-	Event: HPev[result=negative]
+	Event: HPev [result=neg]
 Next state S22 is reached with:
-	Event: HPev[result=positive]
+	Event: HPev [result=pos]
 Stopping cost: 15
 
 
 Next event in event log: HPev
 -------------------------------------------
 eventToProposition: HPev
-	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
-	Log attribute: result=positive
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Log attribute: result=pos
 	Attribute proposition: att0p1
 Event proposition: act4att0p1
 
@@ -397,15 +397,15 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 3
 Next state S42 is reached with:
-	Event: AT[result=!(negative,positive)]
+	Event: AT [result=!(neg,pos)]
 Next state S42 is reached with:
-	Event: AT[result=negative]
+	Event: AT [result=neg]
 Next state S42 is reached with:
-	Event: AT[result=positive]
+	Event: AT [result=pos]
 Next state S44 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S45 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 15
 
 
@@ -427,42 +427,42 @@ Global truth value: perm.viol
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 2
 Next state S62 is reached with:
-	Event: AT[result=!(negative,positive)]
+	Event: AT [result=!(neg,pos)]
 Next state S62 is reached with:
-	Event: AT[result=negative]
+	Event: AT [result=neg]
 Next state S62 is reached with:
-	Event: AT[result=positive]
+	Event: AT [result=pos]
 Next state S37 is reached with:
-	Event: MI[type=!(anticoag,mech,thromb)]
+	Event: MI [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: TT[type=mech]
+	Event: TT [type=mech]
 Next state S37 is reached with:
-	Event: TT[type=anticoag]
+	Event: TT [type=anticoag]
 Next state S37 is reached with:
-	Event: MI[type=thromb]
+	Event: MI [type=thromb]
 Next state S37 is reached with:
-	Event: TT[type=thromb]
+	Event: TT [type=thromb]
 Next state S37 is reached with:
-	Event: MI[type=anticoag]
+	Event: MI [type=anticoag]
 Next state S37 is reached with:
-	Event: MI[type=mech]
+	Event: MI [type=mech]
 Next state S37 is reached with:
-	Event: TT[type=!(anticoag,mech,thromb)]
+	Event: TT [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: IntD[type=!(anticoag,mech,thromb)]
+	Event: IntD [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S37 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S37 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 15
 
 
 Next event in event log: AT
 -------------------------------------------
 eventToProposition: AT
-	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
 	Attribute proposition: att0px
 Event proposition: act0att0px
 
@@ -478,29 +478,29 @@ Number of next states that can lead to the best cost: 2
 Next state S77 is reached with:
 	Event: PUev
 Next state S53 is reached with:
-	Event: MI[type=!(anticoag,mech,thromb)]
+	Event: MI [type=!(anticoag,mech,thromb)]
 Next state S53 is reached with:
-	Event: TT[type=mech]
+	Event: TT [type=mech]
 Next state S53 is reached with:
-	Event: TT[type=anticoag]
+	Event: TT [type=anticoag]
 Next state S53 is reached with:
-	Event: MI[type=thromb]
+	Event: MI [type=thromb]
 Next state S53 is reached with:
-	Event: TT[type=thromb]
+	Event: TT [type=thromb]
 Next state S53 is reached with:
-	Event: MI[type=anticoag]
+	Event: MI [type=anticoag]
 Next state S53 is reached with:
-	Event: MI[type=mech]
+	Event: MI [type=mech]
 Next state S53 is reached with:
-	Event: TT[type=!(anticoag,mech,thromb)]
+	Event: TT [type=!(anticoag,mech,thromb)]
 Next state S53 is reached with:
-	Event: IntD[type=!(anticoag,mech,thromb)]
+	Event: IntD [type=!(anticoag,mech,thromb)]
 Next state S53 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S53 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S53 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 15
 
 
@@ -575,13 +575,13 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 4
 Next state S7 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S8 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S3 is reached with:
 	Event: HPte
 Next state S6 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Stopping cost: 15
 
 
@@ -601,13 +601,13 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 4
 Next state S7 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S8 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S3 is reached with:
 	Event: HPte
 Next state S6 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Stopping cost: 15
 
 
@@ -627,23 +627,23 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 5
 Next state S23 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S24 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S25 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Next state S21 is reached with:
-	Event: HPev[result=negative]
+	Event: HPev [result=neg]
 Next state S22 is reached with:
-	Event: HPev[result=positive]
+	Event: HPev [result=pos]
 Stopping cost: 15
 
 
 Next event in event log: HPev
 -------------------------------------------
 eventToProposition: HPev
-	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
-	Log attribute: result=positive
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Log attribute: result=pos
 	Attribute proposition: att0p1
 Event proposition: act4att0p1
 
@@ -657,15 +657,15 @@ Global truth value: temp.viol
 Best achievable cost from current state: 0
 Number of next states that can lead to the best cost: 3
 Next state S42 is reached with:
-	Event: AT[result=!(negative,positive)]
+	Event: AT [result=!(neg,pos)]
 Next state S42 is reached with:
-	Event: AT[result=negative]
+	Event: AT [result=neg]
 Next state S42 is reached with:
-	Event: AT[result=positive]
+	Event: AT [result=pos]
 Next state S44 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S45 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 15
 
 
@@ -687,35 +687,35 @@ Global truth value: perm.viol
 Best achievable cost from current state: 5
 Number of next states that can lead to the best cost: 2
 Next state S62 is reached with:
-	Event: AT[result=!(negative,positive)]
+	Event: AT [result=!(neg,pos)]
 Next state S62 is reached with:
-	Event: AT[result=negative]
+	Event: AT [result=neg]
 Next state S62 is reached with:
-	Event: AT[result=positive]
+	Event: AT [result=pos]
 Next state S37 is reached with:
-	Event: MI[type=!(anticoag,mech,thromb)]
+	Event: MI [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: TT[type=mech]
+	Event: TT [type=mech]
 Next state S37 is reached with:
-	Event: TT[type=anticoag]
+	Event: TT [type=anticoag]
 Next state S37 is reached with:
-	Event: MI[type=thromb]
+	Event: MI [type=thromb]
 Next state S37 is reached with:
-	Event: TT[type=thromb]
+	Event: TT [type=thromb]
 Next state S37 is reached with:
-	Event: MI[type=anticoag]
+	Event: MI [type=anticoag]
 Next state S37 is reached with:
-	Event: MI[type=mech]
+	Event: MI [type=mech]
 Next state S37 is reached with:
-	Event: TT[type=!(anticoag,mech,thromb)]
+	Event: TT [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: IntD[type=!(anticoag,mech,thromb)]
+	Event: IntD [type=!(anticoag,mech,thromb)]
 Next state S37 is reached with:
-	Event: IntD[type=anticoag]
+	Event: IntD [type=anticoag]
 Next state S37 is reached with:
-	Event: IntD[type=mech]
+	Event: IntD [type=mech]
 Next state S37 is reached with:
-	Event: IntD[type=thromb]
+	Event: IntD [type=thromb]
 Stopping cost: 15
 
 
@@ -736,28 +736,28 @@ Global truth value: perm.viol
 Best achievable cost from current state: 10
 Number of next states that can lead to the best cost: 1
 Next state S29 is reached with:
-	Event: GAR[result=!(negative,positive)]
+	Event: GAR [result=!(neg,pos)]
 Next state S29 is reached with:
-	Event: GAR[result=positive]
+	Event: GAR [result=pos]
 Next state S29 is reached with:
-	Event: GAR[result=negative]
+	Event: GAR [result=neg]
 Next state S29 is reached with:
 	Event: HPte
 Next state S29 is reached with:
 	Event: PUev
 Next state S29 is reached with:
-	Event: HPev[result=negative]
+	Event: HPev [result=neg]
 Next state S29 is reached with:
-	Event: HPev[result=positive]
+	Event: HPev [result=pos]
 Next state S29 is reached with:
-	Event: HPev[result=!(negative,positive)]
+	Event: HPev [result=!(neg,pos)]
 Stopping cost: 10
 
 
 Next event in event log: AT
 -------------------------------------------
 eventToProposition: AT
-	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[negative, positive]]
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
 	Attribute proposition: att0px
 Event proposition: act0att0px
 

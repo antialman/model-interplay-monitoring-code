@@ -22,9 +22,9 @@ result [LITERAL]
 HPev [result]
 
 [GUARDS]
-HPev ["result==\"positive\" || result==\"negative\""]
-AT ["result==\"positive\""]
-GAR ["result==\"negative\""]
+HPev ["result==\"pos\" || result==\"neg\""]
+AT ["result==\"pos\""]
+GAR ["result==\"neg\""]
 
 [INITIAL]
 PUst [1]

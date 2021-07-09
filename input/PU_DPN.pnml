@@ -76,7 +76,7 @@
                <fill color="#FFFFFF"/>
             </graphics>
          </transition>
-         <transition guard="((result==&#34;positive&#34;)||(result==&#34;negative&#34;))" id="n7">
+         <transition guard="((result==&#34;pos&#34;)||(result==&#34;neg&#34;))" id="n7">
             <name>
                <text>HPev</text>
             </name>
@@ -89,7 +89,7 @@
             </graphics>
             <writeVariable>result</writeVariable>
          </transition>
-         <transition guard="(result==&#34;positive&#34;)" id="n8">
+         <transition guard="(result==&#34;pos&#34;)" id="n8">
             <name>
                <text>AT</text>
             </name>
@@ -101,7 +101,7 @@
                <fill color="#FFFFFF"/>
             </graphics>
          </transition>
-         <transition guard="(result==&#34;negative&#34;)" id="n9">
+         <transition guard="(result==&#34;neg&#34;)" id="n9">
             <name>
                <text>GAR</text>
             </name>
