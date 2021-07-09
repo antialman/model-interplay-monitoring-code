@@ -17,7 +17,7 @@ public class CmdArgsUtil {
 	public static CommandLine handleArgs(String[] args) {
 		//TODO Review after implementation is done
 		Options options = new Options();
-		Option declareParam = new Option("c", "costsFile", true, "Input model files and violation costs. Model and correcponding violation cost separated by comma. Each model on separate line. File extension defines the model type (decl - Declare; pnml - Data Petri Net; ltl - same format as decl file, but using raw formulas instead of Declare templates) ");
+		Option declareParam = new Option("c", "costsFile", true, "Input model files and violation costs. Model and corresponding violation cost separated by comma. Each model on separate line. File extension defines the model type (decl - Declare; pnml - Data Petri Net; ltl - same format as decl file, but using raw formulas instead of Declare templates) ");
 		declareParam.setRequired(true);
 		options.addOption(declareParam);
 
