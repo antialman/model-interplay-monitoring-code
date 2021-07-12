@@ -58,7 +58,7 @@ Command: `java -jar .\model-interplay.jar --cmd -c ..\input\costModel.txt -e ..\
 
 ## Authors
 
-Conference paper (see technical report [here](https://github.com/antialman/model-interplay-monitoring-code/blob/main/tech-report.pdf)):
+Conference paper (see the technical report [here](https://github.com/antialman/model-interplay-monitoring-code/blob/main/tech-report.pdf)):
 * Anti Alman
 * Fabrizio Maria Maggi
 * Marco Montali
