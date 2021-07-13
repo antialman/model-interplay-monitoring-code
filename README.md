@@ -56,7 +56,7 @@ Command: `java -jar .\model-interplay.jar --cmd -c ..\input\costModel.txt -e ..\
 * Only variable to constant comparisons (x>5, y<=3, z=="a" etc.) are supported.
 * Implementation has been tested only on Windows 10.
 * Silent transitions are not supported.
-* The implementation may produce incorrect results if two transitions of a DPN, that can be enabled at th same time, have overlapping guards
+* The implementation may produce incorrect results if two transitions of a DPN, that can be enabled at the same time, have overlapping guards
 
 ## Authors
 
