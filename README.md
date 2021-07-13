@@ -6,7 +6,7 @@ A demonstration video is available at: https://youtu.be/sjWdOcBVsw4
 
 ## Running the application
 
-The application is currently compiled as a single fatjar. Java 11 JDK must be installed in order to run it: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html.
+The application is currently compiled as a single [runnable fatjar](https://github.com/antialman/model-interplay-monitoring-code/releases/tag/0.1.0) (requires [Java 11 JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) to be installed).
 
 It is possible to use both the graphical user interface or the command line interface.
 
