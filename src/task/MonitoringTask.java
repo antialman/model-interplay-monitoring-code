@@ -33,14 +33,16 @@ public class MonitoringTask extends Task<VBox> {
 	private Map<org.processmining.ltl2automaton.plugins.automaton.State, Map<AbstractModel, MonitoringState>> globalAutomatonColours;
 	private Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costCurrMap;
 	private Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costBestMap;
+	private List<Long> eventProcessingTimes;
 
 	private Map<AbstractModel, MonitoringState> truthValues; //Truth value of each model
 	private MonitoringState globalTruthValue; //Global truth value
+	
 
 	private VBox resultsVbox;
 	private TraceVisualisationController traceVisualisationController;
 
-	public MonitoringTask(XTrace xtrace, List<AbstractModel> processModels, PropositionData propositionData, ExecutableAutomaton globalAutomaton, Map<org.processmining.ltl2automaton.plugins.automaton.State, Map<AbstractModel, MonitoringState>> globalAutomatonColours, Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costCurrMap, Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costBestMap) {
+	public MonitoringTask(XTrace xtrace, List<AbstractModel> processModels, PropositionData propositionData, ExecutableAutomaton globalAutomaton, Map<org.processmining.ltl2automaton.plugins.automaton.State, Map<AbstractModel, MonitoringState>> globalAutomatonColours, Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costCurrMap, Map<org.processmining.ltl2automaton.plugins.automaton.State, Integer> costBestMap, List<Long> eventProcessingTimes) {
 		super();
 		this.xtrace = xtrace;
 		this.processModels = processModels;
@@ -49,6 +51,7 @@ public class MonitoringTask extends Task<VBox> {
 		this.globalAutomatonColours = globalAutomatonColours;
 		this.costCurrMap = costCurrMap;
 		this.costBestMap = costBestMap;
+		this.eventProcessingTimes=eventProcessingTimes;
 
 		truthValues = new HashMap<AbstractModel, MonitoringState>(processModels.size());
 	}
@@ -74,32 +77,34 @@ public class MonitoringTask extends Task<VBox> {
 		globalTruthValue = MonitoringState.INIT;
 
 		for (XEvent xevent : xtrace) {
+			long startTime = System.nanoTime();
+			
 			String eventName = XConceptExtension.instance().extractName(xevent);
 			writeDebugMessage("Next event in event log: " + eventName);
 			writeDebugMessage("-------------------------------------------");
 
 			String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
 
-			globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton);
+			globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, costBestMap);
 			org.processmining.ltl2automaton.plugins.automaton.State globalState = globalAutomaton.currentState().get(0);
 			writeDebugMessage("Reached state: " + globalState);
 			writeDebugMessage("Global truth value: " + globalTruthValue);
 			traceVisualisationController.addGlobalState(globalTruthValue);
 
-			//Using individual automata to double-check global automata correctness (functionally not needed)
-			for (AbstractModel processModel : processModels) {
-				ExecutableAutomaton executableAutomaton = processModel.getExecutableAutomaton();
-				MonitoringState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton);
-				truthValues.put(processModel, newTruthValue);				
-				writeDebugMessage("\tModel " + processModel.getModelName() + ": " + globalAutomatonColours.get(globalState).get(processModel));
-				traceVisualisationController.addModelState(processModel, globalAutomatonColours.get(globalState).get(processModel));
-				//processResultString("\tTruth value: " + truthValues.get(processModel));
-				//processResultString("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(processModel));
-				if (!truthValues.get(processModel).equals(globalAutomatonColours.get(globalState).get(processModel))) {
-					//If this happens then there must be a mistake in either creating or colouring the global automaton
-					System.err.println("Global colour does not match truth value, something is wrong with the cross-product!");
-				}
-			}
+			////Uncomment to compare global automata based states with individual automata states
+			//for (AbstractModel processModel : processModels) {
+			//	ExecutableAutomaton executableAutomaton = processModel.getExecutableAutomaton();
+			//	MonitoringState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, null);
+			//	truthValues.put(processModel, newTruthValue);				
+			//	writeDebugMessage("\tModel " + processModel.getModelName() + ": " + globalAutomatonColours.get(globalState).get(processModel));
+			//	traceVisualisationController.addModelState(processModel, globalAutomatonColours.get(globalState).get(processModel));
+			//	//processResultString("\tTruth value: " + truthValues.get(processModel));
+			//	//processResultString("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(processModel));
+			//	if (!truthValues.get(processModel).equals(globalAutomatonColours.get(globalState).get(processModel))) {
+			//		//If this happens then there must be a mistake in either creating or colouring the global automaton
+			//		System.err.println("Global colour does not match truth value, something is wrong with the cross-product!");
+			//	}
+			//}
 
 			//Getting the transitions that lead to best achievable cost from the current state (excluding self loops)
 			Integer bestAchievableCost = costBestMap.get(globalState);
@@ -193,6 +198,8 @@ public class MonitoringTask extends Task<VBox> {
 			traceVisualisationController.addEventLabel(activityString, recommendationSb.toString());
 			writeDebugMessage("Stopping cost: " + costCurrMap.get(globalState));
 			traceVisualisationController.addCostCurrValue(costCurrMap.get(globalState));
+			
+			eventProcessingTimes.add(System.nanoTime() - startTime);
 
 			writeDebugMessage("");
 			writeDebugMessage("");

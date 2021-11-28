@@ -103,7 +103,7 @@ public class AutomatonUtils {
 					executableAutomaton.next(executedProposition);
 				}
 			}
-			MonitoringState truthValue = checkTruthValue(executableAutomaton.currentState());
+			MonitoringState truthValue = checkTruthValue(executableAutomaton.currentState(), null);
 			globalStateColours.put(processModel, truthValue);
 			//System.out.println("\t\t" + processModel.getModelName() + ": " + truthValue);
 		}
@@ -119,7 +119,7 @@ public class AutomatonUtils {
 		}
 	}
 	
-	private static MonitoringState checkTruthValue(PossibleNodes currentState) {
+	private static MonitoringState checkTruthValue(PossibleNodes currentState, Map<State, Integer> costBestMap) {
 		MonitoringState newTruthValue;
 
 		if (currentState.isAccepting()) {
@@ -134,8 +134,14 @@ public class AutomatonUtils {
 		} else {
 			newTruthValue = MonitoringState.POSS_VIOL;
 			for (State state : currentState) {
-				if (!currentState.acceptingReachable(state)) {
-					newTruthValue = MonitoringState.VIOL;
+				if (costBestMap == null) {
+					if (!currentState.acceptingReachable(state)) {
+						newTruthValue = MonitoringState.VIOL;
+					}
+				} else { //TODO: This can give incorrect results if any input process model has a violation cost of 0
+					if (costBestMap.get(state) > 0) {
+						newTruthValue = MonitoringState.VIOL;
+					}
 				}
 			}
 		}
@@ -238,10 +244,10 @@ public class AutomatonUtils {
 		return valueChanged;
 	}
 
-	public static MonitoringState execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton) {
+	public static MonitoringState execPropositionOnAutomaton(String eventProposition, ExecutableAutomaton executableAutomaton, Map<State, Integer> costBestMap) {
 		//Each event must be executed at least on the global automata during event log replay
 		PossibleNodes currentState = executableAutomaton.next(eventProposition);
-		return checkTruthValue(currentState);
+		return checkTruthValue(currentState, costBestMap);
 	}
 	
 	

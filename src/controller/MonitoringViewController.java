@@ -3,10 +3,12 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import org.deckfour.xes.extension.std.XConceptExtension;
@@ -71,6 +73,10 @@ public class MonitoringViewController {
 	Map<State, Map<AbstractModel, MonitoringState>> globalAutomatonColours;
 	Map<State, Integer> costCurrMap;
 	Map<State, Integer> costBestMap;
+	
+	//statistics
+	long monitoringAutomatonTime;
+	List<Long> eventProcessingTimes = new ArrayList<Long>();
 
 	List<VBox> resultsList;
 
@@ -159,7 +165,10 @@ public class MonitoringViewController {
 	@FXML
 	private void startMonitoring() {
 		settingsPanel.setDisable(true);
+		
+		long startTime = System.nanoTime();
 		createMonitoringDataStructures();
+		monitoringAutomatonTime = System.nanoTime() - startTime;
 
 		tracesListView.getItems().clear();
 		resultsList = new ArrayList<VBox>();
@@ -169,7 +178,7 @@ public class MonitoringViewController {
 
 	private void monitorNextTrace() {
 		if (resultsList.size() < xlog.size()) {
-			MonitoringTask monitoringTask = new MonitoringTask(xlog.get(resultsList.size()), modelTableView.getItems(), propositionData, globalAutomaton, globalAutomatonColours, costCurrMap, costBestMap);
+			MonitoringTask monitoringTask = new MonitoringTask(xlog.get(resultsList.size()), modelTableView.getItems(), propositionData, globalAutomaton, globalAutomatonColours, costCurrMap, costBestMap, eventProcessingTimes);
 
 			monitoringTask.setOnSucceeded(event -> {
 				resultsList.add(monitoringTask.getValue());
@@ -186,6 +195,23 @@ public class MonitoringViewController {
 
 		} else {
 			settingsPanel.setDisable(false);
+			
+			System.out.println("\n\n\n");
+			System.out.println("===========================================");
+			System.out.println("Statistics");
+			System.out.println("===========================================");
+			System.out.println("Monitoring automaton creation time (ms): " + TimeUnit.MILLISECONDS.convert(monitoringAutomatonTime, TimeUnit.NANOSECONDS));
+			System.out.println("Monitoring automaton number of states: " + globalAutomaton.stateCount());
+			//System.out.println("Monitoring automaton memory consumption (MB): " + "TODO");
+			System.out.println("Event processing time (min): " + TimeUnit.MILLISECONDS.convert(Collections.min(eventProcessingTimes), TimeUnit.NANOSECONDS));
+			System.out.println("Event processing time (max): " + TimeUnit.MILLISECONDS.convert(Collections.max(eventProcessingTimes), TimeUnit.NANOSECONDS));
+			long sum = 0;
+			for(int i = 0; i < eventProcessingTimes.size(); i++) {
+		        sum += eventProcessingTimes.get(i);
+			}
+			long avg = sum / eventProcessingTimes.size();
+			
+			System.out.println("Event processing time (avg): " + TimeUnit.MILLISECONDS.convert(avg, TimeUnit.NANOSECONDS));
 		}
 	}
 

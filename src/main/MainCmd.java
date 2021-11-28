@@ -115,7 +115,7 @@ public class MainCmd {
 
 				String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
 
-				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton);
+				globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, costBestMap);
 				State globalState = globalAutomaton.currentState().get(0);
 				System.out.println("Reached state: " + globalState);
 				System.out.println("Global truth value: " + globalTruthValue);
@@ -123,7 +123,7 @@ public class MainCmd {
 				//Using individual automata to double-check global automata correctness (functionally not needed)
 				for (AbstractModel processModel : processModels) {
 					ExecutableAutomaton executableAutomaton = processModel.getExecutableAutomaton();
-					MonitoringState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton);
+					MonitoringState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, null);
 					truthValues.put(processModel, newTruthValue);				
 					System.out.println("\tModel " + processModel.getModelName() + ": " + globalAutomatonColours.get(globalState).get(processModel));
 					//System.out.println("\tTruth value: " + truthValues.get(processModel));
