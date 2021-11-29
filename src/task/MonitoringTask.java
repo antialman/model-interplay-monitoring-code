@@ -90,6 +90,10 @@ public class MonitoringTask extends Task<VBox> {
 			writeDebugMessage("Reached state: " + globalState);
 			writeDebugMessage("Global truth value: " + globalTruthValue);
 			traceVisualisationController.addGlobalState(globalTruthValue);
+			
+			for (AbstractModel processModel : processModels) {
+				traceVisualisationController.addModelState(processModel, globalAutomatonColours.get(globalState).get(processModel));
+			}
 
 			////Uncomment to compare global automata based states with individual automata states
 			//for (AbstractModel processModel : processModels) {
@@ -97,7 +101,6 @@ public class MonitoringTask extends Task<VBox> {
 			//	MonitoringState newTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, executableAutomaton, null);
 			//	truthValues.put(processModel, newTruthValue);				
 			//	writeDebugMessage("\tModel " + processModel.getModelName() + ": " + globalAutomatonColours.get(globalState).get(processModel));
-			//	traceVisualisationController.addModelState(processModel, globalAutomatonColours.get(globalState).get(processModel));
 			//	//processResultString("\tTruth value: " + truthValues.get(processModel));
 			//	//processResultString("\tGlobal colour: " + globalAutomatonColours.get(globalState).get(processModel));
 			//	if (!truthValues.get(processModel).equals(globalAutomatonColours.get(globalState).get(processModel))) {

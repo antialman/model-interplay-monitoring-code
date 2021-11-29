@@ -101,15 +101,15 @@ public class DpnModel extends AbstractModel {
 
 	private void visitNextState(PetrinetSemantics petrinetSemantics, Stack<DpnState> currentDpnStatePath, DefaultAutomatonFactory automatonFactory, List<DpnState> visitedDpnStates, Map<Marking, List<State>> dpnMarkingToAutomatonStates, PropositionData propositionData) {
 		DpnState currentDpnState = currentDpnStatePath.peek();
-
+		
 		for (Transition transition : petrinetSemantics.getExecutableTransitions()) {
 			if (transition.isInvisible()) { //TODO: Silent transitions
 				continue;
 			}
-
+			
 			Set<String> allActivityPropositions = null;
 			PNWDTransition pnwdTransition = (PNWDTransition) transition;
-
+			
 			if (!pnwdTransition.hasGuardExpression()) { //Transition without guards
 				allActivityPropositions = propositionData.getAllActivityPropositions(transition.getLabel());
 				//Fire the transition and, process the resulting marking and visit the next state
@@ -117,11 +117,21 @@ public class DpnModel extends AbstractModel {
 					petrinetSemantics.setCurrentState(currentDpnState.getDpnMarking());
 					petrinetSemantics.executeExecutableTransition(transition);
 					DpnState newDpnState = new DpnState(petrinetSemantics.getCurrentState(), currentDpnState.getWrittenPropositions());
-					processVisitedState(newDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, currentDpnStatePath);
-					for (String activityProposition : allActivityPropositions) {
-						automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+					
+					if (!visitedDpnStates.contains(newDpnState)) {
+						processVisitedState(newDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, currentDpnStatePath);
+						for (String activityProposition : allActivityPropositions) {
+							automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+						}
+						visitNextState(petrinetSemantics, currentDpnStatePath, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
+						
+					} else {
+						newDpnState = visitedDpnStates.get(visitedDpnStates.indexOf(newDpnState));
+						for (String activityProposition : allActivityPropositions) {
+							automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+						}
 					}
-					visitNextState(petrinetSemantics, currentDpnStatePath, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
+					
 				} catch (IllegalTransitionException e) {
 					//This should never happen because the loop is over executable transitions
 					System.err.println(e.getMessage());
@@ -132,19 +142,19 @@ public class DpnModel extends AbstractModel {
 				for (DataElement writeOperation : pnwdTransition.getWriteOperations()) {
 					writeVariables.add(writeOperation.getVarName());
 				}
-
+				
 				String[] orOperatorSplit = dataCondition.split(" or "); //TODO: Should add code for handling parenthesis
 				Set<Map<String, String>> orResultWrites = new HashSet<Map<String, String>>();
-
+				
 				for (int i = 0; i < orOperatorSplit.length; i++) {
 					Map<String, Set<String>> andResultWrites = new HashMap<String, Set<String>>();
-
+					
 					String[] andOperatorSplit = orOperatorSplit[i].split(" and "); //TODO: Should add code for handling parenthesis
 					for (int j = 0; j < andOperatorSplit.length; j++) {
 						String[] splitCondition = andOperatorSplit[j].split("<=|!=|>=|<|=|>| is not | is | not in | in ");
 						String attributeName = splitCondition[0];
 						Set<String> attributePropositions = propositionData.getMatchingAttributePropositions(attributeName, andOperatorSplit[j]);
-
+						
 						if (writeVariables.contains(attributeName)) { //Write condition
 							if (andResultWrites.containsKey(attributeName)) {
 								andResultWrites.get(attributeName).retainAll(attributePropositions);
@@ -160,20 +170,20 @@ public class DpnModel extends AbstractModel {
 							}
 						}
 					}
-
-
+					
+					
 					Set<Map<String, String>> possibleWritePropositions = new HashSet<Map<String,String>>();
 					List<String> attributeNames = new ArrayList<String>(andResultWrites.keySet());
-
+					
 					for (String attributeValue : andResultWrites.get(attributeNames.get(0))) {
 						Map<String, String> possibleWriteProposition = new HashMap<String, String>();
 						possibleWriteProposition.put(attributeNames.get(0), attributeValue);
 						possibleWritePropositions.add(possibleWriteProposition);
 					}
-
+					
 					for (int j = 1; j < attributeNames.size(); j++) {
 						Set<Map<String, String>> possibleWritePropositionsNew = new HashSet<Map<String,String>>();
-
+						
 						for (String attributeValue : andResultWrites.get(attributeNames.get(j))) {
 							for (Map<String, String> possibleWriteProposition : possibleWritePropositions) {
 								Map<String, String> possibleWritePropositionNew = new HashMap<String, String>();
@@ -188,7 +198,7 @@ public class DpnModel extends AbstractModel {
 					}
 					orResultWrites.addAll(possibleWritePropositions);
 				}
-
+				
 				if (!orResultWrites.isEmpty()) { //Empty if the guard can not be satisfied on the current traversal path
 					for (Map<String, String> orResultWrite : orResultWrites) {
 						allActivityPropositions = propositionData.getAllActivityPropositions(transition.getLabel());
@@ -205,7 +215,7 @@ public class DpnModel extends AbstractModel {
 								validActivityPropositions.add(activityProposition);
 							}
 						}
-
+						
 						Map<String, String> writtenPropositions = new HashMap<String, String>();
 						for (DataElement dataElement : dataPetriNet.getVariables()) {
 							if (orResultWrite.containsKey(dataElement.getVarName())) {
@@ -214,25 +224,35 @@ public class DpnModel extends AbstractModel {
 								writtenPropositions.put(dataElement.getVarName(), currentDpnState.getWrittenPropositions().get(dataElement.getVarName()));
 							}
 						}
-
+						
 						//Fire the transition and, process the resulting marking and visit the next state
 						try {
 							petrinetSemantics.setCurrentState(currentDpnState.getDpnMarking());
 							petrinetSemantics.executeExecutableTransition(transition);
 							DpnState newDpnState = new DpnState(petrinetSemantics.getCurrentState(), writtenPropositions);
-							processVisitedState(newDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, currentDpnStatePath);
-							for (String activityProposition : validActivityPropositions) {
-								automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+							
+							if (!visitedDpnStates.contains(newDpnState)) {
+								processVisitedState(newDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, currentDpnStatePath);
+								for (String activityProposition : validActivityPropositions) {
+									automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+								}
+								visitNextState(petrinetSemantics, currentDpnStatePath, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
+								
+							} else {
+								newDpnState = visitedDpnStates.get(visitedDpnStates.indexOf(newDpnState));
+								for (String activityProposition : validActivityPropositions) {
+									automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+								}
 							}
-							visitNextState(petrinetSemantics, currentDpnStatePath, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
+							
 						} catch (IllegalTransitionException e) {
 							//This should never happen because the loop is over executable transitions
 							System.err.println(e.getMessage());
 						}
-
+						
 					}
 				}
-
+				
 			} else { //Transition with only read guards
 				String dataCondition = formatGuardExpression(pnwdTransition.getGuardAsString());
 				//Automata arcs are created for all propositions because read conditions do not care about event payloads
@@ -273,19 +293,30 @@ public class DpnModel extends AbstractModel {
 						petrinetSemantics.setCurrentState(currentDpnState.getDpnMarking());
 						petrinetSemantics.executeExecutableTransition(transition);
 						DpnState newDpnState = new DpnState(petrinetSemantics.getCurrentState(), currentDpnState.getWrittenPropositions());
-						processVisitedState(newDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, currentDpnStatePath);
-						for (String activityProposition : allActivityPropositions) {
-							automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+						
+						if (!visitedDpnStates.contains(newDpnState)) {
+							processVisitedState(newDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, currentDpnStatePath);
+							for (String activityProposition : allActivityPropositions) {
+								automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+							}
+							visitNextState(petrinetSemantics, currentDpnStatePath, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
+							
+						} else {
+							newDpnState = visitedDpnStates.get(visitedDpnStates.indexOf(newDpnState));
+							for (String activityProposition : allActivityPropositions) {
+								automatonFactory.addPropositionTransition(currentDpnState.getAutomatonState(), newDpnState.getAutomatonState(), activityProposition);
+							}
 						}
-						visitNextState(petrinetSemantics, currentDpnStatePath, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
+						
 					} catch (IllegalTransitionException e) {
 						//This should never happen because the loop is over executable transitions
 						System.err.println(e.getMessage());
 					}
 				}
 			}
-
+			
 		}
+
 		//Backtracking
 		currentDpnStatePath.pop();
 	}
@@ -333,16 +364,16 @@ public class DpnModel extends AbstractModel {
 	//		}
 	//	}
 
-	private void processVisitedState(DpnState dpnState, DefaultAutomatonFactory automatonFactory, List<DpnState> visitedDpnStates, Map<Marking, List<State>> dpnMarkingToAutomatonStates, Stack<DpnState> currentDpnStatePath) {
+	private void processVisitedState(DpnState newDpnState, DefaultAutomatonFactory automatonFactory, List<DpnState> visitedDpnStates, Map<Marking, List<State>> dpnMarkingToAutomatonStates, Stack<DpnState> currentDpnStatePath) {
 		State automatonState = new State(automatonFactory.getAutomaton().getStateCount()); //State class refers to the automaton state
 		automatonFactory.addState(automatonState);
-		dpnState.setAutomatonState(automatonState);
-		visitedDpnStates.add(dpnState);
-		currentDpnStatePath.add(dpnState);
-		if (!dpnMarkingToAutomatonStates.containsKey(dpnState.getDpnMarking())) {
-			dpnMarkingToAutomatonStates.put(dpnState.getDpnMarking(), new ArrayList<State>());
+		newDpnState.setAutomatonState(automatonState);
+		visitedDpnStates.add(newDpnState);
+		currentDpnStatePath.add(newDpnState);
+		if (!dpnMarkingToAutomatonStates.containsKey(newDpnState.getDpnMarking())) {
+			dpnMarkingToAutomatonStates.put(newDpnState.getDpnMarking(), new ArrayList<State>());
 		}
-		dpnMarkingToAutomatonStates.get(dpnState.getDpnMarking()).add(automatonState);
+		dpnMarkingToAutomatonStates.get(newDpnState.getDpnMarking()).add(automatonState);
 	}
 
 	private String formatGuardExpression(String guardExpression) {
@@ -389,6 +420,23 @@ public class DpnModel extends AbstractModel {
 		@Override
 		public String toString() {
 			return "DpnState [marking=" + dpnMarking + ", writtenPropositions=" + writtenPropositions + "]";
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			DpnState other = (DpnState) obj;
+			
+			if (this.dpnMarking.equals(other.getDpnMarking()) && this.writtenPropositions.equals(other.getWrittenPropositions())) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 }
