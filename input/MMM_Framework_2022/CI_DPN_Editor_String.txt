@@ -1,0 +1,33 @@
+[NAME]
+"chest infection treatment"
+
+[PLACES]
+p1 -> CXray
+p2 -> TCI
+p2 -> noCI
+p3 -> AT
+p4 -> CIend
+
+[TRANSITIONS]
+CXray -> p2
+TCI -> p3
+AT -> p4
+CIend -> p6
+noCI -> p4
+
+[VARIABLES]
+i [LITERAL]
+
+[WRITES]
+CXray [i]
+
+[GUARDS]
+CXray ["i==\"true\" || i==\"false\""]
+TCI ["i==\"true\""]
+noCI ["i==\"false\""]
+
+[INITIAL]
+p1 [1]
+
+[FINAL]
+p6 [1]

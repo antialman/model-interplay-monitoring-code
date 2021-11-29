@@ -1,0 +1,53 @@
+[NAME]
+"hip fracture treatment"
+
+[PLACES]
+p1 -> AP_c
+p2 -> AP_f
+p3 -> SD
+p4 -> PS
+p4 -> preSA
+p5 -> S
+p6 -> postSA
+p7 -> r_postSA
+p7 -> HFend
+p8 -> M
+p9 -> r_M
+p9 -> HFend
+
+[TRANSITIONS]
+AP_c -> p2
+AP_f -> p3
+SD -> p4
+PS -> p1
+preSA -> p5
+S -> p6
+S -> p8
+postSA -> p7
+r_postSA -> p6
+M -> p9
+r_M -> p8
+HFend -> p10
+
+[VARIABLES]
+c [LITERAL]
+f [CONTINUOUS]
+s [LITERAL]
+
+[WRITES]
+AP_c [c]
+AP_f [f]
+SD [s]
+
+[GUARDS]
+AP_c ["c==\"true\" || c==\"false\""]
+AP_f  ["f>=35.5 && f<=41"]
+SD ["s==\"true\" || s==\"false\""]
+PS ["s==\"false\" || (f>37.5 && c==\"true\")"]
+preSA ["s==\"true\""]
+
+[INITIAL]
+p1 [1]
+
+[FINAL]
+p10 [1]
