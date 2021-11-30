@@ -1,8 +1,8 @@
-# Model interplay monitor
+# Multi-model monitor
 
-Code for the conference paper "Monitoring Hybrid Process Specifications with Conflict Management"
+Implementation of a multi-model monitor for the M3 Frameowrk.
 
-A demonstration video is available at: https://youtu.be/sjWdOcBVsw4
+A demonstration video of the implementation is available at: https://youtu.be/sjWdOcBVsw4
 
 ## Running the application
 
