@@ -1,8 +1,8 @@
-# Model interplay monitor
+# Multi-model monitor
 
-Code for the conference paper "Monitoring Hybrid Process Specifications with Conflict Management"
+Implementation of a multi-model monitor for the M3 Frameowrk.
 
-A demonstration video is available at: https://youtu.be/sjWdOcBVsw4
+A demonstration video of the implementation is available at: https://youtu.be/sjWdOcBVsw4
 
 ## Running the application
 
@@ -60,7 +60,7 @@ Command: `java -jar .\model-interplay.jar --cmd -c ..\input\costModel.txt -e ..\
 
 ## Authors
 
-Conference paper (see the technical report [here](https://github.com/antialman/model-interplay-monitoring-code/blob/main/tech-report.pdf)):
+Conference paper (see the technical report [here](https://arxiv.org/abs/2111.13136)):
 * Anti Alman
 * Fabrizio Maria Maggi
 * Marco Montali
