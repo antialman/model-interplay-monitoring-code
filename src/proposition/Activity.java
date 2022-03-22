@@ -78,7 +78,7 @@ public class Activity {
 		allPropositions.add(getId());
 		
 		String[] splitCondition = atomicCondition.split("<=|!=|>=|<|=|>| is not | is | not in | in ");
-		String conditionAttributeName = splitCondition[0];
+		String conditionAttributeName = splitCondition[0].strip();
 		
 		for (String attributeId : attributeIdToAttribute.keySet()) {
 			Set<String> attributePropositionNames;
