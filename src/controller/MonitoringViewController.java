@@ -203,15 +203,15 @@ public class MonitoringViewController {
 			System.out.println("Monitoring automaton creation time (ms): " + TimeUnit.MILLISECONDS.convert(monitoringAutomatonTime, TimeUnit.NANOSECONDS));
 			System.out.println("Monitoring automaton number of states: " + globalAutomaton.stateCount());
 			//System.out.println("Monitoring automaton memory consumption (MB): " + "TODO");
-			System.out.println("Event processing time (min): " + TimeUnit.MILLISECONDS.convert(Collections.min(eventProcessingTimes), TimeUnit.NANOSECONDS));
-			System.out.println("Event processing time (max): " + TimeUnit.MILLISECONDS.convert(Collections.max(eventProcessingTimes), TimeUnit.NANOSECONDS));
+			System.out.println("Min event processing time (us): " + TimeUnit.MICROSECONDS.convert(Collections.min(eventProcessingTimes), TimeUnit.NANOSECONDS));
+			System.out.println("Max event processing time (us): " + TimeUnit.MICROSECONDS.convert(Collections.max(eventProcessingTimes), TimeUnit.NANOSECONDS));
 			long sum = 0;
 			for(int i = 0; i < eventProcessingTimes.size(); i++) {
 		        sum += eventProcessingTimes.get(i);
 			}
 			long avg = sum / eventProcessingTimes.size();
 			
-			System.out.println("Event processing time (avg): " + TimeUnit.MILLISECONDS.convert(avg, TimeUnit.NANOSECONDS));
+			System.out.println("Avg event processing time (us): " + TimeUnit.MICROSECONDS.convert(avg, TimeUnit.NANOSECONDS));
 		}
 	}
 
