@@ -1,0 +1,34 @@
+[NAME]
+"PU DPN test01 (modelSize_noData)"
+
+[PLACES]
+PUst -> HPte
+p2 -> HPev
+p3 -> AT
+p3 -> GAR
+p4 -> PUev
+
+p5 -> HPte_c1
+p2_c1 -> HPev_c1
+p3_c1 -> AT_c1
+p3_c1 -> GAR_c1
+p4_c1 -> PUev_c1
+
+[TRANSITIONS]
+HPte -> p2
+HPev -> p3
+AT -> p4
+GAR -> p4
+PUev -> p5
+
+HPte_c1 -> p2_c1
+HPev_c1 -> p3_c1
+AT_c1 -> p4_c1
+GAR_c1 -> p4_c1
+PUev_c1 -> p5_c1
+
+[INITIAL]
+PUst [1]
+
+[FINAL]
+p5_c1 [1]

@@ -1,0 +1,22 @@
+[NAME]
+"PU DPN test00"
+
+[PLACES]
+PUst -> HPte
+p2 -> HPev
+p3 -> AT
+p3 -> GAR
+p4 -> PUev
+
+[TRANSITIONS]
+HPte -> p2
+HPev -> p3
+AT -> p4
+GAR -> p4
+PUev -> p5
+
+[INITIAL]
+PUst [1]
+
+[FINAL]
+p5 [1]

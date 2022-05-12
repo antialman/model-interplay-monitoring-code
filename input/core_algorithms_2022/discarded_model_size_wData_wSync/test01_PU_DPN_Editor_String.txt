@@ -1,0 +1,54 @@
+[NAME]
+"PU DPN test01"
+
+[PLACES]
+PUst -> HPte
+p2 -> HPev
+p3 -> AT
+p3 -> GAR
+p4 -> PUev
+
+s_p1 -> sync1
+
+p5 -> HPte_c1
+p2_c1 -> HPev_c1
+p3_c1 -> AT_c1
+p3_c1 -> GAR_c1
+p4_c1 -> PUev_c1
+
+[TRANSITIONS]
+HPte -> p2
+HPev -> p3
+AT -> p4
+GAR -> p4
+
+PUev -> s_p1
+sync1 -> p5
+
+HPte_c1 -> p2_c1
+HPev_c1 -> p3_c1
+AT_c1 -> p4_c1
+GAR_c1 -> p4_c1
+PUev_c1 -> p5_c1
+
+[VARIABLES]
+result [LITERAL]
+result_c1 [LITERAL]
+
+[WRITES]
+HPev [result]
+HPev_c1 [result_c1]
+
+[GUARDS]
+HPev ["result==\"pos\" || result==\"neg\""]
+AT ["result==\"pos\""]
+GAR ["result==\"neg\""]
+HPev_c1 ["result_c1==\"pos\" || result_c1==\"neg\""]
+AT_c1 ["result_c1==\"pos\""]
+GAR_c1 ["result_c1==\"neg\""]
+
+[INITIAL]
+PUst [1]
+
+[FINAL]
+p5_c1 [1]

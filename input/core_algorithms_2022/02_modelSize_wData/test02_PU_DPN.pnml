@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+   <net id="net1" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
+      <name>
+         <text>PU DPN test02 (modelSize_wData)</text>
+      </name>
+      <page id="n0">
+         <name>
+            <text/>
+         </name>
+         <place id="n1">
+            <name>
+               <text>PUst</text>
+            </name>
+            <toolspecific localNodeID="071b5589-c30f-4eec-8882-d5ac9b3d7387" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+            <initialMarking>
+               <text>1</text>
+            </initialMarking>
+         </place>
+         <place id="n2">
+            <name>
+               <text>p2</text>
+            </name>
+            <toolspecific localNodeID="535f9e95-180f-4761-894c-ad0bc678a2cd" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n3">
+            <name>
+               <text>p3</text>
+            </name>
+            <toolspecific localNodeID="e1d43933-892e-4b3b-a554-ee705a016453" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n4">
+            <name>
+               <text>p4</text>
+            </name>
+            <toolspecific localNodeID="79d464eb-925b-49ee-bde1-24721ee7c3bb" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n5">
+            <name>
+               <text>p5</text>
+            </name>
+            <toolspecific localNodeID="04adb8cb-c106-4e07-bb6e-0f3a2f8f12c3" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n6">
+            <name>
+               <text>p2_c1</text>
+            </name>
+            <toolspecific localNodeID="1d331cb2-98cf-4b71-83c3-df513838f13b" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n7">
+            <name>
+               <text>p3_c1</text>
+            </name>
+            <toolspecific localNodeID="69064544-e21b-436c-b08f-a3ae65d40ef8" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n8">
+            <name>
+               <text>p4_c1</text>
+            </name>
+            <toolspecific localNodeID="dd33bfb5-e1bc-4483-8b17-879c71fd25f6" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n9">
+            <name>
+               <text>p5_c1</text>
+            </name>
+            <toolspecific localNodeID="94ec8808-9fc4-4fe3-9145-9e299eabf250" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n10">
+            <name>
+               <text>p2_c2</text>
+            </name>
+            <toolspecific localNodeID="666b3e55-32e2-40fc-ad44-04999eca0465" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n11">
+            <name>
+               <text>p3_c2</text>
+            </name>
+            <toolspecific localNodeID="82520b3b-3c80-4a1e-87eb-9e7fc08a110f" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n12">
+            <name>
+               <text>p4_c2</text>
+            </name>
+            <toolspecific localNodeID="45422781-0064-4465-87ec-5af3073d00c9" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+         </place>
+         <place id="n13">
+            <name>
+               <text>p5_c2</text>
+            </name>
+            <toolspecific localNodeID="33864619-dda7-4a3f-926b-34dd89d584a6" tool="ProM" version="6.4"/>
+            <graphics>
+               <position x="11.25" y="11.25"/>
+               <dimension x="12.5" y="12.5"/>
+            </graphics>
+            <finalMarking>
+               <text>1</text>
+            </finalMarking>
+         </place>
+         <transition id="n14">
+            <name>
+               <text>HPte</text>
+            </name>
+            <toolspecific activity="HPte" localNodeID="a95a8a40-b8af-42d0-a32b-5b26a33ea5d2" tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition guard="((result==&#34;pos&#34;)||(result==&#34;neg&#34;))" id="n15">
+            <name>
+               <text>HPev</text>
+            </name>
+            <toolspecific activity="HPev" localNodeID="62a859f1-c413-4ee2-9ab1-606cc78e8227" tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+            <writeVariable>result</writeVariable>
+         </transition>
+         <transition guard="(result==&#34;pos&#34;)" id="n16">
+            <name>
+               <text>AT</text>
+            </name>
+            <toolspecific activity="AT" localNodeID="d36fa52c-e2c6-4e0e-afff-7280f5c739ef" tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition guard="(result==&#34;neg&#34;)" id="n17">
+            <name>
+               <text>GAR</text>
+            </name>
+            <toolspecific activity="GAR" localNodeID="470d322b-8066-4d01-a2c7-d48fdb3d8764" tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition id="n18">
+            <name>
+               <text>PUev</text>
+            </name>
+            <toolspecific activity="PUev" localNodeID="e8fb0a2f-9377-4485-bc9f-470e5f8ec5a0" tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition id="n19">
+            <name>
+               <text>HPte_c1</text>
+            </name>
+            <toolspecific activity="HPte_c1" localNodeID="da749b31-427a-40cf-8a9b-e2a3eff138d4"
+                          tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition guard="((result_c1==&#34;pos&#34;)||(result_c1==&#34;neg&#34;))" id="n20">
+            <name>
+               <text>HPev_c1</text>
+            </name>
+            <toolspecific activity="HPev_c1" localNodeID="8f13ad43-a179-47e5-9ceb-2f61524df105"
+                          tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+            <writeVariable>result_c1</writeVariable>
+         </transition>
+         <transition guard="(result_c1==&#34;pos&#34;)" id="n21">
+            <name>
+               <text>AT_c1</text>
+            </name>
+            <toolspecific activity="AT_c1" localNodeID="66b9e9e6-ec24-4367-a35d-2027cad6d711" tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition guard="(result_c1==&#34;neg&#34;)" id="n22">
+            <name>
+               <text>GAR_c1</text>
+            </name>
+            <toolspecific activity="GAR_c1" localNodeID="9cd45b05-87e0-4e7f-be73-95eed32fdb74"
+                          tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition id="n23">
+            <name>
+               <text>PUev_c1</text>
+            </name>
+            <toolspecific activity="PUev_c1" localNodeID="080fc87c-f2da-44e1-a78f-67a7605b9d7d"
+                          tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition id="n24">
+            <name>
+               <text>HPte_c2</text>
+            </name>
+            <toolspecific activity="HPte_c2" localNodeID="c66358d4-f4d5-4408-896c-f4479fe83f24"
+                          tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition guard="((result_c2==&#34;pos&#34;)||(result_c2==&#34;neg&#34;))" id="n25">
+            <name>
+               <text>HPev_c2</text>
+            </name>
+            <toolspecific activity="HPev_c2" localNodeID="cbc683c2-d0c5-455f-808c-63454a6c5bf8"
+                          tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+            <writeVariable>result_c2</writeVariable>
+         </transition>
+         <transition guard="(result_c2==&#34;pos&#34;)" id="n26">
+            <name>
+               <text>AT_c2</text>
+            </name>
+            <toolspecific activity="AT_c2" localNodeID="f452cb7f-2116-48fd-88b2-e258d7d4c7fd" tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition guard="(result_c2==&#34;neg&#34;)" id="n27">
+            <name>
+               <text>GAR_c2</text>
+            </name>
+            <toolspecific activity="GAR_c2" localNodeID="27936e3d-fc4f-43a9-9960-b3d9cb63fa88"
+                          tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <transition id="n28">
+            <name>
+               <text>PUev_c2</text>
+            </name>
+            <toolspecific activity="PUev_c2" localNodeID="d4718385-10af-4ac8-964c-a76b74bddcc6"
+                          tool="ProM"
+                          version="6.4"/>
+            <graphics>
+               <position x="17.5" y="15.0"/>
+               <dimension x="25.0" y="20.0"/>
+               <fill color="#FFFFFF"/>
+            </graphics>
+         </transition>
+         <arc id="arc29" source="n11" target="n26">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="24a4a580-bffb-4e37-8115-7b947915dbd7" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc30" source="n24" target="n10">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="ef705911-c84b-4856-a849-44eb40d57fc0" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc31" source="n18" target="n5">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="564a11e6-bf3c-4f84-8b3a-764cbe2e9e3f" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc32" source="n23" target="n9">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="0ac50ba0-8916-468e-a96f-4e91dcba47d1" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc33" source="n25" target="n11">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="f2ad0a6d-3d71-48a2-951e-cad4c10d6d4b" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc34" source="n12" target="n28">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="e4fb16cb-bd80-4c4c-ac12-119fd3b9bd70" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc35" source="n20" target="n7">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="98a4a1f8-c80a-41df-9871-640ec21e7838" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc36" source="n27" target="n12">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="2cdafd80-0373-4b9b-b18e-aedf491d01a4" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc37" source="n28" target="n13">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="8d9a9e53-33d6-4362-8c32-41b017c27494" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc38" source="n3" target="n16">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="7a6c6a1a-e46a-4d41-956a-03d3054a527b" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc39" source="n16" target="n4">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="40061d88-39b7-4bc7-9945-7099ff709587" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc40" source="n17" target="n4">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="643ca8e3-6f61-479b-9d2d-3b30059f13c3" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc41" source="n5" target="n19">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="2c711ff1-e1d8-4b38-b289-a0400dc5d095" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc42" source="n26" target="n12">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="a7f7cb2f-8073-412d-aca9-7a65620a565b" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc43" source="n14" target="n2">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="7a659879-e116-44c2-a4a8-9b20db65f454" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc44" source="n8" target="n23">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="c147f1c9-7cad-4700-beb9-36eeb7d4947a" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc45" source="n6" target="n20">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="f73a1f0e-d95d-4e3a-b7e2-10e6c45ce7ea" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc46" source="n11" target="n27">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="199ec2f1-e1c1-477e-a970-3b08119ac1d8" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc47" source="n19" target="n6">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="b038ba8f-325d-4426-83ed-9cc35a02edae" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc48" source="n3" target="n17">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="fa164f77-8f36-419b-b097-8f110e91053d" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc49" source="n7" target="n22">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="c15dba7c-d6ef-47b0-a124-1f43bf6a0085" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc50" source="n15" target="n3">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="7d5b43db-41ed-472d-8221-c884198ee1d6" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc51" source="n2" target="n15">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="43baf11c-964e-428f-8614-4a177a4ee95e" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc52" source="n22" target="n8">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="5a4999b4-75d8-4a02-8447-56314ee448a1" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc53" source="n21" target="n8">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="3a570e30-a8a2-4da5-a7b4-bee7dcd89b3f" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc54" source="n9" target="n24">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="00786719-7957-4720-b192-801b1e9e2572" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc55" source="n10" target="n25">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="4cbae435-79d4-4842-96a9-5a87aac3c773" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc56" source="n4" target="n18">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="99c47f3b-8342-489f-923f-800788d20e6b" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc57" source="n7" target="n21">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="55a0d2c2-28d4-48ff-90ec-7b4b0855ee4c" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+         <arc id="arc58" source="n1" target="n14">
+            <name>
+               <text>1</text>
+            </name>
+            <toolspecific localNodeID="421b9f13-239d-4b78-affd-5ff829487f08" tool="ProM" version="6.4"/>
+            <arctype>
+               <text>normal</text>
+            </arctype>
+         </arc>
+      </page>
+      <finalmarkings>
+         <marking>
+            <place idref="n1">
+               <text>0</text>
+            </place>
+            <place idref="n2">
+               <text>0</text>
+            </place>
+            <place idref="n3">
+               <text>0</text>
+            </place>
+            <place idref="n4">
+               <text>0</text>
+            </place>
+            <place idref="n5">
+               <text>0</text>
+            </place>
+            <place idref="n6">
+               <text>0</text>
+            </place>
+            <place idref="n7">
+               <text>0</text>
+            </place>
+            <place idref="n8">
+               <text>0</text>
+            </place>
+            <place idref="n9">
+               <text>0</text>
+            </place>
+            <place idref="n10">
+               <text>0</text>
+            </place>
+            <place idref="n11">
+               <text>0</text>
+            </place>
+            <place idref="n12">
+               <text>0</text>
+            </place>
+            <place idref="n13">
+               <text>0</text>
+            </place>
+         </marking>
+      </finalmarkings>
+      <variables>
+         <variable type="java.lang.String">
+            <name>result</name>
+            <position x="0" y="0"/>
+            <dimension height="50" width="50"/>
+         </variable>
+         <variable type="java.lang.String">
+            <name>result_c2</name>
+            <position x="0" y="0"/>
+            <dimension height="50" width="50"/>
+         </variable>
+         <variable type="java.lang.String">
+            <name>result_c1</name>
+            <position x="0" y="0"/>
+            <dimension height="50" width="50"/>
+         </variable>
+      </variables>
+   </net>
+</pnml>

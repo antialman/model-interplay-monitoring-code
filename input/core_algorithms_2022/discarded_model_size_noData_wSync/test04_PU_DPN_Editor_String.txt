@@ -1,0 +1,86 @@
+[NAME]
+"PU DPN test04"
+
+[PLACES]
+PUst -> HPte
+p2 -> HPev
+p3 -> AT
+p3 -> GAR
+p4 -> PUev
+
+s_p1 -> sync1
+
+p5 -> HPte_c1
+p2_c1 -> HPev_c1
+p3_c1 -> AT_c1
+p3_c1 -> GAR_c1
+p4_c1 -> PUev_c1
+
+s_p2 -> sync2
+
+p5_c1 -> HPte_c2
+p2_c2 -> HPev_c2
+p3_c2 -> AT_c2
+p3_c2 -> GAR_c2
+p4_c2 -> PUev_c2
+
+s_p3 -> sync3
+
+p5_c2 -> HPte_c3
+p2_c3 -> HPev_c3
+p3_c3 -> AT_c3
+p3_c3 -> GAR_c3
+p4_c3 -> PUev_c3
+
+s_p4 -> sync4
+
+p5_c3 -> HPte_c4
+p2_c4 -> HPev_c4
+p3_c4 -> AT_c4
+p3_c4 -> GAR_c4
+p4_c4 -> PUev_c4
+
+[TRANSITIONS]
+HPte -> p2
+HPev -> p3
+AT -> p4
+GAR -> p4
+
+PUev -> s_p1
+sync1 -> p5
+
+HPte_c1 -> p2_c1
+HPev_c1 -> p3_c1
+AT_c1 -> p4_c1
+GAR_c1 -> p4_c1
+
+PUev_c1 -> s_p2
+sync2 -> p5_c1
+
+HPte_c2 -> p2_c2
+HPev_c2 -> p3_c2
+AT_c2 -> p4_c2
+GAR_c2 -> p4_c2
+
+PUev_c2 -> s_p3
+sync3 -> p5_c2
+
+HPte_c3 -> p2_c3
+HPev_c3 -> p3_c3
+AT_c3 -> p4_c3
+GAR_c3 -> p4_c3
+
+PUev_c3 -> s_p4
+sync4 -> p5_c3
+
+HPte_c4 -> p2_c4
+HPev_c4 -> p3_c4
+AT_c4 -> p4_c4
+GAR_c4 -> p4_c4
+PUev_c4 -> p5_c4
+
+[INITIAL]
+PUst [1]
+
+[FINAL]
+p5_c4 [1]

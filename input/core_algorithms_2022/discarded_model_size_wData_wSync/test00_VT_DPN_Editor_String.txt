@@ -1,0 +1,32 @@
+[NAME]
+"VT DPN test00"
+
+[PLACES]
+VTst -> IntD
+p2 -> MI
+p2 -> WT
+p2 -> TT
+
+[TRANSITIONS]
+IntD -> p2
+MI -> p3
+WT -> p3
+TT -> p3
+
+[VARIABLES]
+type [LITERAL]
+
+[WRITES]
+IntD [type]
+
+[GUARDS]
+IntD ["type==\"mech\" || type==\"anticoag\" || type==\"thromb\""]
+MI ["type==\"mech\""]
+WT ["type==\"anticoag\""]
+TT ["type==\"thromb\""]
+
+[INITIAL]
+VTst [1]
+
+[FINAL]
+p3 [1]

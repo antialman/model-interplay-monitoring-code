@@ -1,0 +1,102 @@
+[NAME]
+"PU DPN test02 (syncCount_end)"
+
+[PLACES]
+PUst -> HPte
+p2 -> HPev
+p3 -> AT
+p3 -> GAR
+p4 -> PUev
+
+p5 -> HPte_c1
+p2_c1 -> HPev_c1
+p3_c1 -> AT_c1
+p3_c1 -> GAR_c1
+p4_c1 -> PUev_c1
+
+p5_c1 -> HPte_c2
+p2_c2 -> HPev_c2
+p3_c2 -> AT_c2
+p3_c2 -> GAR_c2
+p4_c2 -> PUev_c2
+
+p5_c2 -> HPte_c3
+p2_c3 -> HPev_c3
+p3_c3 -> AT_c3
+p3_c3 -> GAR_c3
+p4_c3 -> PUev_c3
+
+p5_c3 -> HPte_c4
+p2_c4 -> HPev_c4
+p3_c4 -> AT_c4
+p3_c4 -> GAR_c4
+p4_c4 -> PUev_c4
+
+s_p5 -> sync5
+
+p5_c4 -> HPte_c5
+p2_c5 -> HPev_c5
+p3_c5 -> AT_c5
+p3_c5 -> GAR_c5
+p4_c5 -> PUev_c5
+
+s_p6 -> sync6
+
+p5_c5 -> HPte_c6
+p2_c6 -> HPev_c6
+p3_c6 -> AT_c6
+p3_c6 -> GAR_c6
+p4_c6 -> PUev_c6
+
+[TRANSITIONS]
+HPte -> p2
+HPev -> p3
+AT -> p4
+GAR -> p4
+PUev -> p5
+
+HPte_c1 -> p2_c1
+HPev_c1 -> p3_c1
+AT_c1 -> p4_c1
+GAR_c1 -> p4_c1
+PUev_c1 -> p5_c1
+
+HPte_c2 -> p2_c2
+HPev_c2 -> p3_c2
+AT_c2 -> p4_c2
+GAR_c2 -> p4_c2
+PUev_c2 -> p5_c2
+
+HPte_c3 -> p2_c3
+HPev_c3 -> p3_c3
+AT_c3 -> p4_c3
+GAR_c3 -> p4_c3
+PUev_c3 -> p5_c3
+
+HPte_c4 -> p2_c4
+HPev_c4 -> p3_c4
+AT_c4 -> p4_c4
+GAR_c4 -> p4_c4
+
+PUev_c4 -> s_p5
+sync5 -> p5_c4
+
+HPte_c5 -> p2_c5
+HPev_c5 -> p3_c5
+AT_c5 -> p4_c5
+GAR_c5 -> p4_c5
+
+PUev_c5 -> s_p6
+sync6 -> p5_c5
+
+HPte_c6 -> p2_c6
+HPev_c6 -> p3_c6
+AT_c6 -> p4_c6
+GAR_c6 -> p4_c6
+PUev_c6 -> p5_c6
+
+[INITIAL]
+PUst [1]
+
+[FINAL]
+p5_c6 [1]

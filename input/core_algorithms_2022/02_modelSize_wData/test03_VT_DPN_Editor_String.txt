@@ -1,0 +1,80 @@
+[NAME]
+"VT DPN test03 (modelSize_wData)"
+
+[PLACES]
+VTst -> IntD
+p2 -> MI
+p2 -> WT
+p2 -> TT
+
+p3 -> IntD_c1
+p2_c1 -> MI_c1
+p2_c1 -> WT_c1
+p2_c1 -> TT_c1
+
+p3_c1 -> IntD_c2
+p2_c2 -> MI_c2
+p2_c2 -> WT_c2
+p2_c2 -> TT_c2
+
+p3_c2 -> IntD_c3
+p2_c3 -> MI_c3
+p2_c3 -> WT_c3
+p2_c3 -> TT_c3
+
+[TRANSITIONS]
+IntD -> p2
+MI -> p3
+WT -> p3
+TT -> p3
+
+IntD_c1 -> p2_c1
+MI_c1 -> p3_c1
+WT_c1 -> p3_c1
+TT_c1 -> p3_c1
+
+IntD_c2 -> p2_c2
+MI_c2 -> p3_c2
+WT_c2 -> p3_c2
+TT_c2 -> p3_c2
+
+IntD_c3 -> p2_c3
+MI_c3 -> p3_c3
+WT_c3 -> p3_c3
+TT_c3 -> p3_c3
+
+[VARIABLES]
+type [LITERAL]
+type_c1 [LITERAL]
+type_c2 [LITERAL]
+type_c3 [LITERAL]
+
+[WRITES]
+IntD [type]
+IntD_c1 [type_c1]
+IntD_c2 [type_c2]
+IntD_c3 [type_c3]
+
+[GUARDS]
+IntD ["type==\"mech\" || type==\"anticoag\" || type==\"thromb\""]
+MI ["type==\"mech\""]
+WT ["type==\"anticoag\""]
+TT ["type==\"thromb\""]
+IntD_c1 ["type_c1==\"mech\" || type_c1==\"anticoag\" || type_c1==\"thromb\""]
+MI_c1 ["type_c1==\"mech\""]
+WT_c1 ["type_c1==\"anticoag\""]
+TT_c1 ["type_c1==\"thromb\""]
+IntD_c2 ["type_c2==\"mech\" || type_c2==\"anticoag\" || type_c2==\"thromb\""]
+MI_c2 ["type_c2==\"mech\""]
+WT_c2 ["type_c2==\"anticoag\""]
+TT_c2 ["type_c2==\"thromb\""]
+IntD_c3 ["type_c3==\"mech\" || type_c3==\"anticoag\" || type_c3==\"thromb\""]
+MI_c3 ["type_c3==\"mech\""]
+WT_c3 ["type_c3==\"anticoag\""]
+TT_c3 ["type_c3==\"thromb\""]
+
+[INITIAL]
+VTst [1]
+
+[FINAL]
+p3_c3 [1]

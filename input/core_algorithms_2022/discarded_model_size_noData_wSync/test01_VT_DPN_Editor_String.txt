@@ -1,0 +1,34 @@
+[NAME]
+"VT DPN test01"
+
+[PLACES]
+VTst -> IntD
+p2 -> MI
+p2 -> WT
+p2 -> TT
+
+s_p1 -> sync1
+
+p3 -> IntD_c1
+p2_c1 -> MI_c1
+p2_c1 -> WT_c1
+p2_c1 -> TT_c1
+
+[TRANSITIONS]
+IntD -> p2
+
+MI -> s_p1
+WT -> s_p1
+TT -> s_p1
+sync1 -> p3
+
+IntD_c1 -> p2_c1
+MI_c1 -> p3_c1
+WT_c1 -> p3_c1
+TT_c1 -> p3_c1
+
+[INITIAL]
+VTst [1]
+
+[FINAL]
+p3_c1 [1]

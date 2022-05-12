@@ -1,0 +1,147 @@
+[NAME]
+"PU DPN test03"
+
+[PLACES]
+PUst -> HPte
+p2 -> HPev
+p3 -> AT
+p3 -> GAR
+p4 -> PUev
+
+p5 -> HPte_c1
+p2_c1 -> HPev_c1
+p3_c1 -> AT_c1
+p3_c1 -> GAR_c1
+p4_c1 -> PUev_c1
+
+p5_c1 -> HPte_c2
+p2_c2 -> HPev_c2
+p3_c2 -> AT_c2
+p3_c2 -> GAR_c2
+p4_c2 -> PUev_c2
+
+p5_c2 -> HPte_c3
+p2_c3 -> HPev_c3
+p3_c3 -> AT_c3
+p3_c3 -> GAR_c3
+p4_c3 -> PUev_c3
+
+s_p4 -> sync4
+
+p5_c3 -> HPte_c4
+p2_c4 -> HPev_c4
+p3_c4 -> AT_c4
+p3_c4 -> GAR_c4
+p4_c4 -> PUev_c4
+
+s_p5 -> sync5
+
+p5_c4 -> HPte_c5
+p2_c5 -> HPev_c5
+p3_c5 -> AT_c5
+p3_c5 -> GAR_c5
+p4_c5 -> PUev_c5
+
+s_p6 -> sync6
+
+p5_c5 -> HPte_c6
+p2_c6 -> HPev_c6
+p3_c6 -> AT_c6
+p3_c6 -> GAR_c6
+p4_c6 -> PUev_c6
+
+[TRANSITIONS]
+HPte -> p2
+HPev -> p3
+AT -> p4
+GAR -> p4
+PUev -> p5
+
+HPte_c1 -> p2_c1
+HPev_c1 -> p3_c1
+AT_c1 -> p4_c1
+GAR_c1 -> p4_c1
+PUev_c1 -> p5_c1
+
+HPte_c2 -> p2_c2
+HPev_c2 -> p3_c2
+AT_c2 -> p4_c2
+GAR_c2 -> p4_c2
+PUev_c2 -> p5_c2
+
+HPte_c3 -> p2_c3
+HPev_c3 -> p3_c3
+AT_c3 -> p4_c3
+GAR_c3 -> p4_c3
+
+PUev_c3 -> s_p4
+sync4 -> p5_c3
+
+HPte_c4 -> p2_c4
+HPev_c4 -> p3_c4
+AT_c4 -> p4_c4
+GAR_c4 -> p4_c4
+
+PUev_c4 -> s_p5
+sync5 -> p5_c4
+
+HPte_c5 -> p2_c5
+HPev_c5 -> p3_c5
+AT_c5 -> p4_c5
+GAR_c5 -> p4_c5
+
+PUev_c5 -> s_p6
+sync6 -> p5_c5
+
+HPte_c6 -> p2_c6
+HPev_c6 -> p3_c6
+AT_c6 -> p4_c6
+GAR_c6 -> p4_c6
+PUev_c6 -> p5_c6
+
+[VARIABLES]
+result [LITERAL]
+result_c1 [LITERAL]
+result_c2 [LITERAL]
+result_c3 [LITERAL]
+result_c4 [LITERAL]
+result_c5 [LITERAL]
+result_c6 [LITERAL]
+
+[WRITES]
+HPev [result]
+HPev_c1 [result_c1]
+HPev_c2 [result_c2]
+HPev_c3 [result_c3]
+HPev_c4 [result_c4]
+HPev_c5 [result_c5]
+HPev_c6 [result_c6]
+
+[GUARDS]
+HPev ["result==\"pos\" || result==\"neg\""]
+AT ["result==\"pos\""]
+GAR ["result==\"neg\""]
+HPev_c1 ["result_c1==\"pos\" || result_c1==\"neg\""]
+AT_c1 ["result_c1==\"pos\""]
+GAR_c1 ["result_c1==\"neg\""]
+HPev_c2 ["result_c2==\"pos\" || result_c2==\"neg\""]
+AT_c2 ["result_c2==\"pos\""]
+GAR_c2 ["result_c2==\"neg\""]
+HPev_c3 ["result_c3==\"pos\" || result_c3==\"neg\""]
+AT_c3 ["result_c3==\"pos\""]
+GAR_c3 ["result_c3==\"neg\""]
+HPev_c4 ["result_c4==\"pos\" || result_c4==\"neg\""]
+AT_c4 ["result_c4==\"pos\""]
+GAR_c4 ["result_c4==\"neg\""]
+HPev_c5 ["result_c5==\"pos\" || result_c5==\"neg\""]
+AT_c5 ["result_c5==\"pos\""]
+GAR_c5 ["result_c5==\"neg\""]
+HPev_c6 ["result_c6==\"pos\" || result_c6==\"neg\""]
+AT_c6 ["result_c6==\"pos\""]
+GAR_c6 ["result_c6==\"neg\""]
+
+[INITIAL]
+PUst [1]
+
+[FINAL]
+p5_c6 [1]

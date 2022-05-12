@@ -1,0 +1,48 @@
+[NAME]
+"VT DPN test01 (modelSize_wData)"
+
+[PLACES]
+VTst -> IntD
+p2 -> MI
+p2 -> WT
+p2 -> TT
+
+p3 -> IntD_c1
+p2_c1 -> MI_c1
+p2_c1 -> WT_c1
+p2_c1 -> TT_c1
+
+[TRANSITIONS]
+IntD -> p2
+MI -> p3
+WT -> p3
+TT -> p3
+
+IntD_c1 -> p2_c1
+MI_c1 -> p3_c1
+WT_c1 -> p3_c1
+TT_c1 -> p3_c1
+
+[VARIABLES]
+type [LITERAL]
+type_c1 [LITERAL]
+
+[WRITES]
+IntD [type]
+IntD_c1 [type_c1]
+
+[GUARDS]
+IntD ["type==\"mech\" || type==\"anticoag\" || type==\"thromb\""]
+MI ["type==\"mech\""]
+WT ["type==\"anticoag\""]
+TT ["type==\"thromb\""]
+IntD_c1 ["type_c1==\"mech\" || type_c1==\"anticoag\" || type_c1==\"thromb\""]
+MI_c1 ["type_c1==\"mech\""]
+WT_c1 ["type_c1==\"anticoag\""]
+TT_c1 ["type_c1==\"thromb\""]
+
+[INITIAL]
+VTst [1]
+
+[FINAL]
+p3_c1 [1]

@@ -1,0 +1,40 @@
+[NAME]
+"VT DPN test02 (modelSize_noData)"
+
+[PLACES]
+VTst -> IntD
+p2 -> MI
+p2 -> WT
+p2 -> TT
+
+p3 -> IntD_c1
+p2_c1 -> MI_c1
+p2_c1 -> WT_c1
+p2_c1 -> TT_c1
+
+p3_c1 -> IntD_c2
+p2_c2 -> MI_c2
+p2_c2 -> WT_c2
+p2_c2 -> TT_c2
+
+[TRANSITIONS]
+IntD -> p2
+MI -> p3
+WT -> p3
+TT -> p3
+
+IntD_c1 -> p2_c1
+MI_c1 -> p3_c1
+WT_c1 -> p3_c1
+TT_c1 -> p3_c1
+
+IntD_c2 -> p2_c2
+MI_c2 -> p3_c2
+WT_c2 -> p3_c2
+TT_c2 -> p3_c2
+
+[INITIAL]
+VTst [1]
+
+[FINAL]
+p3_c2 [1]

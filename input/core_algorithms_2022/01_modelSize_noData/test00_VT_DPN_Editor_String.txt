@@ -1,0 +1,20 @@
+[NAME]
+"VT DPN test00 (modelSize_noData)"
+
+[PLACES]
+VTst -> IntD
+p2 -> MI
+p2 -> WT
+p2 -> TT
+
+[TRANSITIONS]
+IntD -> p2
+MI -> p3
+WT -> p3
+TT -> p3
+
+[INITIAL]
+VTst [1]
+
+[FINAL]
+p3 [1]

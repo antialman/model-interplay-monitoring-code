@@ -1,0 +1,104 @@
+[NAME]
+"VT DPN test06 (syncCount_end)"
+
+[PLACES]
+VTst -> IntD
+p2 -> MI
+p2 -> WT
+p2 -> TT
+
+s_p1 -> sync1
+
+p3 -> IntD_c1
+p2_c1 -> MI_c1
+p2_c1 -> WT_c1
+p2_c1 -> TT_c1
+
+s_p2 -> sync2
+
+p3_c1 -> IntD_c2
+p2_c2 -> MI_c2
+p2_c2 -> WT_c2
+p2_c2 -> TT_c2
+
+s_p3 -> sync3
+
+p3_c2 -> IntD_c3
+p2_c3 -> MI_c3
+p2_c3 -> WT_c3
+p2_c3 -> TT_c3
+
+s_p4 -> sync4
+
+p3_c3 -> IntD_c4
+p2_c4 -> MI_c4
+p2_c4 -> WT_c4
+p2_c4 -> TT_c4
+
+s_p5 -> sync5
+
+p3_c4 -> IntD_c5
+p2_c5 -> MI_c5
+p2_c5 -> WT_c5
+p2_c5 -> TT_c5
+
+s_p6 -> sync6
+
+p3_c5 -> IntD_c6
+p2_c6 -> MI_c6
+p2_c6 -> WT_c6
+p2_c6 -> TT_c6
+
+[TRANSITIONS]
+IntD -> p2
+
+MI -> s_p1
+WT -> s_p1
+TT -> s_p1
+sync1 -> p3
+
+IntD_c1 -> p2_c1
+
+MI_c1 -> s_p2
+WT_c1 -> s_p2
+TT_c1 -> s_p2
+sync2 -> p3_c1
+
+IntD_c2 -> p2_c2
+
+MI_c2 -> s_p3
+WT_c2 -> s_p3
+TT_c2 -> s_p3
+sync3 -> p3_c2
+
+IntD_c3 -> p2_c3
+
+MI_c3 -> s_p4
+WT_c3 -> s_p4
+TT_c3 -> s_p4
+sync4 -> p3_c3
+
+IntD_c4 -> p2_c4
+
+MI_c4 -> s_p5
+WT_c4 -> s_p5
+TT_c4 -> s_p5
+sync5 -> p3_c4
+
+IntD_c5 -> p2_c5
+
+MI_c5 -> s_p6
+WT_c5 -> s_p6
+TT_c5 -> s_p6
+sync6 -> p3_c5
+
+IntD_c6 -> p2_c6
+MI_c6 -> p3_c6
+WT_c6 -> p3_c6
+TT_c6 -> p3_c6
+
+[INITIAL]
+VTst [1]
+
+[FINAL]
+p3_c6 [1]
