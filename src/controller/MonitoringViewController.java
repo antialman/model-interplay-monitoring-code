@@ -20,6 +20,7 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -28,6 +29,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -80,7 +82,8 @@ public class MonitoringViewController {
 
 	List<VBox> resultsList;
 
-	private XLog xlog;
+	private XLog xlog = LogUtils.convertToXlog("C:/UT_Devel/Repos/repos-2020-06/model-interplay-monitoring-code/input/core_algorithms_2022/logGen/gen_eventlog.xes");
+//	private XLog xlog;
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
@@ -169,6 +172,12 @@ public class MonitoringViewController {
 		long startTime = System.nanoTime();
 		createMonitoringDataStructures();
 		monitoringAutomatonTime = System.nanoTime() - startTime;
+		
+		//To make memory usage more predictable for testing
+		System.gc();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("Monitoring data structures created");
+		alert.showAndWait();
 
 		tracesListView.getItems().clear();
 		resultsList = new ArrayList<VBox>();
@@ -200,18 +209,40 @@ public class MonitoringViewController {
 			System.out.println("===========================================");
 			System.out.println("Statistics");
 			System.out.println("===========================================");
-			System.out.println("Monitoring automaton creation time (ms): " + TimeUnit.MICROSECONDS.convert(monitoringAutomatonTime, TimeUnit.NANOSECONDS)/1000.0);
-			System.out.println("Monitoring automaton number of states: " + globalAutomaton.stateCount());
-			//System.out.println("Monitoring automaton memory consumption (MB): " + "TODO");
-			System.out.println("Min event processing time (ms): " + TimeUnit.MICROSECONDS.convert(Collections.min(eventProcessingTimes), TimeUnit.NANOSECONDS)/1000.0);
-			System.out.println("Max event processing time (ms): " + TimeUnit.MICROSECONDS.convert(Collections.max(eventProcessingTimes), TimeUnit.NANOSECONDS)/1000.0);
+			double autTime = TimeUnit.MILLISECONDS.convert(monitoringAutomatonTime, TimeUnit.NANOSECONDS)/1000.0;
+			System.out.println("Monitoring automaton creation time (s): " + autTime);
+			int autStates = globalAutomaton.stateCount();
+			System.out.println("Monitoring automaton number of states: " + autStates);
+			
+			double minEvTime = TimeUnit.MICROSECONDS.convert(Collections.min(eventProcessingTimes), TimeUnit.NANOSECONDS)/1000.0;
+			System.out.println("Min event processing time (ms): " + minEvTime);
+			double maxEvTime = TimeUnit.MICROSECONDS.convert(Collections.max(eventProcessingTimes), TimeUnit.NANOSECONDS)/1000.0;
+			System.out.println("Max event processing time (ms): " + maxEvTime);
 			long sum = 0;
 			for(int i = 0; i < eventProcessingTimes.size(); i++) {
 		        sum += eventProcessingTimes.get(i);
 			}
 			long avg = sum / eventProcessingTimes.size();
+			double meanEvTime = TimeUnit.MICROSECONDS.convert(avg, TimeUnit.NANOSECONDS)/1000.0;
+			System.out.println("Avg event processing time (ms): " + meanEvTime);
 			
-			System.out.println("Avg event processing time (ms): " + TimeUnit.MICROSECONDS.convert(avg, TimeUnit.NANOSECONDS)/1000.0);
+			
+			System.out.println();
+			System.out.println("For easier copying (Automaton)");
+			System.out.println("AutTime\tAutStates");
+			System.out.println(autTime + "\t" + autStates);
+
+			System.out.println("For easier copying (Monitoring)");
+			System.out.println("EvMin\tEvMax\tEvMean");
+			System.out.println(minEvTime + "\t" + maxEvTime + "\t" + meanEvTime);
+			
+			
+			//To make memory usage more predictable for testing
+//			System.gc();
+//			Alert alert2 = new Alert(AlertType.INFORMATION);
+//			alert2.setContentText("Monitoring done");
+//			alert2.showAndWait();
+			
 		}
 	}
 
