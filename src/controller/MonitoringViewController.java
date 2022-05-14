@@ -272,6 +272,8 @@ public class MonitoringViewController {
 		globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(modelTableView.getItems(), globalAutomaton);
 		System.out.println("Done: Calculating colors for each state of the global automaton\n");
 
+		System.gc();
+		
 		System.out.println("Start: Calculating cost_curr and cost_best values for each state of the global automaton");
 		costCurrMap = AutomatonUtils.getCostCurrMap(modelTableView.getItems(), globalAutomaton, globalAutomatonColours);
 		costBestMap = AutomatonUtils.getCostBestMap(globalAutomaton, costCurrMap);
