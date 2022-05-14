@@ -174,10 +174,10 @@ public class MonitoringViewController {
 		monitoringAutomatonTime = System.nanoTime() - startTime;
 		
 		//To make memory usage more predictable for testing
-		System.gc();
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText("Monitoring data structures created");
-		alert.showAndWait();
+//		System.gc();
+//		Alert alert = new Alert(AlertType.INFORMATION);
+//		alert.setContentText("Monitoring data structures created");
+//		alert.showAndWait();
 
 		tracesListView.getItems().clear();
 		resultsList = new ArrayList<VBox>();
@@ -236,6 +236,9 @@ public class MonitoringViewController {
 			System.out.println("EvMin\tEvMax\tEvMean");
 			System.out.println(minEvTime + "\t" + maxEvTime + "\t" + meanEvTime);
 			
+			System.out.println("For easier copying (full)");
+			System.out.println("AutTime\tAutStates\tMemory\tEvMin\tEvMax\tEvMean");
+			System.out.println(autTime + "\t" + autStates + "\t\t" + minEvTime + "\t" + maxEvTime + "\t" + meanEvTime);
 			
 			//To make memory usage more predictable for testing
 //			System.gc();
@@ -272,7 +275,7 @@ public class MonitoringViewController {
 		globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(modelTableView.getItems(), globalAutomaton);
 		System.out.println("Done: Calculating colors for each state of the global automaton\n");
 
-		System.gc();
+//		System.gc();
 		
 		System.out.println("Start: Calculating cost_curr and cost_best values for each state of the global automaton");
 		costCurrMap = AutomatonUtils.getCostCurrMap(modelTableView.getItems(), globalAutomaton, globalAutomatonColours);
