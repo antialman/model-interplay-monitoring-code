@@ -1,0 +1,33 @@
+[NAME]
+"PU DPN copy05 (modelCount_wData)"
+
+[PLACES]
+PUst_c5 -> HPte_c5
+p2 -> HPev_c5
+p3 -> AT_c5
+p3 -> GAR_c5
+p4 -> PUev_c5
+
+[TRANSITIONS]
+HPte_c5 -> p2
+HPev_c5 -> p3
+AT_c5 -> p4
+GAR_c5 -> p4
+PUev_c5 -> p5
+
+[VARIABLES]
+result_c5 [LITERAL]
+
+[WRITES]
+HPev_c5 [result_c5]
+
+[GUARDS]
+HPev_c5 ["result_c5==\"pos\" || result_c5==\"neg\""]
+AT_c5 ["result_c5==\"pos\""]
+GAR_c5 ["result_c5==\"neg\""]
+
+[INITIAL]
+PUst_c5 [1]
+
+[FINAL]
+p5 [1]

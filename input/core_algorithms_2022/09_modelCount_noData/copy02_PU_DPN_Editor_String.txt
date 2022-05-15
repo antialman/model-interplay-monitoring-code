@@ -1,0 +1,22 @@
+[NAME]
+"PU DPN copy02 (modelCount_noData)"
+
+[PLACES]
+PUst_c2 -> HPte_c2
+p2 -> HPev_c2
+p3 -> AT_c2
+p3 -> GAR_c2
+p4 -> PUev_c2
+
+[TRANSITIONS]
+HPte_c2 -> p2
+HPev_c2 -> p3
+AT_c2 -> p4
+GAR_c2 -> p4
+PUev_c2 -> p5
+
+[INITIAL]
+PUst_c2 [1]
+
+[FINAL]
+p5 [1]

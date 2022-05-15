@@ -82,7 +82,7 @@ public class MonitoringViewController {
 
 	List<VBox> resultsList;
 
-	private XLog xlog = LogUtils.convertToXlog("C:/UT_Devel/Repos/repos-2020-06/model-interplay-monitoring-code/input/core_algorithms_2022/logGen/gen_eventlog.xes");
+	private XLog xlog = LogUtils.convertToXlog("C:/UT_Devel/Repos/repos-2020-06/model-interplay-monitoring-code/input/core_algorithms_2022/logGen/gen_eventlog_modelCount.xes");
 //	private XLog xlog;
 
 	public void setStage(Stage stage) {
