@@ -1,0 +1,32 @@
+[NAME]
+"VT DPN test01 (modelCount_wData)"
+
+[PLACES]
+VTst_c1 -> IntD_c1
+p2 -> MI_c1
+p2 -> WT_c1
+p2 -> TT_c1
+
+[TRANSITIONS]
+IntD_c1 -> p2
+MI_c1 -> p3
+WT_c1 -> p3
+TT_c1 -> p3
+
+[VARIABLES]
+type_c1 [LITERAL]
+
+[WRITES]
+IntD_c1 [type_c1]
+
+[GUARDS]
+IntD_c1 ["type_c1==\"mech\" || type_c1==\"anticoag\" || type_c1==\"thromb\""]
+MI_c1 ["type_c1==\"mech\""]
+WT_c1 ["type_c1==\"anticoag\""]
+TT_c1 ["type_c1==\"thromb\""]
+
+[INITIAL]
+VTst_c1 [1]
+
+[FINAL]
+p3 [1]

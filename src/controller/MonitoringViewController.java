@@ -174,10 +174,10 @@ public class MonitoringViewController {
 		monitoringAutomatonTime = System.nanoTime() - startTime;
 		
 		//To make memory usage more predictable for testing
-//		System.gc();
-//		Alert alert = new Alert(AlertType.INFORMATION);
-//		alert.setContentText("Monitoring data structures created");
-//		alert.showAndWait();
+		System.gc();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("Monitoring data structures created");
+		alert.showAndWait();
 
 		tracesListView.getItems().clear();
 		resultsList = new ArrayList<VBox>();

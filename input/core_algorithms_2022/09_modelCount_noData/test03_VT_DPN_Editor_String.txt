@@ -1,0 +1,20 @@
+[NAME]
+"VT DPN test03 (modelCount_noData)"
+
+[PLACES]
+VTst_c3 -> IntD_c3
+p2 -> MI_c3
+p2 -> WT_c3
+p2 -> TT_c3
+
+[TRANSITIONS]
+IntD_c3 -> p2
+MI_c3 -> p3
+WT_c3 -> p3
+TT_c3 -> p3
+
+[INITIAL]
+VTst_c3 [1]
+
+[FINAL]
+p3 [1]
