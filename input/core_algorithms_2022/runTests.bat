@@ -10,8 +10,8 @@ for /l %%x in (0, 1, 6) do (
 	echo 01 Model size without data - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		echo java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\01_modelSize_noData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
-		echo timeout 2 > NUL
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\01_modelSize_noData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
 )
@@ -32,8 +32,8 @@ for /l %%x in (0, 1, 6) do (
 	echo 02 Model size with data - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		echo java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\02_modelSize_wData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
-		echo timeout 2 > NUL
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\02_modelSize_wData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
 )
@@ -54,8 +54,8 @@ for /l %%x in (0, 1, 7) do (
 	echo 03 Guard placement in control flow - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		echo java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\03_conditionPlacement\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
-		echo timeout 2 > NUL
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\03_conditionPlacement\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
 )
@@ -76,8 +76,8 @@ for /l %%x in (0, 1, 7) do (
 	echo 04 Number of guards from beginning - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		echo java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\04_conditionCount_begin\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
-		echo timeout 2 > NUL
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\04_conditionCount_begin\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
 )
@@ -98,8 +98,8 @@ for /l %%x in (0, 1, 6) do (
 	echo 06 Syncronisation activity placement in control flow - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		echo java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\06_sync_placement\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
-		echo timeout 2 > NUL
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\06_sync_placement\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
 )
@@ -120,8 +120,8 @@ for /l %%x in (0, 1, 6) do (
 	echo 07 Number of syncronisation activities from beginning - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		echo java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\07_syncCount_begin\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
-		echo timeout 2 > NUL
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\07_syncCount_begin\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
 )
@@ -142,8 +142,8 @@ for /l %%x in (0, 1, 5) do (
 	echo 09 Number of input models without data - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		echo java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\09_modelCount_noData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
-		echo timeout 2 > NUL
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\09_modelCount_noData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
 )
@@ -164,8 +164,8 @@ for /l %%x in (0, 1, 5) do (
 	echo 10 Number of input models with data - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		echo java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\10_modelCount_wData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
-		echo timeout 2 > NUL
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\10_modelCount_wData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
 )
