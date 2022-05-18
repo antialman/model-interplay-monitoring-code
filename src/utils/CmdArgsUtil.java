@@ -25,6 +25,10 @@ public class CmdArgsUtil {
 		logParam.setRequired(true);
 		options.addOption(logParam);
 
+		Option statsParam = new Option("statsFile", true, "Main statistics will be appended at the end of this file (optional)");
+		statsParam.setRequired(false);
+		options.addOption(statsParam);
+
 		CommandLineParser parser = new org.apache.commons.cli.DefaultParser();
 		HelpFormatter formatter = new HelpFormatter();
 		CommandLine cmd = null;

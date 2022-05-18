@@ -82,8 +82,8 @@ public class MonitoringViewController {
 
 	List<VBox> resultsList;
 
-	private XLog xlog = LogUtils.convertToXlog("C:/UT_Devel/Repos/repos-2020-06/model-interplay-monitoring-code/input/core_algorithms_2022/logGen/gen_eventlog_modelCount.xes");
-//	private XLog xlog;
+//	private XLog xlog = LogUtils.convertToXlog("C:/UT_Devel/Repos/repos-2020-06/model-interplay-monitoring-code/input/core_algorithms_2022/logGen/gen_eventlog_modelCount.xes");
+	private XLog xlog;
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
@@ -174,10 +174,10 @@ public class MonitoringViewController {
 		monitoringAutomatonTime = System.nanoTime() - startTime;
 		
 		//To make memory usage more predictable for testing
-		System.gc();
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText("Monitoring data structures created");
-		alert.showAndWait();
+//		System.gc();
+//		Alert alert = new Alert(AlertType.INFORMATION);
+//		alert.setContentText("Monitoring data structures created");
+//		alert.showAndWait();
 
 		tracesListView.getItems().clear();
 		resultsList = new ArrayList<VBox>();
