@@ -142,7 +142,7 @@ for /l %%x in (0, 1, 5) do (
 	echo 09 Number of input models without data - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\09_modelCount_noData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\09_modelCount_noData\test0%%x_costModel.txt -l .\logGen\gen_eventlog_modelCount.xes -statsFile testResults.txt --cmd
 		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
@@ -164,7 +164,7 @@ for /l %%x in (0, 1, 5) do (
 	echo 10 Number of input models with data - test no. %%x >> testResults.txt
 	echo AutTime	AutStates	EventAvg>> testResults.txt
 	for /l %%y in (1, 1, 5) do (
-		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\10_modelCount_wData\test0%%x_costModel.txt -l .\logGen\gen_eventlog.xes -statsFile testResults.txt --cmd
+		java -Xmx28672m -jar ..\..\target\model-interplay.jar -c .\10_modelCount_wData\test0%%x_costModel.txt -l .\logGen\gen_eventlog_modelCount.xes -statsFile testResults.txt --cmd
 		timeout 2 > NUL
 	)
 	echo.>> testResults.txt
