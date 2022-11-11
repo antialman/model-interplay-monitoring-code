@@ -33,7 +33,7 @@
             <Label styleClass="monitor-label" text="Global state" />
             <HBox fx:id="globalStateHbox">
                <children>
-                  <Label text="poss.viol">
+                  <Label text="TV">
                      <styleClass>
                         <String fx:value="monitor-tile" />
                         <String fx:value="monitor-tile__poss-viol" />
@@ -45,7 +45,7 @@
                         <String fx:value="monitor-tile__poss-viol" />
                      </styleClass>
                   </Label>
-                  <Label text="perm.viol">
+                  <Label text="PV">
                      <styleClass>
                         <String fx:value="monitor-tile" />
                         <String fx:value="monitor-tile__perm-viol" />
@@ -64,7 +64,7 @@
                   <Label styleClass="monitor-label" text="PU_DPN.pnml" />
                   <HBox>
                      <children>
-                        <Label text="poss.sat">
+                        <Label text="TS">
                            <styleClass>
                               <String fx:value="monitor-tile" />
                               <String fx:value="monitor-tile__poss-sat" />
@@ -76,7 +76,7 @@
                               <String fx:value="monitor-tile__poss-sat" />
                            </styleClass>
                         </Label>
-                        <Label text="perm.sat">
+                        <Label text="PS">
                            <styleClass>
                               <String fx:value="monitor-tile" />
                               <String fx:value="monitor-tile__perm-sat" />
@@ -111,6 +111,7 @@
                   <VBox minHeight="60.0" prefHeight="60.0" styleClass="monitor-event-vbox">
                      <children>
                         <Label styleClass="monitor-event-name" text="AT" />
+                        <Label styleClass="monitor-event-attribute" text="[type=anticoag]" />
                      </children>
                   </VBox>
                </children>

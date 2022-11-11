@@ -12,12 +12,13 @@
 
 .monitor-tile {
 	-fx-font-weight: bold;
-	-fx-max-height: 28;
-	-fx-pref-height: 28;
-	-fx-min-height: 28;
-	-fx-max-width: 60;
-	-fx-pref-width: 60;
-	-fx-min-width: 60;
+	-fx-font-style: italic;
+	-fx-max-height: 26;
+	-fx-pref-height: 26;
+	-fx-min-height: 26;
+	-fx-max-width: 40;
+	-fx-pref-width: 40;
+	-fx-min-width: 40;
 	-fx-padding: 0 0 0 4;
 }
 
@@ -26,16 +27,16 @@
 	-fx-max-height: 15;
 	-fx-pref-height: 15;
 	-fx-min-height: 15;
-	-fx-max-width: 60;
-	-fx-pref-width: 60;
-	-fx-min-width: 60;
+	-fx-max-width: 40;
+	-fx-pref-width: 40;
+	-fx-min-width: 40;
 }
 
 .monitor-event-vbox {
 	-fx-padding: 0 25 0 5;
-	-fx-max-height: 60;
-	-fx-pref-height: 60;
-	-fx-min-height: 60;
+	-fx-max-height: 40;
+	-fx-pref-height: 40;
+	-fx-min-height: 40;
 	-fx-rotate: 90;
 	-fx-alignment: center_left;
 }
@@ -43,6 +44,9 @@
 .monitor-event-name {
 	-fx-font-size: 14px;
 	-fx-font-weight: bold;
+	-fx-max-height: 16;
+	-fx-pref-height: 16;
+	-fx-min-height: 16;
 }
 
 .monitor-event-attribute {
