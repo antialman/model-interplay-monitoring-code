@@ -1,0 +1,601 @@
+Start: Populating propositionalization data structure
+Done: Populating propositionalization data structure
+
+Start: Creating a propositionalized automaton of each input model
+	Automata created for model: Constraint_C.decl
+	Automata created for model: meta-constraint.ltl
+	Automata created for model: PU_DPN.pnml
+	Automata created for model: VT_DPN.pnml
+Done: Creating a propositionalized automaton of each input model
+
+Start: Creating the global automaton
+Done: Creating the global automaton
+
+Start: Calculating colors for each state of the global automaton
+Done: Calculating colors for each state of the global automaton
+
+Start: Calculating cost_curr and cost_best values for each state of the global automaton
+Done: Calculating cost_curr and cost_best values for each state of the global automaton
+
+
+
+
+
+===========================================
+Replaying trace: PU DPN violation
+===========================================
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	Activity not found in proposition data, adding: VTst
+	No related attributes based on the model
+Event proposition: act10
+
+Reached state: S0
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 5
+Next state S4 is reached with:
+	Event: HObs
+Next state S5 is reached with:
+	Event: HPte
+Next state S7 is reached with:
+	Event: IntD [type=thromb]
+Next state S8 is reached with:
+	Event: IntD [type=anticoag]
+Next state S9 is reached with:
+	Event: IntD [type=mech]
+Stopping cost: 18
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Log attribute: type=anticoag
+	Attribute proposition: att1p0
+Event proposition: act8att1p0
+
+Reached state: S8
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 3
+Next state S33 is reached with:
+	Event: HPte
+Next state S36 is reached with:
+	Event: WT [type=anticoag]
+	Event: WT [type=mech]
+	Event: WT [type=thromb]
+	Event: WT [type=!(anticoag,mech,thromb)]
+Next state S27 is reached with:
+	Event: HObs
+Stopping cost: 18
+
+
+Next event in event log: WT
+-------------------------------------------
+eventToProposition: WT
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Attribute proposition: att1px
+Event proposition: act1att1px
+
+Reached state: S36
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S73 is reached with:
+	Event: HPte
+Next state S61 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	Activity not found in proposition data, adding: PUst
+	No related attributes based on the model
+Event proposition: act11
+
+Reached state: S36
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S73 is reached with:
+	Event: HPte
+Next state S61 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act4
+
+Reached state: S73
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S107 is reached with:
+	Event: HPev [result=neg]
+Next state S93 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Log attribute: result=pos
+	Attribute proposition: att0p1
+Event proposition: act5att0p1
+
+Reached state: S100
+Global truth value: PV
+---
+Best achievable cost from current state: 10
+Number of next states that can lead to the best cost: 2
+Next state S43 is reached with:
+	Event: HPev [result=!(neg,pos)]
+	Event: HPev [result=pos]
+	Event: HPev [result=neg]
+	Event: PUev
+	Event: HPte
+	Event: GAR [result=neg]
+	Event: GAR [result=pos]
+	Event: GAR [result=!(neg,pos)]
+Next state S118 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: GAR
+-------------------------------------------
+eventToProposition: GAR
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Attribute proposition: att0px
+Event proposition: act6att0px
+
+Reached state: S43
+Global truth value: PV
+---
+Best achievable cost from current state: 10
+Number of next states that can lead to the best cost: 1
+Next state S75 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act3
+
+Reached state: S43
+Global truth value: PV
+---
+Best achievable cost from current state: 10
+Number of next states that can lead to the best cost: 1
+Next state S75 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Final states at trace end
+Global state: S43
+Global truth value: PV
+	Model Constraint_C.decl: PS
+	Model meta-constraint.ltl: PS
+	Model PU_DPN.pnml: PV
+	Model VT_DPN.pnml: PS
+
+
+
+
+===========================================
+Replaying trace: Constraint C violation
+===========================================
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	No related attributes based on the model
+Event proposition: act10
+
+Reached state: S0
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 5
+Next state S4 is reached with:
+	Event: HObs
+Next state S5 is reached with:
+	Event: HPte
+Next state S7 is reached with:
+	Event: IntD [type=thromb]
+Next state S8 is reached with:
+	Event: IntD [type=anticoag]
+Next state S9 is reached with:
+	Event: IntD [type=mech]
+Stopping cost: 18
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Log attribute: type=anticoag
+	Attribute proposition: att1p0
+Event proposition: act8att1p0
+
+Reached state: S8
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 3
+Next state S33 is reached with:
+	Event: HPte
+Next state S36 is reached with:
+	Event: WT [type=anticoag]
+	Event: WT [type=mech]
+	Event: WT [type=thromb]
+	Event: WT [type=!(anticoag,mech,thromb)]
+Next state S27 is reached with:
+	Event: HObs
+Stopping cost: 18
+
+
+Next event in event log: WT
+-------------------------------------------
+eventToProposition: WT
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Attribute proposition: att1px
+Event proposition: act1att1px
+
+Reached state: S36
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S73 is reached with:
+	Event: HPte
+Next state S61 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	No related attributes based on the model
+Event proposition: act11
+
+Reached state: S36
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S73 is reached with:
+	Event: HPte
+Next state S61 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act4
+
+Reached state: S73
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S107 is reached with:
+	Event: HPev [result=neg]
+Next state S93 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Log attribute: result=pos
+	Attribute proposition: att0p1
+Event proposition: act5att0p1
+
+Reached state: S100
+Global truth value: PV
+---
+Best achievable cost from current state: 10
+Number of next states that can lead to the best cost: 2
+Next state S43 is reached with:
+	Event: HPev [result=!(neg,pos)]
+	Event: HPev [result=pos]
+	Event: HPev [result=neg]
+	Event: PUev
+	Event: HPte
+	Event: GAR [result=neg]
+	Event: GAR [result=pos]
+	Event: GAR [result=!(neg,pos)]
+Next state S118 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: AT
+-------------------------------------------
+eventToProposition: AT
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Attribute proposition: att0px
+Event proposition: act0att0px
+
+Reached state: S131
+Global truth value: PV
+---
+Best achievable cost from current state: 15
+Number of next states that can lead to the best cost: 2
+Next state S145 is reached with:
+	Event: HObs
+Next state S153 is reached with:
+	Event: PUev
+Stopping cost: 28
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act3
+
+Reached state: S153
+Global truth value: PV
+---
+Best achievable cost from current state: 15
+Number of next states that can lead to the best cost: 1
+Next state S157 is reached with:
+	Event: HObs
+Stopping cost: 18
+
+
+Final states at trace end
+Global state: S153
+Global truth value: PV
+	Model Constraint_C.decl: PV
+	Model meta-constraint.ltl: PV
+	Model PU_DPN.pnml: PS
+	Model VT_DPN.pnml: PS
+
+
+
+
+===========================================
+Replaying trace: Meta-constraint violation
+===========================================
+
+
+Next event in event log: VTst
+-------------------------------------------
+eventToProposition: VTst
+	No related attributes based on the model
+Event proposition: act10
+
+Reached state: S0
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 5
+Next state S4 is reached with:
+	Event: HObs
+Next state S5 is reached with:
+	Event: HPte
+Next state S7 is reached with:
+	Event: IntD [type=thromb]
+Next state S8 is reached with:
+	Event: IntD [type=anticoag]
+Next state S9 is reached with:
+	Event: IntD [type=mech]
+Stopping cost: 18
+
+
+Next event in event log: IntD
+-------------------------------------------
+eventToProposition: IntD
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Log attribute: type=anticoag
+	Attribute proposition: att1p0
+Event proposition: act8att1p0
+
+Reached state: S8
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 3
+Next state S33 is reached with:
+	Event: HPte
+Next state S36 is reached with:
+	Event: WT [type=anticoag]
+	Event: WT [type=mech]
+	Event: WT [type=thromb]
+	Event: WT [type=!(anticoag,mech,thromb)]
+Next state S27 is reached with:
+	Event: HObs
+Stopping cost: 18
+
+
+Next event in event log: WT
+-------------------------------------------
+eventToProposition: WT
+	Proposition attribute: AbstractAttribute [name=type, id=att1, attributeType=STRING, constants=[anticoag, mech, thromb]]
+	Attribute proposition: att1px
+Event proposition: act1att1px
+
+Reached state: S36
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S73 is reached with:
+	Event: HPte
+Next state S61 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: PUst
+-------------------------------------------
+eventToProposition: PUst
+	No related attributes based on the model
+Event proposition: act11
+
+Reached state: S36
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S73 is reached with:
+	Event: HPte
+Next state S61 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: HPte
+-------------------------------------------
+eventToProposition: HPte
+	No related attributes based on the model
+Event proposition: act4
+
+Reached state: S73
+Global truth value: TV
+---
+Best achievable cost from current state: 0
+Number of next states that can lead to the best cost: 2
+Next state S107 is reached with:
+	Event: HPev [result=neg]
+Next state S93 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: HPev
+-------------------------------------------
+eventToProposition: HPev
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Log attribute: result=pos
+	Attribute proposition: att0p1
+Event proposition: act5att0p1
+
+Reached state: S100
+Global truth value: PV
+---
+Best achievable cost from current state: 10
+Number of next states that can lead to the best cost: 2
+Next state S43 is reached with:
+	Event: HPev [result=!(neg,pos)]
+	Event: HPev [result=pos]
+	Event: HPev [result=neg]
+	Event: PUev
+	Event: HPte
+	Event: GAR [result=neg]
+	Event: GAR [result=pos]
+	Event: GAR [result=!(neg,pos)]
+Next state S118 is reached with:
+	Event: HObs
+Stopping cost: 10
+
+
+Next event in event log: AT
+-------------------------------------------
+eventToProposition: AT
+	Proposition attribute: AbstractAttribute [name=result, id=att0, attributeType=STRING, constants=[neg, pos]]
+	Attribute proposition: att0px
+Event proposition: act0att0px
+
+Reached state: S131
+Global truth value: PV
+---
+Best achievable cost from current state: 15
+Number of next states that can lead to the best cost: 2
+Next state S145 is reached with:
+	Event: HObs
+Next state S153 is reached with:
+	Event: PUev
+Stopping cost: 28
+
+
+Next event in event log: HObs
+-------------------------------------------
+eventToProposition: HObs
+	No related attributes based on the model
+Event proposition: act2
+
+Reached state: S145
+Global truth value: PV
+---
+Best achievable cost from current state: 15
+Number of next states that can lead to the best cost: 1
+Next state S157 is reached with:
+	Event: PUev
+Stopping cost: 25
+
+
+Next event in event log: PUev
+-------------------------------------------
+eventToProposition: PUev
+	No related attributes based on the model
+Event proposition: act3
+
+Reached state: S157
+Global truth value: PV
+---
+Best achievable cost from current state: 15
+Number of next states that can lead to the best cost: 0
+Stopping cost: 15
+
+
+Final states at trace end
+Global state: S157
+Global truth value: PV
+	Model Constraint_C.decl: PV
+	Model meta-constraint.ltl: PS
+	Model PU_DPN.pnml: PS
+	Model VT_DPN.pnml: PS
+
+
+
+
+===========================================
+Statistics
+===========================================
+Monitoring automaton creation time (s): 0.065
+Monitoring automaton number of states: 160
+Min event processing time (ms): 0.567
+Max event processing time (ms): 8.645
+Avg event processing time (ms): 1.519
+
+For easier copying (Automaton)
+AutTime	AutStates
+0.065	160
+For easier copying (Monitoring)
+EvMin	EvMax	EvMean
+0.567	8.645	1.519
+For easier copying (full)
+AutTime	AutStates	Memory	EvMin	EvMax	EvMean
+0.065	160		0.567	8.645	1.519
