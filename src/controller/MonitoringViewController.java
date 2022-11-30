@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -19,8 +20,9 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -29,11 +31,13 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 import model.AbstractModel;
+import model.ModelType;
 import proposition.PropositionData;
 import task.MonitoringTask;
 import utils.AutomatonUtils;
@@ -59,6 +63,14 @@ public class MonitoringViewController {
 	@FXML
 	private TableColumn<AbstractModel, AbstractModel> modelRemoveColumn;
 	@FXML
+	private TableView<AttributeScopeSelection> attributeScopeTableView;
+	@FXML
+	private TableColumn<AttributeScopeSelection, String> attributeNameColumn;
+	@FXML
+	private TableColumn<AttributeScopeSelection, Number> attributeOverlapsColumn;
+	@FXML
+	private TableColumn<AttributeScopeSelection, Boolean> attributeScopeColumn;
+	@FXML
 	private Button startMonitoringButton;
 	@FXML
 	private ListView<String> tracesListView;
@@ -69,20 +81,23 @@ public class MonitoringViewController {
 	private int defaultViolationCost = 5;
 	private ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-	//Data structures
+	//Data structures to keep track of attribute overlaps and selected scopes (could probably be done better)
+	private Map<String, AttributeScopeSelection> attributeNameToScopeSelection = new HashMap<String, AttributeScopeSelection>();
+	private ObservableList<AttributeScopeSelection> attributeScopeSelections = FXCollections.observableArrayList();
+
+	//Data structures for monitoring
 	PropositionData propositionData = new PropositionData();
 	ExecutableAutomaton globalAutomaton;
 	Map<State, Map<AbstractModel, MonitoringState>> globalAutomatonColours;
 	Map<State, Integer> costCurrMap;
 	Map<State, Integer> costBestMap;
-	
+
 	//statistics
 	long monitoringAutomatonTime;
 	List<Long> eventProcessingTimes = new ArrayList<Long>();
 
 	List<VBox> resultsList;
 
-//	private XLog xlog = LogUtils.convertToXlog("C:/UT_Devel/Repos/repos-2020-06/model-interplay-monitoring-code/input/core_algorithms_2022/logGen/gen_eventlog_modelCount.xes");
 	private XLog xlog;
 
 	public void setStage(Stage stage) {
@@ -91,6 +106,8 @@ public class MonitoringViewController {
 
 	@FXML
 	private void initialize() {
+
+		//Setting up the process specifications table
 		modelTableView.setPlaceholder(new Label("No process specifications selected"));
 		modelNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		modelNameColumn.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getModelName()));
@@ -107,19 +124,40 @@ public class MonitoringViewController {
 			@Override
 			protected void updateItem(AbstractModel item, boolean empty) {
 				super.updateItem(item, empty);
-
 				if (item == null) {
 					setGraphic(null);
 					return;
 				}
-
 				setGraphic(removeButton);
-				removeButton.setOnAction(
-						event -> getTableView().getItems().remove(item)
-						);
+				removeButton.setOnAction( 
+						event -> {
+							if (item.getModelType() == ModelType.DPN) {
+								for (String attributeName : item.getAttributeTypeMap().keySet()) {
+									if (attributeNameToScopeSelection.get(attributeName).getAttributeOverlapsCount() == 1) {
+										attributeScopeSelections.remove(attributeNameToScopeSelection.get(attributeName));
+										attributeNameToScopeSelection.remove(attributeName);
+									} else {
+										attributeNameToScopeSelection.get(attributeName).setAttributeOverlapsCount(attributeNameToScopeSelection.get(attributeName).getAttributeOverlapsCount()-1);
+									}
+								}
+							}
+							getTableView().getItems().remove(item);
+						});
 			}
 		});
 
+		//Setting up the attribute scope table
+		attributeScopeTableView.setPlaceholder(new Label("No DPN attributes detected"));
+		attributeScopeTableView.setItems(attributeScopeSelections);
+		attributeNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		attributeNameColumn.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getAttributeName()));
+		attributeOverlapsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		attributeOverlapsColumn.setCellValueFactory(data -> data.getValue().attributeOverlapsCountProperty());
+		attributeScopeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(attributeScopeColumn));
+		attributeScopeColumn.setCellValueFactory(data -> data.getValue().isGlobalScopeProperty());
+
+
+		//Setting up the trace selector for displaying the results
 		tracesListView.getSelectionModel().selectedIndexProperty().addListener((obs, oldIndex, newIndex) -> {
 			if (newIndex.intValue() >= 0) {
 				resultsPane.setContent(resultsList.get(newIndex.intValue()));
@@ -127,6 +165,7 @@ public class MonitoringViewController {
 				resultsPane.setContent(null);
 			}
 		});
+
 	}
 
 	@FXML
@@ -152,7 +191,16 @@ public class MonitoringViewController {
 					} else if ("ltl".equalsIgnoreCase(modelExtension)) {
 						abstractModels.add(ModelUtils.loadLtlModel(modelFile.toPath(), modelName, defaultViolationCost));
 					} else if ("pnml".equalsIgnoreCase(modelExtension)) {
-						abstractModels.add(ModelUtils.loadDpnModel(modelFile.toPath(), modelName, defaultViolationCost));
+						AbstractModel abstractModel = ModelUtils.loadDpnModel(modelFile.toPath(), modelName, defaultViolationCost);
+						abstractModels.add(abstractModel);
+						for (String attributeName : abstractModel.getAttributeTypeMap().keySet()) {
+							if (!attributeNameToScopeSelection.containsKey(attributeName)) {
+								AttributeScopeSelection attributeScopeSelection = new AttributeScopeSelection(attributeName);
+								attributeNameToScopeSelection.put(attributeName, attributeScopeSelection);
+								attributeScopeSelections.add(attributeScopeSelection);
+							}
+							attributeNameToScopeSelection.get(attributeName).setAttributeOverlapsCount(attributeNameToScopeSelection.get(attributeName).getAttributeOverlapsCount()+1);
+						}
 					} else {
 						System.err.println("Skipping model of unknown type: " + modelExtension);
 					}
@@ -168,16 +216,16 @@ public class MonitoringViewController {
 	@FXML
 	private void startMonitoring() {
 		settingsPanel.setDisable(true);
-		
+
 		long startTime = System.nanoTime();
 		createMonitoringDataStructures();
 		monitoringAutomatonTime = System.nanoTime() - startTime;
-		
+
 		//To make memory usage more predictable for testing
-//		System.gc();
-//		Alert alert = new Alert(AlertType.INFORMATION);
-//		alert.setContentText("Monitoring data structures created");
-//		alert.showAndWait();
+		//		System.gc();
+		//		Alert alert = new Alert(AlertType.INFORMATION);
+		//		alert.setContentText("Monitoring data structures created");
+		//		alert.showAndWait();
 
 		tracesListView.getItems().clear();
 		resultsList = new ArrayList<VBox>();
@@ -204,7 +252,7 @@ public class MonitoringViewController {
 
 		} else {
 			settingsPanel.setDisable(false);
-			
+
 			System.out.println("\n\n\n");
 			System.out.println("===========================================");
 			System.out.println("Statistics");
@@ -213,20 +261,20 @@ public class MonitoringViewController {
 			System.out.println("Monitoring automaton creation time (s): " + autTime);
 			int autStates = globalAutomaton.stateCount();
 			System.out.println("Monitoring automaton number of states: " + autStates);
-			
+
 			double minEvTime = TimeUnit.MICROSECONDS.convert(Collections.min(eventProcessingTimes), TimeUnit.NANOSECONDS)/1000.0;
 			System.out.println("Min event processing time (ms): " + minEvTime);
 			double maxEvTime = TimeUnit.MICROSECONDS.convert(Collections.max(eventProcessingTimes), TimeUnit.NANOSECONDS)/1000.0;
 			System.out.println("Max event processing time (ms): " + maxEvTime);
 			long sum = 0;
 			for(int i = 0; i < eventProcessingTimes.size(); i++) {
-		        sum += eventProcessingTimes.get(i);
+				sum += eventProcessingTimes.get(i);
 			}
 			long avg = sum / eventProcessingTimes.size();
 			double meanEvTime = TimeUnit.MICROSECONDS.convert(avg, TimeUnit.NANOSECONDS)/1000.0;
 			System.out.println("Avg event processing time (ms): " + meanEvTime);
-			
-			
+
+
 			System.out.println();
 			System.out.println("For easier copying (Automaton)");
 			System.out.println("AutTime\tAutStates");
@@ -235,17 +283,17 @@ public class MonitoringViewController {
 			System.out.println("For easier copying (Monitoring)");
 			System.out.println("EvMin\tEvMax\tEvMean");
 			System.out.println(minEvTime + "\t" + maxEvTime + "\t" + meanEvTime);
-			
+
 			System.out.println("For easier copying (full)");
 			System.out.println("AutTime\tAutStates\tMemory\tEvMin\tEvMax\tEvMean");
 			System.out.println(autTime + "\t" + autStates + "\t\t" + minEvTime + "\t" + maxEvTime + "\t" + meanEvTime);
-			
+
 			//To make memory usage more predictable for testing
-//			System.gc();
-//			Alert alert2 = new Alert(AlertType.INFORMATION);
-//			alert2.setContentText("Monitoring done");
-//			alert2.showAndWait();
-			
+			//			System.gc();
+			//			Alert alert2 = new Alert(AlertType.INFORMATION);
+			//			alert2.setContentText("Monitoring done");
+			//			alert2.showAndWait();
+
 		}
 	}
 
@@ -275,8 +323,8 @@ public class MonitoringViewController {
 		globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(modelTableView.getItems(), globalAutomaton);
 		System.out.println("Done: Calculating colors for each state of the global automaton\n");
 
-//		System.gc();
-		
+		//		System.gc();
+
 		System.out.println("Start: Calculating cost_curr and cost_best values for each state of the global automaton");
 		costCurrMap = AutomatonUtils.getCostCurrMap(modelTableView.getItems(), globalAutomaton, globalAutomatonColours);
 		costBestMap = AutomatonUtils.getCostBestMap(globalAutomaton, costCurrMap);
