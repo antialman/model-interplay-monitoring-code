@@ -45,7 +45,7 @@ public class DpnModel extends AbstractModel {
 		PetrinetSemantics petrinetSemantics = PetrinetSemanticsFactory.regularPetrinetSemantics(Petrinet.class); //The class argument is actually unused
 		petrinetSemantics.initialize(dataPetriNet.getTransitions(), dataPetriNet.getInitialMarking());
 
-		//Data structures and factory for automata creation
+		//Data structures and factory for constructing the automaton
 		DefaultAutomatonFactory automatonFactory = new DefaultAutomatonFactory();
 		List<DpnState> visitedDpnStates = new ArrayList<DpnState>();
 		Map<Marking, List<State>> dpnMarkingToAutomatonStates = new HashMap<Marking, List<State>>(); //For setting the accepting states of the automaton
@@ -57,7 +57,7 @@ public class DpnModel extends AbstractModel {
 		processVisitedState(initialDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, currentDpnStatePath);
 		automatonFactory.initialState(initialDpnState.getAutomatonState());
 
-		//Petri Net traversal and automata construction
+		//Petri Net traversal and automaton construction
 		visitNextState(petrinetSemantics, currentDpnStatePath, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
 
 		//Setting the accepting states of the automaton
@@ -96,7 +96,7 @@ public class DpnModel extends AbstractModel {
 		//Setting the automaton state ids and creating the executable automaton
 		automaton = automatonFactory.getAutomaton().op.determinize().op.complete().op.renumber().op.minimize();
 		executableAutomaton = new ExecutableAutomaton(automaton);
-		System.out.println("\tAutomata created for model: " + getModelName());
+		System.out.println("\tAutomaton created for model: " + getModelName());
 	}
 
 	private void visitNextState(PetrinetSemantics petrinetSemantics, Stack<DpnState> currentDpnStatePath, DefaultAutomatonFactory automatonFactory, List<DpnState> visitedDpnStates, Map<Marking, List<State>> dpnMarkingToAutomatonStates, PropositionData propositionData) {
@@ -255,7 +255,7 @@ public class DpnModel extends AbstractModel {
 				
 			} else { //Transition with only read guards
 				String dataCondition = formatGuardExpression(pnwdTransition.getGuardAsString());
-				//Automata arcs are created for all propositions because read conditions do not care about event payloads
+				//Automaton arcs are created for all propositions because read conditions do not care about event payloads
 				allActivityPropositions = propositionData.getAllActivityPropositions(transition.getLabel());
 				//However, an arc can be created only if the last written propositions match the read condition
 				Set<String> matchingActivityPropositions = propositionData.getMatchingActivityPropositions(transition.getLabel(), dataCondition);
