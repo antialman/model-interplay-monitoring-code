@@ -30,8 +30,8 @@ public class MainGui extends Application {
 		primaryStage.setTitle("model-interplay-monitor");
 		primaryStage.setScene(scene);
 		//Setting minimum window size to 720p
-		primaryStage.setMinWidth(800);
-		primaryStage.setMinHeight(600);
+		primaryStage.setMinWidth(1280);
+		primaryStage.setMinHeight(720);
 		primaryStage.setMaximized(true);
 		primaryStage.show();
 		
