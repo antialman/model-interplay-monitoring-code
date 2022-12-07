@@ -1,0 +1,33 @@
+[NAME]
+"test02_variableScope_m3"
+
+[PLACES]
+p1 -> A
+p1 -> B
+p2 -> G1
+p2 -> G2
+p2 -> G3
+
+[TRANSITIONS]
+A -> p2
+B -> p2
+G1 -> p3
+G2 -> p3
+G3 -> p3
+
+[VARIABLES]
+x_global [DISCRETE]
+
+[WRITES]
+
+[GUARDS]
+B ["(x_global<0)"]
+G1 ["((x_global>0)&&(x_global<2))"]
+G2 ["((x_global>=2)&&(x_global<4))"]
+G3 ["(x_global>=4)"]
+
+[INITIAL]
+p1 [1]
+
+[FINAL]
+p3 [1]

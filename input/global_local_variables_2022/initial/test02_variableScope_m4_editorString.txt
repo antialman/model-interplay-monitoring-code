@@ -1,0 +1,41 @@
+[NAME]
+"test02_variableScope_m4"
+
+[PLACES]
+p1 -> A
+p1 -> skip1
+p2 -> skip2
+s2 -> C
+s2 -> D
+p2 -> B
+p3 -> C
+p3 -> skip3
+p4 -> D
+
+[TRANSITIONS]
+A -> p2
+skip1 -> p2
+skip2 -> s2
+B -> p3
+C -> p4
+D -> p5
+skip3 -> p5
+
+[VARIABLES]
+x_global [DISCRETE]
+
+[WRITES]
+
+[GUARDS]
+skip3 ["(x_global>=4)"]
+
+[INITIAL]
+p1 [1]
+
+[FINAL]
+p5 [1]
+
+[INVISIBLE]
+skip1
+skip2
+skip3

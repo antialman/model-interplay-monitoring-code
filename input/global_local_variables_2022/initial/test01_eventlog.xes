@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- This file has been generated with the OpenXES library. It conforms -->
+<!-- to the XML serialization of the XES standard for log storage and -->
+<!-- management. -->
+<!-- XES standard version: 1.0 -->
+<!-- OpenXES library version: 1.0RC7 -->
+<!-- OpenXES is available from http://www.openxes.org/ -->
+<log xes.version="1.0" xes.features="nested-attributes" openxes.version="1.0RC7" xmlns="http://www.xes-standard.org/">
+	<extension name="Organizational" prefix="org" uri="http://www.xes-standard.org/org.xesext"/>
+	<extension name="Time" prefix="time" uri="http://www.xes-standard.org/time.xesext"/>
+	<extension name="Lifecycle" prefix="lifecycle" uri="http://www.xes-standard.org/lifecycle.xesext"/>
+	<extension name="Semantic" prefix="semantic" uri="http://www.xes-standard.org/semantic.xesext"/>
+	<extension name="Concept" prefix="concept" uri="http://www.xes-standard.org/concept.xesext"/>
+	<global scope="trace">
+		<string key="concept:name" value="__INVALID__"/>
+	</global>
+	<global scope="event">
+		<string key="concept:name" value="__INVALID__"/>
+	</global>
+	<string key="concept:name" value="Artificial Log"/>
+	<string key="lifecycle:model" value="standard"/>
+	<string key="source" value="manually modified"/>
+	<trace>
+		<string key="concept:name" value="Example Scenario"/>
+		<event>
+			<string key="concept:name" value="AP_c"/>
+			<string key="c" value="true"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T13:48:31.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="AP_f"/>
+			<float key="f" value="39.6"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T13:58:15.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="SD"/>
+			<string key="s" value="false"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="CXray"/>
+			<string key="i" value="true"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:12:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="TCI"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:55:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="AT"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:55:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="CIend"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T15:12:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="PS"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T16:12:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="AP_c"/>
+			<string key="c" value="false"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T18:48:31.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="AP_f"/>
+			<float key="f" value="36.6"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T19:58:15.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="SD"/>
+			<string key="s" value="true"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T20:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="preSA"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T21:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="S"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T22:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="postSA"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T23:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="M"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-12T14:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="r_postSA"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-12T15:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="postSA"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-12T16:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="HFend"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-12T17:08:54.196+02:00"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="hip_fracture"/>
+		<event>
+			<string key="concept:name" value="AP_c"/>
+			<string key="c" value="true"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T13:48:31.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="AP_f"/>
+			<float key="f" value="36.6"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T13:58:15.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="SD"/>
+			<string key="s" value="true"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="preSA"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:12:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="S"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:55:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="postSA"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T15:12:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="M"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T16:12:00.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="HFend"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T17:12:00.196+02:00"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="chest_infection1"/>
+		<event>
+			<string key="concept:name" value="CXray"/>
+			<string key="i" value="false"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T13:48:31.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="noCI"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T13:58:15.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="CIend"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:12:00.196+02:00"/>
+		</event>
+	</trace>
+	<trace>
+		<string key="concept:name" value="chest_infection2"/>
+		<event>
+			<string key="concept:name" value="CXray"/>
+			<string key="i" value="true"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T13:48:31.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="TCI"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T13:58:15.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="AT"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:08:54.196+02:00"/>
+		</event>
+		<event>
+			<string key="concept:name" value="CIend"/>
+			<string key="lifecycle:transition" value="complete"/>
+			<date key="time:timestamp" value="2021-03-11T14:12:00.196+02:00"/>
+		</event>
+	</trace>
+</log>

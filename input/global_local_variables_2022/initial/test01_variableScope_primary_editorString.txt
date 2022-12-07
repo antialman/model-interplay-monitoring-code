@@ -1,0 +1,44 @@
+[NAME]
+"test01_variableScope_primary"
+
+[PLACES]
+p1 -> A
+p2 -> G1
+p2 -> G2
+p3 -> L1
+p3 -> L2
+p4 -> F
+p5 -> F
+
+[TRANSITIONS]
+A -> p2
+A -> p3
+G1 -> p4
+G2 -> p4
+L1 -> p5
+L2 -> p5
+F -> p6
+
+[VARIABLES]
+x_global [DISCRETE]
+y_local [DISCRETE]
+
+
+[WRITES]
+A [x_global]
+A [y_local]
+
+
+[GUARDS]
+A ["x_global>0 && y_local>0"]
+G1 ["x_global>=5"]
+G2 ["x_global<5"]
+L1 ["y_local>=3"]
+L2 ["y_local<3"]
+
+
+[INITIAL]
+p1 [1]
+
+[FINAL]
+p6 [1]

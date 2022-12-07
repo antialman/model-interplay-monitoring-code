@@ -1,0 +1,35 @@
+[NAME]
+"test02_variableScope_m2"
+
+[PLACES]
+p1 -> A
+p2 -> B
+p3 -> L1
+p3 -> L2
+
+[TRANSITIONS]
+A -> p2
+B -> p3
+L1 -> p4
+L2 -> p4
+
+[VARIABLES]
+x_global [DISCRETE]
+y_local [DISCRETE]
+
+[WRITES]
+A [x_global]
+A [y_local]
+B [x_global]
+
+[GUARDS]
+A ["x_global>0 && y_local>0"]
+B ["x_global>0"]
+L1 ["y_local>=9"]
+L2 ["y_local<9"]
+
+[INITIAL]
+p1 [1]
+
+[FINAL]
+p4 [1]
