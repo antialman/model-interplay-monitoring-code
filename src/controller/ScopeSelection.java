@@ -5,29 +5,29 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class AttributeScopeSelection {
-	private String attributeName;
-	private IntegerProperty attributeOverlapsCount = new SimpleIntegerProperty();
+public class ScopeSelection {
+	private String itemName;
+	private IntegerProperty overlapsCount = new SimpleIntegerProperty();
 	private BooleanProperty isGlobalScopeProperty = new SimpleBooleanProperty();
 	
-	public AttributeScopeSelection (String attributeName) {
-		this.attributeName = attributeName;
-		this.attributeOverlapsCount.set(0);
+	public ScopeSelection (String itemName) {
+		this.itemName = itemName;
+		this.overlapsCount.set(0);
 		isGlobalScopeProperty.set(true); //We assume global scope by default
 	}
 	
 	public String getAttributeName() {
-		return attributeName;
+		return itemName;
 	}
 	
-	public IntegerProperty attributeOverlapsCountProperty() {
-		return this.attributeOverlapsCount;
+	public IntegerProperty verlapsCountProperty() {
+		return this.overlapsCount;
 	}
-	public Integer getAttributeOverlapsCount() {
-		return attributeOverlapsCount.get();
+	public Integer getOverlapsCount() {
+		return overlapsCount.get();
 	}
-	public void setAttributeOverlapsCount(Integer attributeOverlapsCount) {
-		this.attributeOverlapsCount.set(attributeOverlapsCount);
+	public void setOverlapsCount(Integer overlapsCount) {
+		this.overlapsCount.set(overlapsCount);
 	}
 	
 	public BooleanProperty isGlobalScopeProperty() {

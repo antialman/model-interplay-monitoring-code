@@ -37,6 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import model.AbstractModel;
+import model.DpnModel;
 import model.ModelType;
 import proposition.PropositionData;
 import task.MonitoringTask;
@@ -63,13 +64,21 @@ public class MonitoringViewController {
 	@FXML
 	private TableColumn<AbstractModel, AbstractModel> modelRemoveColumn;
 	@FXML
-	private TableView<AttributeScopeSelection> attributeScopeTableView;
+	private TableView<ScopeSelection> activityScopeTableView;
 	@FXML
-	private TableColumn<AttributeScopeSelection, String> attributeNameColumn;
+	private TableColumn<ScopeSelection, String> activityNameColumn;
 	@FXML
-	private TableColumn<AttributeScopeSelection, Number> attributeOverlapsColumn;
+	private TableColumn<ScopeSelection, Number> activityOverlapsColumn;
 	@FXML
-	private TableColumn<AttributeScopeSelection, Boolean> attributeScopeColumn;
+	private TableColumn<ScopeSelection, Boolean> activityScopeColumn;
+	@FXML
+	private TableView<ScopeSelection> attributeScopeTableView;
+	@FXML
+	private TableColumn<ScopeSelection, String> attributeNameColumn;
+	@FXML
+	private TableColumn<ScopeSelection, Number> attributeOverlapsColumn;
+	@FXML
+	private TableColumn<ScopeSelection, Boolean> attributeScopeColumn;
 	@FXML
 	private Button startMonitoringButton;
 	@FXML
@@ -82,8 +91,10 @@ public class MonitoringViewController {
 	private ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
 	//Data structures to keep track of attribute overlaps and selected scopes (could probably be done better)
-	private Map<String, AttributeScopeSelection> attributeNameToScopeSelection = new HashMap<String, AttributeScopeSelection>();
-	private ObservableList<AttributeScopeSelection> attributeScopeSelections = FXCollections.observableArrayList();
+	private Map<String, ScopeSelection> attributeNameToScopeSelection = new HashMap<String, ScopeSelection>();
+	private Map<String, ScopeSelection> activityNameToScopeSelection = new HashMap<String, ScopeSelection>();
+	private ObservableList<ScopeSelection> attributeScopeSelections = FXCollections.observableArrayList();
+	private ObservableList<ScopeSelection> activityScopeSelections = FXCollections.observableArrayList();
 
 	//Data structures for monitoring
 	PropositionData propositionData = new PropositionData();
@@ -132,27 +143,49 @@ public class MonitoringViewController {
 				removeButton.setOnAction( 
 						event -> {
 							if (item.getModelType() == ModelType.DPN) {
+								for (String activityName : item.getActivityNames()) {
+									if (activityNameToScopeSelection.get(activityName).getOverlapsCount() == 1) {
+										activityScopeSelections.remove(activityNameToScopeSelection.get(activityName));
+										activityNameToScopeSelection.remove(activityName);
+									} else {
+										activityNameToScopeSelection.get(activityName).setOverlapsCount(activityNameToScopeSelection.get(activityName).getOverlapsCount()-1);
+									}
+								}
 								for (String attributeName : item.getAttributeTypeMap().keySet()) {
-									if (attributeNameToScopeSelection.get(attributeName).getAttributeOverlapsCount() == 1) {
+									if (attributeNameToScopeSelection.get(attributeName).getOverlapsCount() == 1) {
 										attributeScopeSelections.remove(attributeNameToScopeSelection.get(attributeName));
 										attributeNameToScopeSelection.remove(attributeName);
 									} else {
-										attributeNameToScopeSelection.get(attributeName).setAttributeOverlapsCount(attributeNameToScopeSelection.get(attributeName).getAttributeOverlapsCount()-1);
+										attributeNameToScopeSelection.get(attributeName).setOverlapsCount(attributeNameToScopeSelection.get(attributeName).getOverlapsCount()-1);
 									}
 								}
 							}
 							getTableView().getItems().remove(item);
+							activityScopeTableView.sort();
+							attributeScopeTableView.sort();
 						});
 			}
 		});
 
-		//Setting up the attribute scope table
-		attributeScopeTableView.setPlaceholder(new Label("No DPN attributes detected"));
+		//Setting up DPN activity scope table
+		activityScopeTableView.setPlaceholder(new Label("No DPN activity overlaps detected"));
+		activityScopeTableView.setItems(activityScopeSelections);
+		activityScopeTableView.getSortOrder().add(activityOverlapsColumn);
+		activityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		activityNameColumn.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getAttributeName()));
+		activityOverlapsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
+		activityOverlapsColumn.setCellValueFactory(data -> data.getValue().verlapsCountProperty());
+		activityScopeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(activityScopeColumn));
+		activityScopeColumn.setCellValueFactory(data -> data.getValue().isGlobalScopeProperty());
+		
+		//Setting up DPN attribute scope table
+		attributeScopeTableView.setPlaceholder(new Label("No DPN attribute overlaps detected"));
 		attributeScopeTableView.setItems(attributeScopeSelections);
+		attributeScopeTableView.getSortOrder().add(attributeOverlapsColumn);
 		attributeNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		attributeNameColumn.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getAttributeName()));
 		attributeOverlapsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
-		attributeOverlapsColumn.setCellValueFactory(data -> data.getValue().attributeOverlapsCountProperty());
+		attributeOverlapsColumn.setCellValueFactory(data -> data.getValue().verlapsCountProperty());
 		attributeScopeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(attributeScopeColumn));
 		attributeScopeColumn.setCellValueFactory(data -> data.getValue().isGlobalScopeProperty());
 
@@ -193,14 +226,24 @@ public class MonitoringViewController {
 					} else if ("pnml".equalsIgnoreCase(modelExtension)) {
 						AbstractModel abstractModel = ModelUtils.loadDpnModel(modelFile.toPath(), modelName, defaultViolationCost);
 						abstractModels.add(abstractModel);
+						for (String activityName : abstractModel.getActivityNames()) {
+							if (!activityNameToScopeSelection.containsKey(activityName)) {
+								ScopeSelection attributeScopeSelection = new ScopeSelection(activityName);
+								activityNameToScopeSelection.put(activityName, attributeScopeSelection);
+								activityScopeSelections.add(attributeScopeSelection);
+							}
+							activityNameToScopeSelection.get(activityName).setOverlapsCount(activityNameToScopeSelection.get(activityName).getOverlapsCount()+1);
+						}
 						for (String attributeName : abstractModel.getAttributeTypeMap().keySet()) {
 							if (!attributeNameToScopeSelection.containsKey(attributeName)) {
-								AttributeScopeSelection attributeScopeSelection = new AttributeScopeSelection(attributeName);
+								ScopeSelection attributeScopeSelection = new ScopeSelection(attributeName);
 								attributeNameToScopeSelection.put(attributeName, attributeScopeSelection);
 								attributeScopeSelections.add(attributeScopeSelection);
 							}
-							attributeNameToScopeSelection.get(attributeName).setAttributeOverlapsCount(attributeNameToScopeSelection.get(attributeName).getAttributeOverlapsCount()+1);
+							attributeNameToScopeSelection.get(attributeName).setOverlapsCount(attributeNameToScopeSelection.get(attributeName).getOverlapsCount()+1);
 						}
+						activityScopeTableView.sort();
+						attributeScopeTableView.sort();
 					} else {
 						System.err.println("Skipping model of unknown type: " + modelExtension);
 					}
@@ -298,6 +341,28 @@ public class MonitoringViewController {
 	}
 
 	private void createMonitoringDataStructures() {
+		
+		modelTableView.getItems().filtered(e -> e.getModelType().equals(ModelType.DPN));
+		
+		for (AbstractModel abstractModel : modelTableView.getItems().filtered(e -> e.getModelType().equals(ModelType.DPN))) {
+			DpnModel dpnModel = (DpnModel) abstractModel;
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		//TODO: Avoid code duplication (following code is duplicated in MainCmd.java)
 		System.out.println("Start: Populating propositionalization data structure");
 		for (AbstractModel processModel : modelTableView.getItems()) {
