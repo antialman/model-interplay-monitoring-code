@@ -342,27 +342,6 @@ public class MonitoringViewController {
 
 	private void createMonitoringDataStructures() {
 		
-		modelTableView.getItems().filtered(e -> e.getModelType().equals(ModelType.DPN));
-		
-		for (AbstractModel abstractModel : modelTableView.getItems().filtered(e -> e.getModelType().equals(ModelType.DPN))) {
-			DpnModel dpnModel = (DpnModel) abstractModel;
-			
-			
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		//TODO: Avoid code duplication (following code is duplicated in MainCmd.java)
 		System.out.println("Start: Populating propositionalization data structure");
 		for (AbstractModel processModel : modelTableView.getItems()) {
