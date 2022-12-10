@@ -37,7 +37,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import model.AbstractModel;
-import model.DpnModel;
 import model.ModelType;
 import proposition.PropositionData;
 import task.MonitoringTask;
