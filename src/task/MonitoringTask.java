@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.deckfour.xes.extension.std.XConceptExtension;
+import org.deckfour.xes.extension.std.XSemanticExtension;
 import org.deckfour.xes.model.XEvent;
 import org.deckfour.xes.model.XTrace;
 import org.processmining.ltl2automaton.plugins.automaton.Transition;
@@ -19,7 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import main.MainGui;
 import model.AbstractModel;
+import proposition.Activity;
 import proposition.PropositionData;
+import proposition.ScopeType;
 import utils.AutomatonUtils;
 import utils.LogUtils;
 import utils.enums.MonitoringState;
@@ -75,6 +78,12 @@ public class MonitoringTask extends Task<VBox> {
 		}
 		globalAutomaton.ini();
 		globalTruthValue = MonitoringState.INIT;
+		
+		Map<String, String> storedGlobalVariableValues = new HashMap<String, String>();
+		for (String globalVariableId : propositionData.getGlobalVariableIds()) {
+			storedGlobalVariableValues.put(globalVariableId, "px");
+		}
+		
 
 		for (XEvent xevent : xtrace) {
 			long startTime = System.nanoTime();
@@ -83,7 +92,7 @@ public class MonitoringTask extends Task<VBox> {
 			writeDebugMessage("Next event in event log: " + eventName);
 			writeDebugMessage("-------------------------------------------");
 
-			String eventProposition = LogUtils.getEventProposition(xevent, propositionData);
+			String eventProposition = LogUtils.getEventProposition(xevent, propositionData, storedGlobalVariableValues);
 
 			globalTruthValue = AutomatonUtils.execPropositionOnAutomaton(eventProposition, globalAutomaton, costBestMap);
 			org.processmining.ltl2automaton.plugins.automaton.State globalState = globalAutomaton.currentState().get(0);
@@ -93,6 +102,36 @@ public class MonitoringTask extends Task<VBox> {
 			
 			for (AbstractModel processModel : processModels) {
 				traceVisualisationController.addModelState(processModel, globalAutomatonColours.get(globalState).get(processModel));
+			}
+			
+			//Update stored global variable values if necessary
+			String modelName = null;
+			if (!XSemanticExtension.instance().extractModelReferences(xevent).isEmpty()) {
+				modelName = XSemanticExtension.instance().extractModelReferences(xevent).get(0);
+			}
+			Activity activity = propositionData.getActivity(eventName, modelName);
+			
+			if (activity.getScopeType() == ScopeType.GLOBAL) {
+				if (propositionData.getGlobalActivityToGolbalWriteIDs(activity) != null) {
+					for (AbstractModel abstractModel : propositionData.getGlobalActivityToGolbalWriteIDs(activity).keySet()) {
+						if (globalAutomatonColours.get(globalState).get(abstractModel) != MonitoringState.VIOL) {
+							for (String writeId : propositionData.getGlobalActivityToGolbalWriteIDs(activity).get(abstractModel)) {
+								int newWritePropStart = eventProposition.indexOf(writeId) + writeId.length();
+								String newWrite = eventProposition.substring(newWritePropStart, eventProposition.indexOf("s"));
+								storedGlobalVariableValues.put(writeId, newWrite);
+							}
+						}
+					}
+				}
+			} else {
+				if (globalAutomatonColours.get(globalState).get(propositionData.getModelByName(modelName)) != MonitoringState.VIOL
+						&& propositionData.getLocalActivityToGolbalWriteIDs(activity) != null) {
+					for (String writeId : propositionData.getLocalActivityToGolbalWriteIDs(activity)) {
+						int newWritePropStart = eventProposition.indexOf(writeId) + writeId.length();
+						String newWrite = eventProposition.substring(newWritePropStart, eventProposition.indexOf("s"));
+						storedGlobalVariableValues.put(writeId, newWrite);
+					}
+				}
 			}
 
 			////Uncomment to compare global automata based states with individual automata states

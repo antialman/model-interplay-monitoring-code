@@ -96,7 +96,7 @@ public class MonitoringViewController {
 	private ObservableList<ScopeSelection> activityScopeSelections = FXCollections.observableArrayList();
 
 	//Data structures for monitoring
-	PropositionData propositionData = new PropositionData();
+	PropositionData propositionData;
 	ExecutableAutomaton globalAutomaton;
 	Map<State, Map<AbstractModel, MonitoringState>> globalAutomatonColours;
 	Map<State, Integer> costCurrMap;
@@ -150,7 +150,7 @@ public class MonitoringViewController {
 										activityNameToScopeSelection.get(activityName).setOverlapsCount(activityNameToScopeSelection.get(activityName).getOverlapsCount()-1);
 									}
 								}
-								for (String attributeName : item.getAttributeTypeMap().keySet()) {
+								for (String attributeName : item.getVariableTypeMap().keySet()) {
 									if (attributeNameToScopeSelection.get(attributeName).getOverlapsCount() == 1) {
 										attributeScopeSelections.remove(attributeNameToScopeSelection.get(attributeName));
 										attributeNameToScopeSelection.remove(attributeName);
@@ -171,7 +171,7 @@ public class MonitoringViewController {
 		activityScopeTableView.setItems(activityScopeSelections);
 		activityScopeTableView.getSortOrder().add(activityOverlapsColumn);
 		activityNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		activityNameColumn.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getAttributeName()));
+		activityNameColumn.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getItemName()));
 		activityOverlapsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
 		activityOverlapsColumn.setCellValueFactory(data -> data.getValue().verlapsCountProperty());
 		activityScopeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(activityScopeColumn));
@@ -182,7 +182,7 @@ public class MonitoringViewController {
 		attributeScopeTableView.setItems(attributeScopeSelections);
 		attributeScopeTableView.getSortOrder().add(attributeOverlapsColumn);
 		attributeNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		attributeNameColumn.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getAttributeName()));
+		attributeNameColumn.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getItemName()));
 		attributeOverlapsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));
 		attributeOverlapsColumn.setCellValueFactory(data -> data.getValue().verlapsCountProperty());
 		attributeScopeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(attributeScopeColumn));
@@ -233,7 +233,7 @@ public class MonitoringViewController {
 							}
 							activityNameToScopeSelection.get(activityName).setOverlapsCount(activityNameToScopeSelection.get(activityName).getOverlapsCount()+1);
 						}
-						for (String attributeName : abstractModel.getAttributeTypeMap().keySet()) {
+						for (String attributeName : abstractModel.getVariableTypeMap().keySet()) {
 							if (!attributeNameToScopeSelection.containsKey(attributeName)) {
 								ScopeSelection attributeScopeSelection = new ScopeSelection(attributeName);
 								attributeNameToScopeSelection.put(attributeName, attributeScopeSelection);
@@ -257,7 +257,7 @@ public class MonitoringViewController {
 
 	@FXML
 	private void startMonitoring() {
-		settingsPanel.setDisable(true);
+		//settingsPanel.setDisable(true);
 
 		long startTime = System.nanoTime();
 		createMonitoringDataStructures();
@@ -341,37 +341,41 @@ public class MonitoringViewController {
 
 	private void createMonitoringDataStructures() {
 		
-		//TODO: Avoid code duplication (following code is duplicated in MainCmd.java)
 		System.out.println("Start: Populating propositionalization data structure");
-		for (AbstractModel processModel : modelTableView.getItems()) {
-			propositionData.addActivities(processModel);
-			propositionData.addAttributePropositions(processModel);
-		}
+		propositionData = new PropositionData();
+		propositionData.setModels(modelTableView.getItems());
+		
+		propositionData.setDpnGlobalActivities(activityScopeSelections);
+		propositionData.setDpnGlobalVariables(attributeScopeSelections);
+		
+		propositionData.setDpnLocalActivities(modelTableView.getItems());
+		propositionData.setDpnLocalVariables(modelTableView.getItems());
+		
+		propositionData.setConstraintActivities(modelTableView.getItems());
+		propositionData.setConstraintVariables(modelTableView.getItems());
+		
+		propositionData.setVariableConnectionsAndPropositions(modelTableView.getItems());
 		System.out.println("Done: Populating propositionalization data structure\n");
 
-
-		//Creating a propositionalized automaton of each input model
-		System.out.println("Start: Creating a propositionalized automaton of each input model");
+		System.out.println("Start: Creating a propositionalized automaton of each Declare and LTL model");
 		for (AbstractModel processModel : modelTableView.getItems()) {
 			processModel.initializeAutomaton(propositionData);
 		}
-		System.out.println("Done: Creating a propositionalized automaton of each input model\n");
-
-
+		
 		System.out.println("Start: Creating the global automaton");
 		globalAutomaton = AutomatonUtils.createGlobalAutomaton(modelTableView.getItems());
 		System.out.println("Done: Creating the global automaton\n");
-
+		
+		
 		System.out.println("Start: Calculating colors for each state of the global automaton");
 		globalAutomatonColours = AutomatonUtils.getGlobalAutomatonColours(modelTableView.getItems(), globalAutomaton);
 		System.out.println("Done: Calculating colors for each state of the global automaton\n");
-
-		//		System.gc();
 
 		System.out.println("Start: Calculating cost_curr and cost_best values for each state of the global automaton");
 		costCurrMap = AutomatonUtils.getCostCurrMap(modelTableView.getItems(), globalAutomaton, globalAutomatonColours);
 		costBestMap = AutomatonUtils.getCostBestMap(globalAutomaton, costCurrMap);
 		System.out.println("Done: Calculating cost_curr and cost_best values for each state of the global automaton\n");
+
 	}
 
 

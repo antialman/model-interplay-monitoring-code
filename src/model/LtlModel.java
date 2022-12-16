@@ -11,14 +11,14 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 
 import model.constraint.LtlConstraint;
 import proposition.PropositionData;
-import proposition.attribute.AttributeType;
+import proposition.attribute.VariableType;
 import utils.AutomatonUtils;
 
 public class LtlModel extends AbstractModel {
 	
 	private List<LtlConstraint> ltlFormulas = new ArrayList<LtlConstraint>();
 	
-	public LtlModel(String modelName, int violationCost, Set<String> activityNames, Map<String, AttributeType> attributeTypeMap, List<LtlConstraint> ltlFormulas) {
+	public LtlModel(String modelName, int violationCost, Set<String> activityNames, Map<String, VariableType> attributeTypeMap, List<LtlConstraint> ltlFormulas) {
 		super(modelName, ModelType.LTL, violationCost, activityNames, attributeTypeMap);
 		
 		this.ltlFormulas = ltlFormulas;

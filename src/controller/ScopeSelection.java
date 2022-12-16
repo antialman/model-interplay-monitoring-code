@@ -13,10 +13,10 @@ public class ScopeSelection {
 	public ScopeSelection (String itemName) {
 		this.itemName = itemName;
 		this.overlapsCount.set(0);
-		isGlobalScopeProperty.set(true); //We assume global scope by default
+		isGlobalScopeProperty.set(false);
 	}
 	
-	public String getAttributeName() {
+	public String getItemName() {
 		return itemName;
 	}
 	

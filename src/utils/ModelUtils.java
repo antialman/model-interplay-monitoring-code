@@ -31,7 +31,7 @@ import model.DpnModel;
 import model.LtlModel;
 import model.constraint.DeclareConstraint;
 import model.constraint.LtlConstraint;
-import proposition.attribute.AttributeType;
+import proposition.attribute.VariableType;
 import utils.enums.DeclareTemplate;
 
 public class ModelUtils {
@@ -93,7 +93,7 @@ public class ModelUtils {
 	public static DeclareModel loadDeclareModel(Path modelPath, String modelName, int violationCost) throws IOException {
 		Set<String> activityNames = createActivityNamesSet(modelPath);
 		List<DeclareConstraint> declareConstrains = readConstraints(modelPath);		
-		Map<String, AttributeType> attributeTypeMap = createAttributeTypeMap(modelPath);
+		Map<String, VariableType> attributeTypeMap = createAttributeTypeMap(modelPath);
 
 		DeclareModel declareModel = new DeclareModel(modelName, violationCost, activityNames, attributeTypeMap, declareConstrains);
 		return declareModel;
@@ -182,7 +182,7 @@ public class ModelUtils {
 	public static LtlModel loadLtlModel(Path modelPath, String modelName, Integer violationCost) throws IOException {
 		Set<String> activityNames = createActivityNamesSet(modelPath);
 		List<LtlConstraint> ltlFormulas = readLtlFormulas(modelPath);
-		Map<String, AttributeType> attributeTypeMap = createAttributeTypeMap(modelPath);
+		Map<String, VariableType> attributeTypeMap = createAttributeTypeMap(modelPath);
 		LtlModel ltlModel = new LtlModel(modelName, violationCost, activityNames, attributeTypeMap, ltlFormulas);
 
 		return ltlModel;
@@ -225,8 +225,8 @@ public class ModelUtils {
 
 
 	//Creates attribute type map based on Declare or LTL model
-	private static Map<String, AttributeType> createAttributeTypeMap(Path modelPath) throws IOException {
-		Map<String, AttributeType> attributeTypeMap = new HashMap<String, AttributeType>();
+	private static Map<String, VariableType> createAttributeTypeMap(Path modelPath) throws IOException {
+		Map<String, VariableType> attributeTypeMap = new HashMap<String, VariableType>();
 		Scanner sc = new Scanner(modelPath);
 		Pattern constraintPattern = Pattern.compile("\\w+(\\[.*\\]) \\|");
 		Pattern attributeDefPattern =  Pattern.compile("(.+): (.+)");
@@ -243,11 +243,11 @@ public class ModelUtils {
 			} else if (attributeDefMatcher.find()) {
 				String[] attributeDefSplit = line.split(": ");
 				if (attributeDefSplit[1].startsWith("integer between ")) {
-					attributeTypeMap.put(attributeDefSplit[0], AttributeType.INTEGER);
+					attributeTypeMap.put(attributeDefSplit[0], VariableType.INTEGER);
 				} else if (attributeDefSplit[1].startsWith("float between ")) {
-					attributeTypeMap.put(attributeDefSplit[0], AttributeType.FLOAT);
+					attributeTypeMap.put(attributeDefSplit[0], VariableType.FLOAT);
 				} else {
-					attributeTypeMap.put(attributeDefSplit[0], AttributeType.STRING);
+					attributeTypeMap.put(attributeDefSplit[0], VariableType.STRING);
 				}
 			}
 		}
@@ -279,24 +279,24 @@ public class ModelUtils {
 		InputStream inputStream = new BufferedInputStream(new FileInputStream(modelPath.toString()));
 		DataPetriNetsWithMarkings dataPetriNet = dataPetriNetImporter.importFromStream(inputStream).getDPN();
 		Set<String> activityNames = createActivityNamesSet(dataPetriNet);
-		Map<String, AttributeType> attributeTypeMap = createAttributeTypeMap(dataPetriNet);
+		Map<String, VariableType> attributeTypeMap = createAttributeTypeMap(dataPetriNet);
 
 		DpnModel dpnModel = new DpnModel(modelName, violationCost, activityNames, attributeTypeMap, dataPetriNet);
 		return dpnModel;
 	}
 
 	//Creates attribute type map based on DPN model
-	private static Map<String, AttributeType> createAttributeTypeMap(DataPetriNetsWithMarkings dataPetriNet) {
-		Map<String, AttributeType> attributeTypeMap = new HashMap<String, AttributeType>();
+	private static Map<String, VariableType> createAttributeTypeMap(DataPetriNetsWithMarkings dataPetriNet) {
+		Map<String, VariableType> attributeTypeMap = new HashMap<String, VariableType>();
 		for (DataElement dataElement : dataPetriNet.getVariables()) {
 			String varName = dataElement.getVarName();
 			Class<?> typeClass = dataElement.getType();
 			if (typeClass == Long.class) {
-				attributeTypeMap.put(varName, AttributeType.INTEGER);
+				attributeTypeMap.put(varName, VariableType.INTEGER);
 			} else if (typeClass == Double.class) {
-				attributeTypeMap.put(varName, AttributeType.FLOAT);
+				attributeTypeMap.put(varName, VariableType.FLOAT);
 			} else {
-				attributeTypeMap.put(varName, AttributeType.STRING);
+				attributeTypeMap.put(varName, VariableType.STRING);
 			}
 
 		}

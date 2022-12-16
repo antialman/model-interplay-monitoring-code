@@ -11,14 +11,14 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 
 import model.constraint.DeclareConstraint;
 import proposition.PropositionData;
-import proposition.attribute.AttributeType;
+import proposition.attribute.VariableType;
 import utils.AutomatonUtils;
 
 public class DeclareModel extends AbstractModel {
 	
 	private List<DeclareConstraint> declareConstraints = new ArrayList<DeclareConstraint>();
 	
-	public DeclareModel(String modelName, int violationCost, Set<String> activityNames, Map<String, AttributeType> attributeTypeMap, List<DeclareConstraint> declareConstraints) {
+	public DeclareModel(String modelName, int violationCost, Set<String> activityNames, Map<String, VariableType> attributeTypeMap, List<DeclareConstraint> declareConstraints) {
 		super(modelName, ModelType.DECLARE, violationCost, activityNames, attributeTypeMap);
 		
 		this.declareConstraints = declareConstraints;
@@ -31,6 +31,7 @@ public class DeclareModel extends AbstractModel {
 	@Override
 	public void initializeAutomaton(PropositionData propositionData) {
 		List<DeterministicAutomaton> automata = new ArrayList<DeterministicAutomaton>();
+		
 		for (DeclareConstraint declareConstraint : declareConstraints) {
 			String ltlFormula = AutomatonUtils.getGenericLtlFormula(declareConstraint.getTemplate());
 			Set<String> activityPropositions;

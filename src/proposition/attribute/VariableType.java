@@ -1,6 +1,6 @@
 package proposition.attribute;
 
-public enum AttributeType {
+public enum VariableType {
 	INTEGER,
 	FLOAT,
 	STRING;

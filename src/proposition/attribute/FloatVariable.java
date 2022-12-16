@@ -4,10 +4,17 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class FloatAttribute extends AbstractAttribute<Float> {
+import proposition.ScopeType;
 
-	public FloatAttribute(String name, String id) {
-		super(name, id, AttributeType.FLOAT);
+public class FloatVariable extends AbstractVariable<Float> {
+
+	public FloatVariable(String name, String id, ScopeType scopeType) {
+		super(name, id, VariableType.FLOAT, scopeType);
+	}
+	
+	@Override
+	public void addConstant(String attributeConstant) {
+		constants.add(Float.valueOf(attributeConstant));
 	}
 
 	@Override
@@ -19,16 +26,35 @@ public class FloatAttribute extends AbstractAttribute<Float> {
 	@Override
 	public Set<String> getAllPropositionNames() {
 		Set<String> propositionNames = new TreeSet<String>();
-		propositionNames.add(getId() + "px"); //Used for invalid or missing values
-
-		for (int i = 0; i < constants.size()*2+1; i++) {
-			propositionNames.add(getId() + "p" + Integer.toString(i));
+		if (this.getScopeType() == ScopeType.GLOBAL) {
+			propositionNames.add(getId() + "pxspx"); //Used for invalid or missing values
+			
+			for (int i = 0; i < constants.size()*2+1; i++) {
+				propositionNames.add(getId() + "p" + Integer.toString(i) + "spx");
+			}
+			for (int i = 0; i < constants.size()*2+1; i++) {
+				propositionNames.add(getId() + "pxsp" + Integer.toString(i));
+			}
+			
+			for (int i = 0; i < constants.size()*2+1; i++) {
+				for (int j = 0; j < constants.size()*2+1; j++) {
+					propositionNames.add(getId() + "p" + Integer.toString(i) + "sp" + Integer.toString(j));
+				}
+			}
+			
+			
+		} else {
+			propositionNames.add(getId() + "px"); //Used for invalid or missing values
+			
+			for (int i = 0; i < constants.size()*2+1; i++) {
+				propositionNames.add(getId() + "p" + Integer.toString(i));
+			}
 		}
 		return propositionNames;
 	}
 
 	@Override
-	public Set<String> getMatchingPropositionNames(String atomicCondition) {
+	public Set<String> getMatchingPropositionNames(String atomicCondition, boolean matchGlobalVariableValue) {
 		Set<String> propositionNames = new TreeSet<String>();
 		String[] splitEquality = atomicCondition.split("<=|!=|>=|<|=|>");
 
