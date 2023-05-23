@@ -121,7 +121,77 @@ public class DpnModel extends AbstractModel {
 			Set<String> allActivityPropositions = null;
 			PNWDTransition pnwdTransition = (PNWDTransition) transition;
 			
-			if (!pnwdTransition.hasGuardExpression()) { //Transition without guards
+			if (transition.isInvisible()) { //TODO: Silent transitions
+				boolean canFire = true;
+				
+				if (pnwdTransition.hasGuardExpression()) {
+					canFire = false;
+					if (!pnwdTransition.getWriteOperations().isEmpty()) { //Silent transitions are not allowed to write in our setting
+						System.err.println("Skipping silent transition because it has a write operation");
+						continue;
+					}
+					
+					//Checking if the silent transition can fire with current written propositions
+					String dataCondition = formatGuardExpression(pnwdTransition.getGuardAsString());
+					String[] orOperatorSplit = dataCondition.split(" or "); //TODO: Should add code for handling parenthesis
+					for (int i = 0; i < orOperatorSplit.length; i++) {
+						String[] andOperatorSplit = orOperatorSplit[i].split(" and "); //TODO: Should add code for handling parenthesis
+						
+						boolean validAnd = true;
+						for (int j = 1; j < andOperatorSplit.length; j++) {
+							String atomicCondition = andOperatorSplit[j];
+							String[] splitCondition = atomicCondition.split("<=|!=|>=|<|=|>| is not | is | not in | in ");
+							String conditionAttributeName = splitCondition[0].strip();
+							
+							Set<String> matchingPropositions = propositionData.getMatchingAttributePropositions(conditionAttributeName, atomicCondition);
+							if (!matchingPropositions.contains(fromState.getWrittenPropositions().get(conditionAttributeName))) {
+								validAnd = false;
+								break;
+							}
+						}
+						if (validAnd) {
+							canFire = true;
+							break;
+						}
+					}
+				}
+				
+				
+				if (canFire) {
+					try {
+						petrinetSemantics.setCurrentState(fromState.getDpnMarking());
+						petrinetSemantics.executeExecutableTransition(transition);
+						
+						 //If firing a silent transition leads to a final marking, then the corresponding source state in the automaton is accepting
+						for (Marking marking : dataPetriNet.getFinalMarkings()) {
+							if (marking.equals(fromState.getDpnMarking())) {
+								for (State state : dpnMarkingToAutomatonStates.get(marking)) {
+									automatonFactory.updateState(state, state.getId(), true);
+								}
+							}
+						}
+						
+						
+						DpnState newDpnState = new DpnState(petrinetSemantics.getCurrentState(), fromState.getWrittenPropositions());
+						newDpnState.setAutomatonState(fromState.getAutomatonState()); //Silent transitions do not result in any automaton states that would be unreachable without any activities
+						visitedDpnStates.add(newDpnState);
+						if (!dpnMarkingToAutomatonStates.containsKey(newDpnState.getDpnMarking())) {
+							dpnMarkingToAutomatonStates.put(newDpnState.getDpnMarking(), new ArrayList<State>());
+						}
+						dpnMarkingToAutomatonStates.get(newDpnState.getDpnMarking()).add(fromState.getAutomatonState());
+						
+						visitNextStates(petrinetSemantics, newDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
+						
+						
+						//TODO: initiate recursion
+						
+						
+					} catch (IllegalTransitionException e) {
+						//This should never happen because the loop is over executable transitions
+						System.err.println(e.getMessage());
+					}
+				}
+			} else if (!pnwdTransition.hasGuardExpression()) { //Transition without guards
 				allActivityPropositions = propositionData.getAllActivityPropositions(transition.getLabel());
 				//Fire the transition and, process the resulting marking and visit the next state
 				try {
