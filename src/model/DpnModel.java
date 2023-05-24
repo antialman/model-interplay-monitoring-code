@@ -102,12 +102,12 @@ public class DpnModel extends AbstractModel {
 		automaton = automatonFactory.getAutomaton().op.determinize().op.complete().op.renumber().op.minimize();
 		
 		
-//		try {
-//			DOTExporter.exportToDot(automaton, getModelId() + "_" +  getModelName(), new FileWriter(getModelId() + "_" +  getModelName() + ".dot"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			DOTExporter.exportToDot(automaton, getModelId() + "_" +  getModelName(), new FileWriter("dot/" + getModelId() + "_" +  getModelName() + ".dot"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		executableAutomaton = new ExecutableAutomaton(automaton);
@@ -174,16 +174,13 @@ public class DpnModel extends AbstractModel {
 						
 						DpnState newDpnState = new DpnState(petrinetSemantics.getCurrentState(), fromState.getWrittenPropositions());
 						newDpnState.setAutomatonState(fromState.getAutomatonState()); //Silent transitions do not result in any automaton states that would be unreachable without any activities
-						visitedDpnStates.add(newDpnState);
+						//visitedDpnStates.add(newDpnState); //Marking a DPN state visited only after reaching it trough some visible transition
 						if (!dpnMarkingToAutomatonStates.containsKey(newDpnState.getDpnMarking())) {
 							dpnMarkingToAutomatonStates.put(newDpnState.getDpnMarking(), new ArrayList<State>());
 						}
 						dpnMarkingToAutomatonStates.get(newDpnState.getDpnMarking()).add(fromState.getAutomatonState());
 						
 						visitNextStates(petrinetSemantics, newDpnState, automatonFactory, visitedDpnStates, dpnMarkingToAutomatonStates, propositionData);
-						
-						
-						//TODO: initiate recursion
 						
 						
 					} catch (IllegalTransitionException e) {
