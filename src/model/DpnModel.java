@@ -121,7 +121,7 @@ public class DpnModel extends AbstractModel {
 			Set<String> allActivityPropositions = null;
 			PNWDTransition pnwdTransition = (PNWDTransition) transition;
 			
-			if (transition.isInvisible()) { //TODO: Silent transitions
+			if (transition.isInvisible()) {
 				boolean canFire = true;
 				
 				if (pnwdTransition.hasGuardExpression()) {
@@ -138,16 +138,21 @@ public class DpnModel extends AbstractModel {
 						String[] andOperatorSplit = orOperatorSplit[i].split(" and "); //TODO: Should add code for handling parenthesis
 						
 						boolean validAnd = true;
-						for (int j = 1; j < andOperatorSplit.length; j++) {
+						for (int j = 0; j < andOperatorSplit.length; j++) {
 							String atomicCondition = andOperatorSplit[j];
 							String[] splitCondition = atomicCondition.split("<=|!=|>=|<|=|>| is not | is | not in | in ");
 							String conditionAttributeName = splitCondition[0].strip();
 							
-							Set<String> matchingPropositions = propositionData.getMatchingAttributePropositions(conditionAttributeName, atomicCondition);
-							if (!matchingPropositions.contains(fromState.getWrittenPropositions().get(conditionAttributeName))) {
-								validAnd = false;
-								break;
+							
+							if (!propositionData.hasGlobalVariableByName(conditionAttributeName)) { //TODO: Support global variables in silent transition guards
+								Set<String> matchingPropositions = propositionData.getMatchingVariablePropositions(this.getModelId(), conditionAttributeName, atomicCondition);
+								if (!matchingPropositions.contains(fromState.getWrittenPropositions().get(conditionAttributeName))) {
+									validAnd = false;
+									break;
+								}
 							}
+							
+							
 						}
 						if (validAnd) {
 							canFire = true;
