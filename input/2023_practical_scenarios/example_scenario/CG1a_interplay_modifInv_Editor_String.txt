@@ -1,0 +1,62 @@
+[NAME]
+"CG1a_interplay_modifInv"
+
+[PLACES]
+start -> s1
+p1 -> s2
+p1 -> HXray
+p2 -> FD
+p3 -> s3
+p3 -> AP
+p4 -> FD
+p5 -> PS
+p5 -> hipSD
+p5 -> s4
+p6 -> D
+
+[TRANSITIONS]
+s1 -> p1
+s2 -> p2
+HXray -> p2
+s1 -> p3
+AP -> p4
+s3 -> p4
+FD -> p5
+PS -> start
+hipSD -> p6
+s4 -> p6
+D -> end
+
+[VARIABLES]
+h_fract [LITERAL]
+ab_pain [LITERAL]
+temp [DISCRETE]
+leuk [DISCRETE]
+inS [LITERAL]
+
+[WRITES]
+AP [ab_pain]
+AP [temp]
+AP [leuk]
+FD [h_fract]
+
+
+[GUARDS]
+s2 ["h_fract==\"T\""]
+s3 ["ab_pain==\"T\" && temp > 35 && leuk > 4 || ab_pain==\"F\" && temp > 35 && leuk > 4"]
+AP ["ab_pain==\"T\" && temp > 35 && leuk > 4 || ab_pain==\"F\" && temp > 35 && leuk > 4"]
+FD ["h_fract==\"T\" || h_fract==\"F\""]
+hipSD ["h_fract==\"T\" && ab_pain==\"F\" && temp <= 37 && leuk <= 11"]
+s4 ["h_fract==\"F\""]
+D ["inS==\"F\""]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]
+s1
+s2
+s4

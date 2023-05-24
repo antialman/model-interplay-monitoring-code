@@ -1,0 +1,10 @@
+activity stopAT
+activity preSA
+activity AP
+bind AP: modelReference, ab_pain
+activity init
+bind init: modelReference
+modelReference: CG1a, CG2a
+ab_pain: T, F
+Chain Precedence[stopAT, preSA] | | |
+Response[AP, init] |A.ab_pain is T and A.leuk > 11 and modelReference is CG1a |T.modelReference is CG2a |

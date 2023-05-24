@@ -1,0 +1,39 @@
+[NAME]
+"P5_interplay_modif"
+
+[PLACES]
+start -> treat_fin
+p1 -> Release_A
+p1 -> Release_B
+p1 -> Release_C
+p1 -> Release_D
+p1 -> Release_E
+p1 -> s1
+p2 -> fin
+
+[TRANSITIONS]
+treat_fin -> p1
+Release_A -> p2
+Release_B -> p2
+Release_C -> p2
+Release_D -> p2
+Release_E -> p2
+s1 -> p2
+fin -> end
+
+[VARIABLES]
+LacticAcid [LITERAL]
+
+[WRITES]
+
+[GUARDS]
+Release_A ["LacticAcid==\"T\""]
+s1 ["LacticAcid==\"F\""]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]

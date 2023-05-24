@@ -1,0 +1,24 @@
+activity ER_Registration
+bind ER_Registration: DiagnosticLacticAcid, modelReference
+activity fin
+bind fin: modelReference
+activity init
+bind init: modelReference
+activity Lactic_Acid
+bind Lactic_Acid: modelReference
+activity ER_Sepsis_Triage
+bind ER_Sepsis_Triage: modelReference
+activity IV_Liquid
+bind IV_Liquid: modelReference
+activity IV_Antibiotics
+bind IV_Antibiotics: modelReference
+activity Return_ER
+DiagnosticLacticAcid: T, F
+modelReference: P1, P2, P3, P4, P5
+Precedence[ER_Registration, init] |A.modelReference is P1 |T.modelReference is P2 |
+Succession[ER_Registration, Lactic_Acid] |A.DiagnosticLacticAcid is T and A.modelReference is P1 |T.modelReference is P2 |
+Chain Precedence[fin, Return_ER] |A.modelReference is P2 | |
+Precedence[ER_Sepsis_Triage, init] |A.modelReference is P3 |T.modelReference is P1 |
+Not Succession[init, IV_Liquid] |A.modelReference is P3 |T.modelReference is P1 |
+Not Succession[init, IV_Antibiotics] |A.modelReference is P3 |T.modelReference is P1 |
+Precedence[fin, init] |A.modelReference is P3 |T.modelReference is P4 |

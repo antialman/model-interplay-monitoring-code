@@ -1,0 +1,55 @@
+[NAME]
+"M1_interplay_modif"
+
+[PLACES]
+start -> A_Create_Application
+p1 -> s1
+p1 -> A_Submitted
+p2 -> A_Concept
+p3 -> A_Accepted
+p4 -> A_Complete
+p5 -> A_Cancelled
+p5 -> A_Validating
+p6 -> app_fin
+p6 -> A_Incomplete
+p7 -> A_Pending
+p7 -> A_Denied
+p8 -> s2
+p9 -> s3
+p9 -> s4
+
+[TRANSITIONS]
+A_Create_Application -> p1
+s1 -> p2
+A_Submitted -> p2
+A_Concept -> p3
+A_Accepted -> p4
+A_Complete -> p5
+A_Validating -> p6
+app_fin -> p7
+A_Pending -> p8
+A_Denied -> p8
+A_Cancelled -> p8
+s2 -> end
+A_Incomplete -> p9
+s4 -> p5
+s3 -> end
+
+[VARIABLES]
+app_type [LITERAL]
+
+[WRITES]
+A_Create_Application [app_type]
+
+[GUARDS]
+A_Create_Application ["app_type==\"limit\" || app_type==\"new\""]
+s1 ["app_type==\"limit\""]
+A_Submitted ["app_type==\"new\""]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]

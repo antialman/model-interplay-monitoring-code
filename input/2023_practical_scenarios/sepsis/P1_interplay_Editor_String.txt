@@ -1,0 +1,52 @@
+[NAME]
+"P1_interplay"
+
+[PLACES]
+start -> ER_Registration
+p1 -> ER_Triage
+p2 -> ER_Sepsis_Triage
+p3 -> s1
+p3 -> s2
+p4 -> IV_Liquid
+p5 -> IV_Antibiotics
+p6 -> s3
+p7 -> s3
+p8 -> treat_fin
+
+[TRANSITIONS]
+ER_Registration -> p1
+ER_Triage -> p2
+ER_Sepsis_Triage -> p3
+s2 -> p4
+s2 -> p5
+IV_Liquid -> p6
+IV_Antibiotics -> p7
+s3 -> p8
+s1 -> p8
+treat_fin -> end
+
+[VARIABLES]
+SIRSCriteria2OrMore [LITERAL]
+DiagnosticLacticAcid [LITERAL]
+Hypotensie [LITERAL]
+
+[WRITES]
+ER_Registration [SIRSCriteria2OrMore]
+ER_Registration [DiagnosticLacticAcid]
+ER_Registration [Hypotensie]
+
+[GUARDS]
+ER_Registration ["(SIRSCriteria2OrMore==\"T\" || SIRSCriteria2OrMore==\"F\") && (DiagnosticLacticAcid==\"T\" || DiagnosticLacticAcid==\"F\") && (Hypotensie==\"T\" || Hypotensie==\"F\")"]
+s1 ["SIRSCriteria2OrMore==\"F\""]
+s2 ["SIRSCriteria2OrMore==\"T\""]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]
+s1
+s2
+s3

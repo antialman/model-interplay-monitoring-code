@@ -1,0 +1,52 @@
+[NAME]
+"M3_modif_interplay"
+
+[PLACES]
+start -> W_Handle_leads
+start -> s1
+p1 -> W_Complete_application
+p2 -> A_Accepted
+p3 -> W_Call_after_offers
+p4 -> A_Complete
+p5 -> W_Validate_application
+p6 -> W_Call_incomplete_files
+p6 -> s2
+p7 -> app_fin
+p5 -> s3
+p5 -> s4
+
+[TRANSITIONS]
+W_Handle_leads -> p1
+s1 -> p1
+W_Complete_application -> p2
+A_Accepted -> p3
+W_Call_after_offers -> p4
+A_Complete -> p5
+W_Validate_application -> p6
+W_Call_incomplete_files -> p5
+s2 -> p7
+app_fin -> end
+s3 -> p7
+s4 -> end
+
+[VARIABLES]
+app_type [LITERAL]
+o_sent [LITERAL]
+
+[WRITES]
+
+[GUARDS]
+W_Handle_leads ["app_type==\"new\""]
+s1 ["app_type==\"limit\""]
+W_Call_after_offers ["o_sent==\"T\""]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]
+s2
+s3
+s4

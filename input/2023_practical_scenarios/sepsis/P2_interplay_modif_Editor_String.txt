@@ -1,0 +1,53 @@
+[NAME]
+"P2_interplay_modif"
+
+[PLACES]
+start -> s1
+start -> init
+p1 -> Leucocytes
+p2 -> CRP
+p3 -> s4
+p3 -> Lactic_Acid
+p4 -> s2
+p5 -> s3
+p4 -> s5
+p5 -> s5
+p6 -> s5
+p7 -> terat_fin
+
+[TRANSITIONS]
+init -> p1
+init -> p2
+init -> p3
+Leucocytes -> p4
+s2 -> p1
+CRP -> p5
+s3 -> p2
+s4 -> p6
+Lactic_Acid -> p3
+s5 -> p7
+s1 -> p7
+terat_fin -> end
+
+[VARIABLES]
+DiagnosticLacticAcid [LITERAL]
+LacticAcid [LITERAL]
+
+[WRITES]
+Lactic_Acid [LacticAcid]
+
+
+[GUARDS]
+s4 ["DiagnosticLacticAcid==\"F\" || LacticAcid==\"T\""]
+Lactic_Acid ["DiagnosticLacticAcid==\"T\" && LacticAcid==\"T\""]
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]
+s1
+s2
+s3
+s5

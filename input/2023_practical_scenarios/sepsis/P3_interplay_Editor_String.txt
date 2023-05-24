@@ -1,0 +1,48 @@
+[NAME]
+"P3_interplay"
+
+[PLACES]
+start -> init
+p1 -> Admission_NC
+p1 -> s1
+p2 -> s2
+p2 -> Admission_IC
+p3 -> fin
+p4 -> treat_fin
+start -> s3
+
+[TRANSITIONS]
+init -> p1
+Admission_NC -> p2
+s1 -> p2
+s2 -> p3
+Admission_IC -> p3
+fin -> p4
+treat_fin -> end
+s3 -> p4
+
+[VARIABLES]
+nc_exec [LITERAL]
+LacticAcid [LITERAL]
+Hypotensie [LITERAL]
+
+[WRITES]
+Admission_NC [nc_exec]
+
+[GUARDS]
+Admission_NC ["nc_exec==\"T\""]
+s1 ["LacticAcid==\"T\" && Hypotensie==\"T\""]
+s3 ["(LacticAcid==\"T\" && Hypotensie==\"F\") || LacticAcid==\"F\""]
+s2 ["nc_exec==\"T\" && LacticAcid==\"T\""]
+
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]
+s1
+s2
+s3

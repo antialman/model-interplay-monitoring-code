@@ -1,0 +1,77 @@
+[NAME]
+"CG2a_interplay"
+
+[PLACES]
+start -> init
+p1 -> s1
+p1 -> AP
+p3 -> CT
+p2 -> s2
+p4 -> s2
+start -> s3
+p5 -> FD
+p6 -> s4
+p6 -> AT
+p7 -> appSD
+p7 -> s5
+p6 -> s6
+p8 -> D
+
+[TRANSITIONS]
+init -> p1
+s1 -> p2
+AP -> p2
+init -> p3
+CT -> p4
+s2 -> p5
+s3 -> p5
+FD -> p6
+s4 -> p7
+AT -> p7
+appSD -> p8
+s5 -> p8
+s6 -> p8
+D -> end
+
+[VARIABLES]
+init [LITERAL]
+ab_pain [LITERAL]
+temp [DISCRETE]
+leuk [DISCRETE]
+app [LITERAL]
+AT_suc [LITERAL]
+inS [LITERAL]
+
+[WRITES]
+init [init]
+AP [ab_pain]
+AP [temp]
+AP [leuk]
+FD [app]
+AT [AT_suc]
+
+[GUARDS]
+init ["init==\"T\""]
+s1 ["ab_pain==\"T\" && temp > 37 && leuk > 11"]
+AP ["ab_pain==\"T\" && temp > 35 && leuk > 4 || ab_pain==\"F\" && temp > 35 && leuk > 4"]
+FD ["app==\"T\" || app==\"F\""]
+s4 ["app==\"T\""]
+AT ["AT_suc==\"T\" && app==\"T\" || AT_suc==\"F\" && app==\"T\""]
+appSD ["AT_suc==\"F\" && inS==\"F\""]
+s5 ["AT_suc==\"T\""]
+s6 ["app==\"F\" || init==\"F\""]
+D ["inS==\"F\""]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]
+s1
+s2
+s3
+s4
+s5
+s6

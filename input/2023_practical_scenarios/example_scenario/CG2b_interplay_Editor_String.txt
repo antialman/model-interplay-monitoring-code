@@ -1,0 +1,48 @@
+[NAME]
+"CG2b_interplay"
+
+[PLACES]
+start -> appSD
+p1 -> preSA
+p2 -> appS
+p3 -> postSA
+p4 -> s2
+p5 -> AT
+p5 -> s3
+p6 -> s2
+
+start -> s1
+
+[TRANSITIONS]
+appSD -> p1
+preSA -> p2
+appS -> p3
+postSA -> p4
+appS -> p5
+AT -> p6
+s2 -> end
+s1 -> end
+s3 -> p6
+
+[VARIABLES]
+inS [LITERAL]
+
+[WRITES]
+postSA [inS]
+appSD [inS]
+
+
+[GUARDS]
+appSD ["inS==\"T\""]
+postSA ["inS==\"F\""]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]
+s1
+s2
+s3
