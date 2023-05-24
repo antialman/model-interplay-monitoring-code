@@ -386,6 +386,23 @@ public class PropositionData {
 		return globalVariableNameToVariable.get(variableName);
 	}
 
+	public Set<Activity> getGlobalWriteActivities(String variableId) {
+		Set<Activity> activities = new HashSet<Activity>();
+		globalActivityToGlobalWriteIDs.forEach((activity, models) -> {
+			models.forEach((model,varIds) -> {
+				if (varIds.contains(variableId)) {
+					activities.add(activity);
+				}
+			});
+		});
+		localActivityToGlobalWriteIDs.forEach((activity, varIds) -> {
+			if (varIds.contains(variableId)) {
+				activities.add(activity);
+			}
+		});
+		return activities;
+	}
+
 
 	public Set<String> getAllActivityPropositions(String activityName) {
 		Set<String> allActivityPropositions = new HashSet<String>();

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.deckfour.xes.extension.std.XConceptExtension;
 import org.deckfour.xes.extension.std.XSemanticExtension;
@@ -79,7 +80,7 @@ public class MonitoringTask extends Task<VBox> {
 		globalAutomaton.ini();
 		globalTruthValue = MonitoringState.INIT;
 		
-		Map<String, String> storedGlobalVariableValues = new HashMap<String, String>();
+		Map<String, String> storedGlobalVariableValues = new TreeMap<String, String>();
 		for (String globalVariableId : propositionData.getGlobalVariableIds()) {
 			storedGlobalVariableValues.put(globalVariableId, "px");
 		}
@@ -118,6 +119,9 @@ public class MonitoringTask extends Task<VBox> {
 							for (String writeId : propositionData.getGlobalActivityToGolbalWriteIDs(activity).get(abstractModel)) {
 								int newWritePropStart = eventProposition.indexOf(writeId) + writeId.length();
 								String newWrite = eventProposition.substring(newWritePropStart, eventProposition.indexOf("s"));
+//								if (!storedGlobalVariableValues.get(writeId).equals(newWrite)) {
+//									AutomatonUtils.execPropositionOnAutomaton(writeId + newWrite, globalAutomaton, costBestMap);
+//								}
 								storedGlobalVariableValues.put(writeId, newWrite);
 							}
 						}
@@ -129,10 +133,14 @@ public class MonitoringTask extends Task<VBox> {
 					for (String writeId : propositionData.getLocalActivityToGolbalWriteIDs(activity)) {
 						int newWritePropStart = eventProposition.indexOf(writeId) + writeId.length();
 						String newWrite = eventProposition.substring(newWritePropStart, eventProposition.indexOf("s"));
+//						if (!storedGlobalVariableValues.get(writeId).equals(newWrite)) {
+//							AutomatonUtils.execPropositionOnAutomaton(writeId + newWrite, globalAutomaton, costBestMap); //Artificial event for global variable value update, needed for silent transitions
+//						}
 						storedGlobalVariableValues.put(writeId, newWrite);
 					}
 				}
 			}
+			
 
 			////Uncomment to compare global automata based states with individual automata states
 			//for (AbstractModel processModel : processModels) {

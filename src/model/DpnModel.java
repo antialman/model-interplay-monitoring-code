@@ -25,7 +25,6 @@ import org.processmining.models.semantics.petrinet.impl.PetrinetSemanticsFactory
 import org.processmining.plugins.declareminer.ExecutableAutomaton;
 
 import model.dpn.DpnState;
-import proposition.Activity;
 import proposition.PropositionData;
 import proposition.attribute.VariableType;
 
@@ -131,7 +130,8 @@ public class DpnModel extends AbstractModel {
 						continue;
 					}
 					
-					//Checking if the silent transition can fire with current written propositions
+					
+					//Checking if the silent transition can fire with currently written local propositions
 					String dataCondition = formatGuardExpression(pnwdTransition.getGuardAsString());
 					String[] orOperatorSplit = dataCondition.split(" or "); //TODO: Should add code for handling parenthesis
 					for (int i = 0; i < orOperatorSplit.length; i++) {
@@ -150,9 +150,41 @@ public class DpnModel extends AbstractModel {
 									validAnd = false;
 									break;
 								}
+							} else {
+//								Set<String> allPropositions = propositionData.getAllVariablePropositions(this.getModelId(), conditionAttributeName);
+//								allPropositions.removeAll(matchingPropositions);
+//								
+//								Set<String> negPropositions = new HashSet<String>();
+//								for (String prop : allPropositions) {
+//									negPropositions.add(prop.substring(0, prop.indexOf("s")));
+//								}
+//								
+//								Set<String> posPropositions = new HashSet<String>();
+//								for (String prop : matchingPropositions) {
+//									posPropositions.add(prop.substring(0, prop.indexOf("s")));
+//								}
+//								
+//								
+//								State automatonState = new State(automatonFactory.getAutomaton().getStateCount()); //State class refers to the automaton state
+//								automatonFactory.addState(automatonState);
+//								for (String negProp : negPropositions) {
+//									automatonFactory.addPropositionTransition(fromState.getAutomatonState(), automatonState, negProp);
+//									automatonFactory.addPropositionTransition(automatonState, automatonState, negProp);
+//								}
+//								for (String negProp : posPropositions) {
+//									automatonFactory.addPropositionTransition(automatonState, fromState.getAutomatonState(), negProp);
+//								}
+//
+//
+//								//strip everything starting from s, remove all that are found in matchingPropositions
+//								//create a new sate
+//									//fromState -> newstate: allPropositions - matchingPropositions
+//									//newState -> fromState: matchingPropositions
+//								
+//								
+//								System.out.println(allPropositions);
+//								System.out.println(matchingPropositions); // [gv0p1sp0, gv0p1sp1, gv0p1spx]
 							}
-							
-							
 						}
 						if (validAnd) {
 							canFire = true;
