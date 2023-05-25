@@ -26,6 +26,7 @@ import org.processmining.plugins.declareminer.ExecutableAutomaton;
 
 import model.dpn.DpnState;
 import proposition.PropositionData;
+import proposition.attribute.AbstractVariable;
 import proposition.attribute.VariableType;
 
 public class DpnModel extends AbstractModel {
@@ -279,7 +280,7 @@ public class DpnModel extends AbstractModel {
 								andResultWrites.get(attributeName).addAll(attributePropositions);
 							}
 						} else { //Read condition
-							if (!attributePropositions.contains(fromState.getWrittenPropositions().get(attributeName))) {
+							if (propositionData.getGlobalVariableByName(attributeName) == null && !attributePropositions.contains(fromState.getWrittenPropositions().get(attributeName))) {
 								//If a read condition does not match the currently written proposition then this orOperatorSplit can not be satisfied on the current traversal path
 								andResultWrites.clear();
 								break;

@@ -1,16 +1,9 @@
 activity O_Returned
-bind O_Returned: modelReference
 activity O_Accepted
-bind O_Accepted: modelReference
 activity A_Validating
-bind A_Validating: modelReference
 activity A_Pending
-bind A_Pending: modelReference
 activity A_Incomplete
-bind A_Incomplete: modelReference
 activity W_Call incomplete files
-bind W_Call incomplete files: modelReference
-modelReference: M1, M2, M3
-Co-Existence[O_Returned, A_Validating] |A.modelReference is M2 |T.modelReference is M1 |
-Co-Existence[O_Accepted, A_Pending] |A.modelReference is M2 |T.modelReference is M1 |
-Co-Existence[A_Incomplete, W_Call incomplete files] |A.modelReference is M1 |T.modelReference is M3 |
+Co-Existence[O_Returned, A_Validating] | | |
+Co-Existence[O_Accepted, A_Pending] | | |
+Co-Existence[A_Incomplete, W_Call incomplete files] | | |
