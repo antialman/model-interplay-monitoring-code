@@ -1,0 +1,43 @@
+[NAME]
+"CG1b_interplay_modif"
+
+[PLACES]
+start -> hipSD
+p1 -> preSA
+p2 -> hipS
+p3 -> postSA
+p4 -> s2
+p5 -> M
+p6 -> s2
+
+start -> s1
+
+[TRANSITIONS]
+hipSD -> p1
+preSA -> p2
+hipS -> p3
+postSA -> p4
+hipS -> p5
+M -> p6
+s2 -> end
+s1 -> end
+
+[VARIABLES]
+inS [LITERAL]
+
+[WRITES]
+postSA [inS]
+hipSD [inS]
+
+
+[GUARDS]
+hipSD ["inS==\"T\""]
+postSA ["inS==\"F\""]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]

@@ -1,0 +1,35 @@
+[NAME]
+"P4_interplay_modif"
+
+[PLACES]
+start -> init
+p1 -> Admission_NC
+p1 -> Admission_IC
+p1 -> s1
+start -> s2
+p2 -> treat_fin
+
+[TRANSITIONS]
+init -> p1
+Admission_NC -> p1 
+Admission_IC -> p1
+s1 -> p2
+s2 -> p2
+treat_fin -> end
+
+[VARIABLES]
+
+
+[WRITES]
+
+
+
+[GUARDS]
+
+[INITIAL]
+start [1]
+
+[FINAL]
+end [1]
+
+[INVISIBLE]
